@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="html" height="40" style="vertical-align:top; margin:4px">
 <h4>This repository will hold the project for my internship at Accedia and the it is for practical purposes only.<h4>
 
-### `Features`
+  ### <h1>`Features`</h1>
   <ul>
     <li>Authentication feature</li>
     <li>Follow feature</li>
@@ -15,7 +15,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     <li>Infinite scroll feature</li>
   </ul>
 
-### `Pages`
+  ### <h1>`Pages`</h1>
   <ul>
     <li>Home page - most recently uploaded features with infinite scroll restricted to authenticated users</li>
     <li>Post page – detailed post page restricted to authenticated users</li>
@@ -26,8 +26,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   </ul>
 
 
-### `Front-end`
-  <h1>For a start-up I used the CRA(create-react-app) typescript-redux template</h1>
+  ### <h1>`Front-end`</h1>
+  <h5>For a start-up I used the CRA(create-react-app) typescript-redux template</h5>
   <ul>
     <li>Typescript as main language of the app - https://www.typescriptlang.org/</li>
     <li>Routing - React Router v6 - https://reactrouter.com/docs/en/v6</li>
