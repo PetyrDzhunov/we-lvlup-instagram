@@ -2,43 +2,52 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="html" height="40" style="vertical-align:top; margin:4px"><h1>Instagram-clone application</h1><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="html" height="40" style="vertical-align:top; margin:4px">
+<h4>This repository will hold the project for my internship at Accedia and the it is for practical purposes only.<h4>
 
-### `npm start`
+### `Features`
+  <ul>
+    <li>Authentication feature</li>
+    <li>Follow feature</li>
+    <li>Like/Dislike feature</li>
+    <li>Comments feature</li>
+    <li>Story feature</li>
+    <li>Chat feature</li>
+    <li>Infinite scroll feature</li>
+  </ul>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `Pages`
+  <ul>
+    <li>Home page - most recently uploaded features with infinite scroll restricted to authenticated users</li>
+    <li>Post page – detailed post page restricted to authenticated users</li>
+    <li>Profile page – profile page with details about the user and list of all posts</li>
+    <li>Upload page – upload posts restricted to authenticated users</li>
+    <li>Login page – sign in page</li>
+    <li>Register page – sign up page</li>
+  </ul>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+### `Front-end`
+  <h1>For a start-up I used the CRA(create-react-app) typescript-redux template</h1>
+  <ul>
+    <li>Typescript as main language of the app - https://www.typescriptlang.org/</li>
+    <li>Routing - React Router v6 - https://reactrouter.com/docs/en/v6</li>
+    <li>Global state management - Redux toolkit - https://redux-toolkit.js.org/</li>
+    <li>Handling forms and validations - React Hook Form with Yup - https://react-hook-form.com/</li>
+    <li>Styling solution - Material UI - https://mui.com/</li>
+    <li>Data fetching and caching - Redux toolkit query - https://redux-toolkit.js.org/rtk-query/overview</li>
+  </ul>
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `Back-end`
+  <h1>For authentication and database I am using a backend as a service platform - Firebase - https://firebase.google.com/</h1>
+ 
+ 
+### `For clean and consistent code I am using`
+  <ul>
+    <li>ESLint</li>
+    <li>LSLint</li>
+    <li>Husky for pre-commit (+commitlint) and pre-push hooks</li>
+    <li>Prettier for formatting</li>
+  </ul>
+  
