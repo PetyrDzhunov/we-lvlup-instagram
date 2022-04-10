@@ -1,10 +1,12 @@
+import { ReactElement } from 'react'
 import './App.css'
+import TestComponent from './components/test-component'
 
-function App(): React.ReactNode {
+function App(): ReactElement | null {
     return (
-        <div className="App">
-            <h1>Instagram-clone</h1>
-            <h1>Instagram</h1>
+        <div>
+            Hello World
+            <TestComponent />
         </div>
     )
 }
