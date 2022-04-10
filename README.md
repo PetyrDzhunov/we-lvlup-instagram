@@ -1,8 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
-## Available Scripts
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="html" height="40" style="vertical-align:top; margin:4px"><h1>Instagram-clone application</h1><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="html" height="40" style="vertical-align:top; margin:4px">
+<h1>Instagram-clone application</h1>
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="html" height="40" style="vertical-align:top; margin:4px">
 <h4>This repository will hold the project for my internship at Accedia and the it is for practical purposes only.<h4>
 
 ### `Features`
@@ -40,7 +39,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 
 ### `Back-end`
-  <h1>For authentication and database I am using a backend as a service platform - Firebase - https://firebase.google.com/</h1>
+  <h1>For authentication and database I am using a backend as a service platform - Firebase</h1>
+  <p>Learn more about Firebase here - https://firebase.google.com/</p>
  
  
 ### `For clean and consistent code I am using`
