@@ -43,7 +43,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   <p>Learn more about Firebase here - https://firebase.google.com/</p>
  
  
-### `For clean and consistent code I am using`
+  ### <h1>`For clean and consistent code I am using`</h1>
   <ul>
     <li>ESLint</li>
     <li>LSLint</li>
