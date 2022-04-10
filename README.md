@@ -38,7 +38,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   </ul>
 
 
-### `Back-end`
+  ### <h1>`Back-end`</h1>
   <h1>For authentication and database I am using a backend as a service platform - Firebase</h1>
   <p>Learn more about Firebase here - https://firebase.google.com/</p>
  
