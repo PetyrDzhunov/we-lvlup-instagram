@@ -1,6 +1,6 @@
 import './App.css'
 
-function App(): JSX.Element {
+function App(): React.ReactNode {
     return (
         <div className="App">
             <h1>Instagram-clone</h1>
