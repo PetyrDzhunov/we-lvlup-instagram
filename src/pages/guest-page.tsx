@@ -1,5 +1,11 @@
+import InstagramLogo from '../components/instagram-logo'
+
 function GuestPage(): JSX.Element {
-    return <section>guest page</section>
+    return (
+        <section>
+            <InstagramLogo />
+        </section>
+    )
 }
 
 export default GuestPage
