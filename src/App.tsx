@@ -1,14 +1,9 @@
 import { ReactElement } from 'react'
 import './App.css'
-import TestComponent from './components/test-component'
+import GuestPage from './pages/guest-page'
 
 function App(): ReactElement | null {
-    return (
-        <div>
-            Hello World
-            <TestComponent />
-        </div>
-    )
+    return <GuestPage />
 }
 
 export default App
