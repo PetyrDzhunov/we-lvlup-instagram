@@ -1,5 +1,6 @@
 import Container from '@mui/material/Container'
 import InstagramLogo from '../../components/InstagramLogo'
+import OptionalLogin from '../../components/OptionalLogin'
 import LoginForm from './LoginForm'
 
 function GuestPage(): JSX.Element {
@@ -7,6 +8,7 @@ function GuestPage(): JSX.Element {
         <Container>
             <InstagramLogo />
             <LoginForm />
+            <OptionalLogin />
         </Container>
     )
 }
