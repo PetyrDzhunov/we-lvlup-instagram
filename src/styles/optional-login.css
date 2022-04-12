@@ -20,7 +20,14 @@
 }
 
 .download-image {
+    width: 80%;
     height: 40px;
+}
+
+.download-image.app {
+    width: 90%;
+}
+
+.download-link {
     margin: 8px;
-    width: 40%;
 }
