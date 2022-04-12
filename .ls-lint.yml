@@ -3,7 +3,7 @@ ls:
     .dir: kebab-case
     .module.scss: kebab-case
     .props.tsx: kebab-case
-    .tsx: kebab-case
+    .tsx: PascalCase
   src/hooks:
     .dir: kebab-case
     .tsx: kebab-case
@@ -14,7 +14,7 @@ ls:
     .tsx: kebab-case
   src/pages:
     .dir: kebab-case
-    .tsx: kebab-case
+    .tsx: PascalCase
   src/styles:
     .dir: kebab-case
     .module.scss: kebab-case

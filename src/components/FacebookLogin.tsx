@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 function FacebookLogin(): JSX.Element {
     return (
         <Box
-            component="div"
+            component="section"
             sx={{
                 display: 'flex',
                 flexFlow: 'column wrap',
@@ -16,7 +16,7 @@ function FacebookLogin(): JSX.Element {
             }}
         >
             <Box
-                component="div"
+                component="article"
                 sx={{
                     display: 'flex',
                     flexFlow: 'row wrap',
@@ -46,7 +46,7 @@ function FacebookLogin(): JSX.Element {
                 Забравена парола?
             </Typography>
             <Box
-                component="div"
+                component="article"
                 sx={{
                     display: 'flex',
                     flexFlow: 'row wrap',
