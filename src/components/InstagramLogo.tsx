@@ -3,7 +3,7 @@ import SvgIcon from '@mui/material/SvgIcon'
 
 function InstagramLogo(): JSX.Element {
     return (
-        <Box sx={{ margin: '40px auto', fontSize: '60px' }}>
+        <Box sx={{ margin: '30px auto 10px auto;', fontSize: '60px' }}>
             <SvgIcon
                 fontSize="inherit"
                 viewBox="25 0 80 35"
