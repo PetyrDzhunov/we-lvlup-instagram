@@ -1,5 +1,6 @@
-.login-form {
+form {
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
+    margin-top: 10px;
 }

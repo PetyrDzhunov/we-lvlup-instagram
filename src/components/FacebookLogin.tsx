@@ -1,7 +1,8 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import FacebookIcon from '@mui/icons-material/Facebook'
 import Button from '@mui/material/Button'
+import { Link } from 'react-router-dom'
+import LoginWithFacebook from './LoginWithFacebook'
 
 function FacebookLogin(): JSX.Element {
     return (
@@ -15,26 +16,7 @@ function FacebookLogin(): JSX.Element {
                 marginTop: '15px',
             }}
         >
-            <Box
-                component="article"
-                sx={{
-                    display: 'flex',
-                    flexFlow: 'row wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: '15px',
-                }}
-            >
-                <FacebookIcon color="primary" />
-                <Typography
-                    paragraph
-                    variant="body2"
-                    margin="10px"
-                    sx={{ fontWeight: 'bold', color: '#385185' }}
-                >
-                    Влизане с Facebook
-                </Typography>
-            </Box>
+            <LoginWithFacebook />
             <Typography
                 variant="body2"
                 sx={{
@@ -64,17 +46,19 @@ function FacebookLogin(): JSX.Element {
                 >
                     Нямате акаунт?
                 </Typography>
-                <Button
-                    sx={{
-                        color: '#0095f6',
-                        fontSize: '0.82em',
-                        textTransform: 'capitalize',
-                        fontWeight: 'bold',
-                    }}
-                    variant="text"
-                >
-                    Регистрация
-                </Button>
+                <Link to="/register" className="basic-link">
+                    <Button
+                        sx={{
+                            color: '#0095f6',
+                            fontSize: '0.82em',
+                            textTransform: 'capitalize',
+                            fontWeight: 'bold',
+                        }}
+                        variant="text"
+                    >
+                        Регистрация
+                    </Button>
+                </Link>
             </Box>
         </Box>
     )

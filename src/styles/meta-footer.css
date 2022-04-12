@@ -12,3 +12,11 @@
 .meta-footer__image {
     height: 30px;
 }
+
+.meta-footer-register {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}

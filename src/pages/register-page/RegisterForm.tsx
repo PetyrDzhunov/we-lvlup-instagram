@@ -5,24 +5,28 @@ import Button from '@mui/material/Button'
 import InputController from '../../components/InputController'
 import '../../styles/form.css'
 
-interface LoginFormInputs {
+interface RegisterFormInputs {
     email: string
+    fullName: string
+    userName: string
     password: string
 }
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
+    fullName: yup.string().min(6).max(40),
+    username: yup.string().min(6).max(20),
     password: yup.string().min(6).max(20).required(),
 })
 
-const formSubmitHandler: SubmitHandler<LoginFormInputs> = (
-    data: LoginFormInputs
+const formSubmitHandler: SubmitHandler<RegisterFormInputs> = (
+    data: RegisterFormInputs
 ) => {
     console.log('data', data)
 }
 
-function LoginForm(): JSX.Element {
-    const methods = useForm<LoginFormInputs>({
+function RegisterForm(): JSX.Element {
+    const methods = useForm<RegisterFormInputs>({
         resolver: yupResolver(schema),
     })
 
@@ -35,11 +39,33 @@ function LoginForm(): JSX.Element {
                 <InputController
                     name="email"
                     defaultValue=""
-                    label="Потребителско име или имейл"
+                    label="Мобилен номер или имейл"
                     type="email"
                     variant="outlined"
                     margin="dense"
-                    placeholder="Телефонен номер, потребителско име или имейл"
+                    placeholder="Мобилен номер или имейл"
+                    size="small"
+                />
+
+                <InputController
+                    name="fullName"
+                    defaultValue=""
+                    label="Пълно име"
+                    type="text"
+                    variant="outlined"
+                    margin="dense"
+                    placeholder="Пълно име"
+                    size="small"
+                />
+
+                <InputController
+                    name="email"
+                    defaultValue=""
+                    label="Потребителско име"
+                    type="text"
+                    variant="outlined"
+                    margin="dense"
+                    placeholder="Потребителско име"
                     size="small"
                 />
 
@@ -54,16 +80,20 @@ function LoginForm(): JSX.Element {
                     size="small"
                 />
                 <Button
-                    sx={{ marginTop: '10px', textTransform: 'capitalize' }}
+                    sx={{
+                        marginTop: '10px',
+                        textTransform: 'capitalize',
+                        fontWeight: '600',
+                    }}
                     type="submit"
                     variant="contained"
                     fullWidth
                     color="primary"
                 >
-                    Вход
+                    Напред
                 </Button>
             </form>
         </FormProvider>
     )
 }
-export default LoginForm
+export default RegisterForm
