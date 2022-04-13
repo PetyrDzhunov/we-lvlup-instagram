@@ -8,8 +8,12 @@ import { FirebaseError } from 'firebase/app'
 import { useState } from 'react'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
+import { login } from '../../store/auth/authSlice'
 
 interface LoginFormInputs {
     email: string
@@ -25,22 +29,26 @@ function LoginForm(): JSX.Element {
     const methods = useForm<LoginFormInputs>({
         resolver: yupResolver(schema),
     })
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [error, setError] = useState<string>('')
+    const [isRegistering, setIsRegistering] = useState<boolean>(false)
 
     const formSubmitHandler: SubmitHandler<LoginFormInputs> = async (
         data: LoginFormInputs
     ) => {
         const { email, password } = data
         try {
-            const user = await signInWithEmailAndPassword(auth, email, password)
-            // this also returns the UID authentication which we have in our registered users table as authID ?
-            // this may be used for some kind of connection between those 2?...
-            // also an acessToken? should we use that for something?
-            // inform redux something just happened dispatch login action
-            console.log(user)
+            setIsRegistering(true)
+            await signInWithEmailAndPassword(auth, email, password)
+            // later maybe send some data to the login dispatch as a payload to hold the logged in user data
+            dispatch(login())
+            setIsRegistering(false)
+
             navigate('/home')
         } catch (err: unknown) {
+            setIsRegistering(false)
+
             if (err instanceof FirebaseError) {
                 if (err.code.includes('auth/user-not-found')) {
                     setError('User not found.')
@@ -99,6 +107,17 @@ function LoginForm(): JSX.Element {
                     >
                         {error}
                     </Typography>
+                )}
+                {isRegistering && (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            marginTop: '15px',
+                        }}
+                    >
+                        <CircularProgress size="1.5em" />
+                    </Box>
                 )}
             </form>
         </FormProvider>
