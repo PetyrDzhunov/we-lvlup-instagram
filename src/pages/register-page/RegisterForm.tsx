@@ -5,9 +5,11 @@ import * as yup from 'yup'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
 import Typography from '@mui/material/Typography'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useState } from 'react'
 import { FirebaseError } from 'firebase/app'
 import { useDispatch } from 'react-redux'
+import Box from '@mui/material/Box'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
 import '../../styles/form.css'
@@ -37,32 +39,29 @@ function RegisterForm(): JSX.Element {
 
     const navigate = useNavigate()
     const [error, setError] = useState<string>('')
+    const [isRegistering, setIsRegistering] = useState<boolean>(false)
 
     const formSubmitHandler: SubmitHandler<RegisterFormInputs> = async (
         data: RegisterFormInputs
     ) => {
-        // get data from the form
         const { email, fullName, password, username } = data
 
         try {
-            // register and automatically login
+            setIsRegistering(true)
             const {
                 user: { uid },
             } = await createUserWithEmailAndPassword(auth, email, password)
-            // add current user to the db collection users
             await firebaseService.addUserToFirebaseDB(
                 email,
                 fullName,
                 username,
                 uid
             )
-            // inform redux something is happening - dispatch action login (firebase automatically logins after register)
             dispatch(login())
-            // hey redux i've just logged in change the isAuthenticated to every other component that is using it
-            // and when this happens react will re-render everything that is using this current isAuthenticated state
-
+            setIsRegistering(false)
             navigate('/home')
         } catch (err: unknown) {
+            setIsRegistering(false)
             if (err instanceof FirebaseError) {
                 if (err.code.includes('auth/weak-password')) {
                     setError('Please enter a stronger password')
@@ -147,6 +146,11 @@ function RegisterForm(): JSX.Element {
                     >
                         {error}
                     </Typography>
+                )}
+                {isRegistering && (
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <CircularProgress size="1.5em" />
+                    </Box>
                 )}
             </form>
         </FormProvider>
