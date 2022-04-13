@@ -1,9 +1,11 @@
+import Container from '@mui/material/Container'
+
 function HomePage(): JSX.Element {
     return (
-        <div>
+        <Container>
             Home Page
             <p>Hello this is the Home page</p>
-        </div>
+        </Container>
     )
 }
 

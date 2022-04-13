@@ -1,5 +1,5 @@
 import GuestPage from '../pages/guest-page/GuestPage'
-import HomePage from '../pages/home-page/home-page'
+import HomePage from '../pages/home-page/HomePage'
 import RegisterPage from '../pages/register-page/RegisterPage'
 
 interface Routes {
