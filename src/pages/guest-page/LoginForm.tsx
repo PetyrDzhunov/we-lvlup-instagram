@@ -18,7 +18,7 @@ const schema = yup.object().shape({
 const formSubmitHandler: SubmitHandler<LoginFormInputs> = (
     data: LoginFormInputs
 ) => {
-    console.log('data', data)
+    console.log(data)
 }
 
 function LoginForm(): JSX.Element {

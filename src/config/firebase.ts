@@ -1,9 +1,9 @@
 import { initializeApp } from 'firebase/app'
-import 'firebase/auth'
+import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore/lite'
 import config from './config'
 
-const Firebase = initializeApp(config.firebase)
-export const db = getFirestore(Firebase)
+const app = initializeApp(config.firebase)
 
-export default Firebase
+export const auth = getAuth(app)
+export const db = getFirestore(app)
