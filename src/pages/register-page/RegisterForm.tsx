@@ -7,10 +7,12 @@ import { useNavigate } from 'react-router-dom'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import { FirebaseError } from 'firebase/app'
+import { useDispatch } from 'react-redux'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
 import '../../styles/form.css'
 import { firebaseService } from '../../services/firebase-service'
+import { login } from '../../store/auth/authSlice'
 
 interface RegisterFormInputs {
     email: string
@@ -30,25 +32,34 @@ function RegisterForm(): JSX.Element {
     const methods = useForm<RegisterFormInputs>({
         resolver: yupResolver(schema),
     })
+
+    const dispatch = useDispatch()
+
     const navigate = useNavigate()
     const [error, setError] = useState<string>('')
 
     const formSubmitHandler: SubmitHandler<RegisterFormInputs> = async (
         data: RegisterFormInputs
     ) => {
+        // get data from the form
         const { email, fullName, password, username } = data
 
         try {
+            // register and automatically login
             const {
                 user: { uid },
             } = await createUserWithEmailAndPassword(auth, email, password)
+            // add current user to the db collection users
             await firebaseService.addUserToFirebaseDB(
                 email,
                 fullName,
                 username,
                 uid
             )
-            // inform redux something is happening - dispatch action register/login
+            // inform redux something is happening - dispatch action login (firebase automatically logins after register)
+            dispatch(login())
+            // hey redux i've just logged in change the isAuthenticated to every other component that is using it
+            // and when this happens react will re-render everything that is using this current isAuthenticated state
 
             navigate('/home')
         } catch (err: unknown) {
