@@ -75,10 +75,9 @@ function DownloadApplication(): JSX.Element {
                         sx={{
                             width: '100%',
                             textAlign: 'center',
-                            marginBottom: '60px',
                         }}
                     >
-                        It is just a demo application dude.
+                        This application is for practice purposes only.
                     </Alert>
                 </Snackbar>
                 <img

@@ -1,5 +1,6 @@
 import GuestPage from '../pages/guest-page/GuestPage'
 import HomePage from '../pages/home-page/HomePage'
+import NotFoundPage from '../pages/not-found-page/NotFoundPage'
 import ProfilePage from '../pages/profile-page/ProfilePage'
 import RegisterPage from '../pages/register-page/RegisterPage'
 import UploadPage from '../pages/upload-page/UploadPage'
@@ -17,4 +18,5 @@ export const routes: Routes[] = [
     { path: '/register', element: <RegisterPage />, key: 3 },
     { path: '/profile', element: <ProfilePage />, key: 4 },
     { path: '/upload', element: <UploadPage />, key: 5 },
+    { path: '/*', element: <NotFoundPage />, key: 6 },
 ]
