@@ -8,8 +8,8 @@ import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useState } from 'react'
 import { FirebaseError } from 'firebase/app'
-import { useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
+import { useAppDispatch } from '../../hooks/redux-hooks'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
 import '../../styles/form.css'
@@ -35,7 +35,7 @@ function RegisterForm(): JSX.Element {
         resolver: yupResolver(schema),
     })
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
     const [error, setError] = useState<string>('')

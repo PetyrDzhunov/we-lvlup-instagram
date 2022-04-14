@@ -8,9 +8,9 @@ import { FirebaseError } from 'firebase/app'
 import { useState } from 'react'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
+import { useAppDispatch } from '../../hooks/redux-hooks'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
 import { login } from '../../store/auth/authSlice'
@@ -29,7 +29,7 @@ function LoginForm(): JSX.Element {
     const methods = useForm<LoginFormInputs>({
         resolver: yupResolver(schema),
     })
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const [error, setError] = useState<string>('')
     const [isRegistering, setIsRegistering] = useState<boolean>(false)
