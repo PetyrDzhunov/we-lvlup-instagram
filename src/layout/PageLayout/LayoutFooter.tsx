@@ -38,6 +38,11 @@ function LayoutFooter(): JSX.Element {
         navigate('/')
     }
 
+    const profileHandler = (): void => {
+        handleCloseUserMenu()
+        navigate('/profile')
+    }
+
     return (
         <AppBar
             position="fixed"
@@ -88,7 +93,7 @@ function LayoutFooter(): JSX.Element {
                             Logout
                         </Button>
                     </MenuItem>
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem onClick={profileHandler}>
                         <Button
                             sx={{ color: '#000000' }}
                             endIcon={<AccountBoxIcon />}
