@@ -3,9 +3,16 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import AddIcon from '@mui/icons-material/Add'
+import { useNavigate } from 'react-router-dom'
 import InstagramLogo from '../../components/InstagramLogo'
 
 function LayoutNavigation(): JSX.Element {
+    const navigate = useNavigate()
+
+    const uploadHandler = (): void => {
+        navigate('/upload')
+    }
+
     return (
         <Box
             sx={{
@@ -39,7 +46,7 @@ function LayoutNavigation(): JSX.Element {
                             fontWeight: 'bolder',
                         }}
                     >
-                        <AddIcon />
+                        <AddIcon onClick={uploadHandler} />
                     </IconButton>
                 </Toolbar>
             </AppBar>

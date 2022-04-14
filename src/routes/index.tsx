@@ -2,6 +2,7 @@ import GuestPage from '../pages/guest-page/GuestPage'
 import HomePage from '../pages/home-page/HomePage'
 import ProfilePage from '../pages/profile-page/ProfilePage'
 import RegisterPage from '../pages/register-page/RegisterPage'
+import UploadPage from '../pages/upload-page/UploadPage'
 
 interface Routes {
     path: string
@@ -15,4 +16,5 @@ export const routes: Routes[] = [
     { path: '/home', element: <HomePage />, key: 2, authentication: true },
     { path: '/register', element: <RegisterPage />, key: 3 },
     { path: '/profile', element: <ProfilePage />, key: 4 },
+    { path: '/upload', element: <UploadPage />, key: 5 },
 ]
