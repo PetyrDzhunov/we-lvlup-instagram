@@ -4,13 +4,13 @@
 		 "es2021":true
 	},
 	"extends":[
-		 "plugin:react/recommended",
-		 "airbnb",
-		 "plugin:@typescript-eslint/recommended",
-		 "plugin:react/jsx-runtime",
-		 "prettier",
-		 "eslint:recommended",
-		 "plugin:prettier/recommended"
+		"plugin:react/recommended",
+		"airbnb",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/jsx-runtime",
+		"eslint:recommended",
+		"plugin:prettier/recommended",
+		"prettier"
 	],
 	"overrides": [
 		{

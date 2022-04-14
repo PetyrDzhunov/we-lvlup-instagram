@@ -1,8 +1,48 @@
-/* eslint-disable max-len */
-import { Typography } from '@mui/material'
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState } from 'react'
+import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import Snackbar from '@mui/material/Snackbar'
+import MuiAlert, { AlertProps } from '@mui/material/Alert'
+import Slide, { SlideProps } from '@mui/material/Slide'
+
+type TransitionProps = Omit<SlideProps, 'direction'>
+
+function TransitionUp(props: TransitionProps): JSX.Element {
+    return <Slide {...props} direction="up" />
+}
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref
+) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+})
 
 function DownloadApplication(): JSX.Element {
+    const [open, setOpen] = useState<boolean>(false)
+
+    const [transition, setTransition] = useState<
+        React.ComponentType<TransitionProps> | undefined
+    >(undefined)
+
+    const handleClick =
+        (Transition: React.ComponentType<TransitionProps>) => () => {
+            setTransition(() => Transition)
+            setOpen(true)
+        }
+
+    const handleClose = (
+        event?: React.SyntheticEvent | Event,
+        reason?: string
+    ): void => {
+        if (reason === 'clickaway') {
+            return
+        }
+
+        setOpen(false)
+    }
     return (
         <Box component="section">
             <Typography
@@ -22,27 +62,38 @@ function DownloadApplication(): JSX.Element {
                     marginLeft: '5px',
                 }}
             >
-                <a
-                    className="download-link"
-                    href="https://apps.apple.com/app/instagram/id389801252?vt=lo"
+                <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                    TransitionComponent={transition}
+                    key={transition ? transition.name : ''}
                 >
-                    <img
-                        className="download-image app"
-                        alt="download from apple store"
-                        src="https://w7.pngwing.com/pngs/440/692/png-transparent-app-store-apple-logo-apple-text-logo-microsoft-store.png"
-                    />
-                </a>
+                    <Alert
+                        onClose={handleClose}
+                        severity="info"
+                        sx={{
+                            width: '100%',
+                            textAlign: 'center',
+                            marginBottom: '60px',
+                        }}
+                    >
+                        It is just a demo application dude.
+                    </Alert>
+                </Snackbar>
+                <img
+                    onClick={handleClick(TransitionUp)}
+                    className="download-image app"
+                    alt="download from apple store"
+                    src="https://w7.pngwing.com/pngs/440/692/png-transparent-app-store-apple-logo-apple-text-logo-microsoft-store.png"
+                />
 
-                <a
-                    className="download-link"
-                    href="https://play.google.com/store/apps/details?id=com.instagram.android&referrer=utm_source%3Dinstagramweb&utm_campaign=loginPage&ig_mid=B1E45CC8-DA2A-439F-A44F-D331823CCDCF&utm_content=lo&utm_medium=badge"
-                >
-                    <img
-                        className="download-image"
-                        alt="download from google play"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1200px-Google_Play_Store_badge_EN.svg.png"
-                    />
-                </a>
+                <img
+                    onClick={handleClick(TransitionUp)}
+                    className="download-image"
+                    alt="download from google play"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1200px-Google_Play_Store_badge_EN.svg.png"
+                />
             </Box>
         </Box>
     )
