@@ -43,6 +43,10 @@ function LayoutFooter(): JSX.Element {
         navigate('/profile')
     }
 
+    const homeHandler = (): void => {
+        navigate('/home')
+    }
+
     return (
         <AppBar
             position="fixed"
@@ -50,17 +54,23 @@ function LayoutFooter(): JSX.Element {
             sx={{ top: 'auto', bottom: 0, backgroundColor: '#ffffff' }}
         >
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-around' }}>
-                <IconButton>
-                    <HomeIcon sx={{ color: '#000000' }} />
+                <IconButton onClick={homeHandler}>
+                    <HomeIcon fontSize="medium" sx={{ color: '#000000' }} />
                 </IconButton>
                 <IconButton>
-                    <SearchIcon sx={{ color: '#000000' }} />
+                    <SearchIcon fontSize="medium" sx={{ color: '#000000' }} />
                 </IconButton>
                 <IconButton>
-                    <SlideshowIcon sx={{ color: '#000000' }} />
+                    <SlideshowIcon
+                        fontSize="medium"
+                        sx={{ color: '#000000' }}
+                    />
                 </IconButton>
                 <IconButton>
-                    <ShoppingBagIcon sx={{ color: '#000000' }} />
+                    <ShoppingBagIcon
+                        fontSize="medium"
+                        sx={{ color: '#000000' }}
+                    />
                 </IconButton>
                 <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

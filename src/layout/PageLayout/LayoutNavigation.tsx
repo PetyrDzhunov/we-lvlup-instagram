@@ -35,6 +35,7 @@ function LayoutNavigation(): JSX.Element {
                 </Toolbar>
                 <Toolbar>
                     <IconButton
+                        onClick={uploadHandler}
                         size="small"
                         edge="start"
                         aria-label="upload"
@@ -46,7 +47,7 @@ function LayoutNavigation(): JSX.Element {
                             fontWeight: 'bolder',
                         }}
                     >
-                        <AddIcon onClick={uploadHandler} />
+                        <AddIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
