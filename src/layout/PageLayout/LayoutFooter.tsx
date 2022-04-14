@@ -14,8 +14,14 @@ import MenuItem from '@mui/material/MenuItem'
 import LogoutIcon from '@mui/icons-material/Logout'
 import Button from '@mui/material/Button'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../../hooks/redux-hooks'
+import { logout } from '../../store/auth/authSlice'
 
 function LayoutFooter(): JSX.Element {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
         null
     )
@@ -24,6 +30,12 @@ function LayoutFooter(): JSX.Element {
     }
     const handleCloseUserMenu = (): void => {
         setAnchorElUser(null)
+    }
+
+    const logoutHandler = (): void => {
+        handleCloseUserMenu()
+        dispatch(logout())
+        navigate('/')
     }
 
     return (
@@ -68,7 +80,7 @@ function LayoutFooter(): JSX.Element {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                 >
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem onClick={logoutHandler}>
                         <Button
                             sx={{ color: '#000000' }}
                             endIcon={<LogoutIcon />}
