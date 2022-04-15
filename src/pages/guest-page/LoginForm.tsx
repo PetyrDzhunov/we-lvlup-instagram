@@ -45,7 +45,7 @@ function LoginForm(): JSX.Element {
             dispatch(login())
             setIsRegistering(false)
 
-            navigate('/home')
+            navigate('/')
         } catch (err: unknown) {
             setIsRegistering(false)
 

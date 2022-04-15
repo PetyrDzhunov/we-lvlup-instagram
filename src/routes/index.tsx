@@ -1,8 +1,7 @@
 import React from 'react'
 
 const UploadPage = React.lazy(() => import('../pages/upload-page/UploadPage'))
-const GuestPage = React.lazy(() => import('../pages/guest-page/GuestPage'))
-const HomePage = React.lazy(() => import('../pages/home-page/HomePage'))
+const MainPage = React.lazy(() => import('../pages/main-page/MainPage'))
 
 const RegisterPage = React.lazy(
     () => import('../pages/register-page/RegisterPage')
@@ -26,13 +25,13 @@ interface Routes {
 export const routes: Routes[] = [
     {
         path: '/',
-        element: <GuestPage title="Login page" />,
+        element: <MainPage title="Login page" />,
         key: 1,
         authentication: false,
     },
     {
-        path: '/home',
-        element: <HomePage title="Home page" />,
+        path: '/',
+        element: <MainPage title="Home page" />,
         key: 2,
         authentication: true,
     },

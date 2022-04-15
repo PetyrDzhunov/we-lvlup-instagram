@@ -56,7 +56,7 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
                 result.user.email,
                 result.user.uid
             )
-            navigate('/home')
+            navigate('/')
             dispatch(login())
             setIsRegistering(false)
         } catch (err) {

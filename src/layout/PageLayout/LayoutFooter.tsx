@@ -44,7 +44,7 @@ function LayoutFooter(): JSX.Element {
     }
 
     const homeHandler = (): void => {
-        navigate('/home')
+        navigate('/')
     }
 
     return (

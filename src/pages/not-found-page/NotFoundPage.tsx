@@ -2,15 +2,10 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
-import { useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { PageProps } from '../../types'
 
 function NotFoundPage({ title }: PageProps): JSX.Element {
-    const isAuthenticated = useAppSelector(
-        (state) => state.auth.isAuthenticated
-    )
-
     return (
         <PageLayout>
             <Helmet>
@@ -43,7 +38,7 @@ function NotFoundPage({ title }: PageProps): JSX.Element {
                 <Link
                     style={{ color: 'blue', textAlign: 'center' }}
                     className="basic-link"
-                    to={isAuthenticated ? '/home' : '/'}
+                    to="/"
                 >
                     Обратно към Instagram.
                 </Link>
