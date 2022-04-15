@@ -6,10 +6,12 @@ import Typography from '@mui/material/Typography'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import { useState } from 'react'
 import ButtonGroup from '@mui/material/ButtonGroup'
+import { Helmet } from 'react-helmet'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import '../../styles/file-input.css'
+import { PageProps } from '../../types'
 
-function UploadPage(): JSX.Element {
+function UploadPage({ title }: PageProps): JSX.Element {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
     console.log(selectedFile)
@@ -32,6 +34,9 @@ function UploadPage(): JSX.Element {
 
     return (
         <PageLayout>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             <Box
                 sx={{
                     display: 'flex',

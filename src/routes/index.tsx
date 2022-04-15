@@ -24,10 +24,36 @@ interface Routes {
 }
 
 export const routes: Routes[] = [
-    { path: '/', element: <GuestPage />, key: 1, authentication: false },
-    { path: '/home', element: <HomePage />, key: 2, authentication: true },
-    { path: '/register', element: <RegisterPage />, key: 3 },
-    { path: '/profile', element: <ProfilePage />, key: 4 },
-    { path: '/upload', element: <UploadPage />, key: 5 },
-    { path: '/*', element: <NotFoundPage />, key: 6 },
+    {
+        path: '/',
+        element: <GuestPage title="Login page" />,
+        key: 1,
+        authentication: false,
+    },
+    {
+        path: '/home',
+        element: <HomePage title="Home page" />,
+        key: 2,
+        authentication: true,
+    },
+    {
+        path: '/register',
+        element: <RegisterPage title="Register page" />,
+        key: 3,
+    },
+    {
+        path: '/profile',
+        element: <ProfilePage title="Profile page" />,
+        key: 4,
+    },
+    {
+        path: '/upload',
+        element: <UploadPage title="Upload page" />,
+        key: 5,
+    },
+    {
+        path: '/*',
+        element: <NotFoundPage title="Not found page" />,
+        key: 6,
+    },
 ]

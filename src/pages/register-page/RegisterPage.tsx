@@ -2,16 +2,21 @@ import { Button, Typography } from '@mui/material'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import InstagramLogo from '../../components/InstagramLogo'
 import LoginOrComponent from '../../components/LoginOrComponent'
 import LoginWithFacebook from '../../components/LoginWithFacebook'
 import RegisterForm from './RegisterForm'
 import DownloadApplication from '../../components/DownloadApplication'
 import GuestPageFooter from '../../components/GuestPageFooter'
+import { PageProps } from '../../types'
 
-function RegisterPage(): JSX.Element {
+function RegisterPage({ title }: PageProps): JSX.Element {
     return (
         <Container>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             <InstagramLogo />
             <Typography
                 variant="h5"

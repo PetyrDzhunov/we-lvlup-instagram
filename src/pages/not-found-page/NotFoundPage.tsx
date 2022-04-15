@@ -1,16 +1,21 @@
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
+import { PageProps } from '../../types'
 
-function NotFoundPage(): JSX.Element {
+function NotFoundPage({ title }: PageProps): JSX.Element {
     const isAuthenticated = useAppSelector(
         (state) => state.auth.isAuthenticated
     )
 
     return (
         <PageLayout>
+            <Helmet>
+                <title>{title}</title>
+            </Helmet>
             <Container
                 sx={{
                     display: 'flex',
