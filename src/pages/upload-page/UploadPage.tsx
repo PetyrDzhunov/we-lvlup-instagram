@@ -5,20 +5,29 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import { useState } from 'react'
-import Tooltip from '@mui/material/Tooltip'
+import ButtonGroup from '@mui/material/ButtonGroup'
 import PageLayout from '../../layout/PageLayout/PageLayout'
+import '../../styles/file-input.css'
 
 function UploadPage(): JSX.Element {
-    const [selectedFile, setSelectedFile] = useState<HTMLInputElement | null>(
-        null
-    )
+    const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
-    const handleCapture = (e: any): void => {
-        setSelectedFile(e.target.files[0])
+    console.log(selectedFile)
+
+    const handleFileChange = (e: Event): void => {
+        console.log('change function')
+        const input = e.target as HTMLInputElement
+        if (input.files && input.files.length > 0) {
+            setSelectedFile(input.files[0])
+        }
     }
 
-    const handleSubmit = (): void => {
-        console.log(selectedFile)
+    const addFileToDatabaseHandler = (): void => {
+        console.log('hereeeeee')
+    }
+
+    const removeFileHandler = (): void => {
+        setSelectedFile(null)
     }
 
     return (
@@ -29,7 +38,6 @@ function UploadPage(): JSX.Element {
                     flexFlow: 'column wrap',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    minHeight: '80vh',
                 }}
             >
                 <Typography
@@ -54,28 +62,48 @@ function UploadPage(): JSX.Element {
                     Добавете снимки и видеоклипове, за да създадете нова
                     публикация.
                 </Typography>
-                <input
-                    accept="image/jpeg"
-                    style={{ display: 'block' }}
-                    id="userImage"
-                    type="file"
-                    onChange={handleCapture}
-                />
-                <Tooltip title="Select Image">
-                    <label htmlFor="userImage">
-                        <Button
-                            onClick={handleSubmit}
-                            variant="contained"
-                            sx={{
-                                textTransform: 'lowercase',
-                                fontWeight: 'bold',
-                                bottom: '0',
-                            }}
-                        >
-                            Качете снимката
-                        </Button>
-                    </label>
-                </Tooltip>
+                <div className="file-input">
+                    <input
+                        type="file"
+                        id="userImage"
+                        className="file"
+                        accept="image/*"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            handleFileChange(e as unknown as Event)
+                        }}
+                    />
+                    <label htmlFor="userImage">Изберете файл</label>
+                </div>
+                {selectedFile && (
+                    <img src={URL.createObjectURL(selectedFile)} alt="Thumb" />
+                )}
+                <ButtonGroup
+                    variant="outlined"
+                    sx={{
+                        position: 'absolute',
+                        bottom: '65px',
+                    }}
+                >
+                    <Button
+                        onClick={addFileToDatabaseHandler}
+                        sx={{
+                            textTransform: 'lowercase',
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        Качете снимката
+                    </Button>
+
+                    <Button
+                        onClick={removeFileHandler}
+                        sx={{
+                            textTransform: 'lowercase',
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        Махнете снимката
+                    </Button>
+                </ButtonGroup>
             </Box>
         </PageLayout>
     )
