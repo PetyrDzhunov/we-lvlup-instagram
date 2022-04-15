@@ -1,9 +1,20 @@
-import GuestPage from '../pages/guest-page/GuestPage'
-import HomePage from '../pages/home-page/HomePage'
-import NotFoundPage from '../pages/not-found-page/NotFoundPage'
-import ProfilePage from '../pages/profile-page/ProfilePage'
-import RegisterPage from '../pages/register-page/RegisterPage'
-import UploadPage from '../pages/upload-page/UploadPage'
+import React from 'react'
+
+const UploadPage = React.lazy(() => import('../pages/upload-page/UploadPage'))
+const GuestPage = React.lazy(() => import('../pages/guest-page/GuestPage'))
+const HomePage = React.lazy(() => import('../pages/home-page/HomePage'))
+
+const RegisterPage = React.lazy(
+    () => import('../pages/register-page/RegisterPage')
+)
+
+const ProfilePage = React.lazy(
+    () => import('../pages/profile-page/ProfilePage')
+)
+
+const NotFoundPage = React.lazy(
+    () => import('../pages/not-found-page/NotFoundPage')
+)
 
 interface Routes {
     path: string
