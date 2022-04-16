@@ -57,7 +57,7 @@ function RegisterForm(): JSX.Element {
                 username,
                 uid
             )
-            dispatch(login())
+            dispatch(login({ email, uid }))
             setIsRegistering(false)
             navigate('/')
         } catch (err: unknown) {
