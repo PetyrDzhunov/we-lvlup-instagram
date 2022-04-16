@@ -19,21 +19,18 @@ interface Routes {
     path: string
     element: JSX.Element
     key: number
-    authentication?: boolean
 }
 
 export const routes: Routes[] = [
     {
         path: '/',
-        element: <MainPage title="Login page" />,
+        element: <MainPage />,
         key: 1,
-        authentication: false,
     },
     {
         path: '/',
-        element: <MainPage title="Home page" />,
+        element: <MainPage />,
         key: 2,
-        authentication: true,
     },
     {
         path: '/register',

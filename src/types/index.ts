@@ -1,3 +1,4 @@
 export interface PageProps {
-    title: string
+    title?: string
+    authentication?: boolean
 }
