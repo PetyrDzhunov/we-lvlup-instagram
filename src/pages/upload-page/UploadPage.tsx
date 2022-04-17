@@ -4,15 +4,29 @@ import Divider from '@mui/material/Divider'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ButtonGroup from '@mui/material/ButtonGroup'
+import { useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import '../../styles/file-input.css'
 import { PageProps } from '../../types'
+import { useAppSelector } from '../../hooks/redux-hooks'
 
 function UploadPage({ title }: PageProps): JSX.Element {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
+
+    const navigate = useNavigate()
+
+    const isAuthenticated = useAppSelector(
+        (state) => state.auth.isAuthenticated
+    )
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            return navigate('/')
+        }
+    }, [isAuthenticated, navigate])
 
     console.log(selectedFile)
 

@@ -1,6 +1,8 @@
-import HomePage from '../home-page/HomePage'
-import GuestPage from '../guest-page/GuestPage'
+import React from 'react'
 import { useAppSelector } from '../../hooks/redux-hooks'
+
+const GuestPage = React.lazy(() => import('../guest-page/GuestPage'))
+const HomePage = React.lazy(() => import('../home-page/HomePage'))
 
 function MainPage(): JSX.Element {
     const isAuthenticated = useAppSelector(
