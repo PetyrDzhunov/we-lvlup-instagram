@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -8,10 +9,14 @@ import { useEffect, useState } from 'react'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import { useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import '../../styles/file-input.css'
 import { PageProps } from '../../types'
 import { useAppSelector } from '../../hooks/redux-hooks'
+import '../../styles/image-preview.css'
+
+import { storage } from '../../config/firebase'
 
 function UploadPage({ title }: PageProps): JSX.Element {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -39,7 +44,12 @@ function UploadPage({ title }: PageProps): JSX.Element {
     }
 
     const addFileToDatabaseHandler = (): void => {
-        console.log('hereeeeee')
+        const storageRef = ref(storage, `images/${selectedFile?.name}`)
+        uploadBytes(storageRef, selectedFile as Blob).then(() => {
+            getDownloadURL(storageRef).then((url) => {
+                console.log(url)
+            })
+        })
     }
 
     const removeFileHandler = (): void => {
@@ -63,7 +73,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                     component="h1"
                     variant="body1"
                     align="center"
-                    sx={{ fontWeight: '700' }}
+                    sx={{ fontWeight: '700', marginTop: '10px' }}
                 >
                     Създаване на нова публикация
                 </Typography>
@@ -81,20 +91,29 @@ function UploadPage({ title }: PageProps): JSX.Element {
                     Добавете снимки и видеоклипове, за да създадете нова
                     публикация.
                 </Typography>
-                <div className="file-input">
-                    <input
-                        type="file"
-                        id="userImage"
-                        className="file"
-                        accept="image/*"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            handleFileChange(e as unknown as Event)
-                        }}
-                    />
-                    <label htmlFor="userImage">Изберете файл</label>
-                </div>
+                <form onSubmit={addFileToDatabaseHandler}>
+                    <div className="file-input">
+                        <input
+                            name="file"
+                            type="file"
+                            id="userImage"
+                            className="file"
+                            accept="image/*"
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                                handleFileChange(e as unknown as Event)
+                            }}
+                        />
+                        <label htmlFor="userImage">Изберете файл</label>
+                    </div>
+                </form>
                 {selectedFile && (
-                    <img src={URL.createObjectURL(selectedFile)} alt="Thumb" />
+                    <img
+                        className="image-preview"
+                        src={URL.createObjectURL(selectedFile)}
+                        alt="Preview of your choice"
+                    />
                 )}
                 <ButtonGroup
                     variant="outlined"
@@ -112,7 +131,6 @@ function UploadPage({ title }: PageProps): JSX.Element {
                     >
                         Качете снимката
                     </Button>
-
                     <Button
                         onClick={removeFileHandler}
                         sx={{
