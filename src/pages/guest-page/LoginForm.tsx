@@ -38,12 +38,15 @@ function LoginForm(): JSX.Element {
         data: LoginFormInputs
     ) => {
         const { email, password } = data
-        console.log(data)
         try {
             setIsRegistering(true)
-            await signInWithEmailAndPassword(auth, email, password)
+            const response = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            )
             // later maybe send some data to the login dispatch as a payload to hold the logged in user data
-            dispatch(login({ email, uid: '44' }))
+            dispatch(login({ email, uid: response.user.uid }))
             setIsRegistering(false)
 
             navigate('/')
