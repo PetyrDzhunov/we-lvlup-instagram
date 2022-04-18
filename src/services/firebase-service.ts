@@ -38,7 +38,6 @@ const addUserToFirebaseDBLoggedInWithFacebook = async (
     authID: string
 ): Promise<void> => {
     const userIsNotExisting = await checkIfUserExistsInDb(authID)
-    console.log(userIsNotExisting)
     if (userIsNotExisting) {
         await addDoc(collection(db, 'users'), {
             email,

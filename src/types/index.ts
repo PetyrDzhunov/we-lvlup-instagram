@@ -3,4 +3,21 @@ export interface PageProps {
     authentication?: boolean
 }
 
-// export interface Post {}
+type PostCreator = {
+    email: string
+    uid: string
+}
+
+type Comment = {
+    commentator: string
+    comment: string
+}
+
+export interface Post {
+    creator: PostCreator
+    likes: string[]
+    dislikes: string[]
+    comments: Comment[]
+    image: string
+    description?: string
+}
