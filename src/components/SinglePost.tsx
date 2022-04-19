@@ -1,10 +1,7 @@
-import Typography from '@mui/material/Typography'
 import ListItem from '@mui/material/ListItem'
-import Stack from '@mui/material/Stack'
-import Avatar from '@mui/material/Avatar'
+import SinglePostHeader from './SinglePostHeader'
 import { Post } from '../types'
 import '../styles/single-post.css'
-import stringAvatar from '../utils/stringToColor'
 
 interface SinglePostProps {
     post: Post
@@ -21,12 +18,7 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
                 padding: '0px',
             }}
         >
-            <Stack direction="row" spacing={2}>
-                <Avatar {...stringAvatar(post.creator.email)} />
-                <Typography sx={{ fontWeight: 'bolder', marginBottom: '4px' }}>
-                    {post.creator.email}
-                </Typography>
-            </Stack>
+            <SinglePostHeader creator={post.creator.email} />
 
             <img src={post.image} alt="" className="single-post__image" />
         </ListItem>
