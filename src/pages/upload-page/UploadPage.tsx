@@ -165,6 +165,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             textTransform: 'lowercase',
                             fontWeight: 'bold',
                         }}
+                        disabled={isLoading}
                     >
                         Качете снимката
                     </Button>
