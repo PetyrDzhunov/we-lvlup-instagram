@@ -2,6 +2,7 @@ import ListItem from '@mui/material/ListItem'
 import SinglePostHeader from './SinglePostHeader'
 import { Post } from '../types'
 import '../styles/single-post.css'
+import SinglePostFooter from './SinglePostFooter'
 
 interface SinglePostProps {
     post: Post
@@ -19,8 +20,8 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
             }}
         >
             <SinglePostHeader creator={post.creator.email} />
-
             <img src={post.image} alt="" className="single-post__image" />
+            <SinglePostFooter likes={post.likes.length} />
         </ListItem>
     )
 }
