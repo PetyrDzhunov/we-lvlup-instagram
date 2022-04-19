@@ -2,6 +2,7 @@ import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
+import SinglePostImage from '../../components/SinglePostImage'
 import { useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { firebaseService } from '../../services/firebase-service'
@@ -45,6 +46,23 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                     fullName={fullName}
                     myPosts={currentUserPosts}
                 />
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexFlow: 'row wrap',
+                        justifyContent: 'flex-start',
+                        alignContent: 'center',
+                        marginTop: '20px',
+                    }}
+                >
+                    {currentUserPosts.map((post) => (
+                        <SinglePostImage
+                            key={post.id}
+                            image={post.image}
+                            small
+                        />
+                    ))}
+                </Box>
             </Box>
         </PageLayout>
     )

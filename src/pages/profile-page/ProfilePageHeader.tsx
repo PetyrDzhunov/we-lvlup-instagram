@@ -44,13 +44,13 @@ function ProfilePageHeader({
                 </Stack>
                 <Stack spacing={1}>
                     <Typography align="center" sx={{ fontSize: '1' }}>
-                        {myPosts.length}
+                        0
                     </Typography>
                     <Typography sx={{ fontSize: '1em' }}>Followers</Typography>
                 </Stack>
                 <Stack spacing={1}>
                     <Typography align="center" sx={{ fontSize: '1' }}>
-                        {myPosts.length}
+                        0
                     </Typography>
                     <Typography sx={{ fontSize: '1' }}>Followed</Typography>
                 </Stack>

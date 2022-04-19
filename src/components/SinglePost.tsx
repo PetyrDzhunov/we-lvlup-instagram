@@ -3,6 +3,7 @@ import SinglePostHeader from './SinglePostHeader'
 import { Post } from '../types'
 import '../styles/single-post.css'
 import SinglePostFooter from './SinglePostFooter'
+import SinglePostImage from './SinglePostImage'
 
 interface SinglePostProps {
     post: Post
@@ -20,7 +21,7 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
             }}
         >
             <SinglePostHeader creator={post.creator.email} />
-            <img src={post.image} alt="" className="single-post__image" />
+            <SinglePostImage image={post.image} />
             <SinglePostFooter likes={post.likes.length} />
         </ListItem>
     )
