@@ -18,10 +18,12 @@ function stringToColor(string: string) {
     return color
 }
 
-function stringAvatar(name: string) {
+function stringAvatar(name: string, width: string, height: string) {
     return {
         sx: {
             bgcolor: stringToColor(name),
+            width,
+            height,
         },
         children: `${name.split('@')[0][0].toUpperCase()}${name
             .split('@')[0][1]

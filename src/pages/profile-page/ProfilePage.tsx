@@ -10,7 +10,7 @@ import ProfilePageHeader from './ProfilePageHeader'
 
 function ProfilePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
-    const [currentUserPosts, setCurrentUserPosts] = useState<Post[] | Post>([])
+    const [currentUserPosts, setCurrentUserPosts] = useState<Post[]>([])
 
     const { isAuthenticated, uid, email, fullName } = useAppSelector(
         (state) => state.persistedReducer.auth

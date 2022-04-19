@@ -1,12 +1,13 @@
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import { Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
 import { Post } from '../../types'
 
 interface ProfilePageHeaderProps {
     email: string
     fullName: string | null
-    myPosts: Post[] | Post
+    myPosts: Post[]
 }
 
 function ProfilePageHeader({
@@ -14,25 +15,44 @@ function ProfilePageHeader({
     fullName,
     myPosts,
 }: ProfilePageHeaderProps): JSX.Element {
-    console.log(myPosts)
     return (
-        <Box>
-            <Stack>
-                <img alt="" />
+        <Box
+            sx={{
+                display: 'flex',
+                flexFlow: 'column wrap',
+                alignItems: 'center',
+            }}
+        >
+            <Stack marginLeft={0.7} spacing={2} marginTop={1.5}>
+                <Avatar
+                    src="/broken-image.jpg"
+                    sx={{ width: '100px', height: '100px' }}
+                />
                 <Typography>{fullName || email}</Typography>
             </Stack>
-            <Stack>
-                <Stack>
-                    <Typography />
-                    <Typography />
+            <Stack
+                direction="row"
+                marginTop={3}
+                divider={<Divider orientation="vertical" flexItem />}
+                spacing={3}
+            >
+                <Stack spacing={1}>
+                    <Typography align="center" sx={{ fontSize: '1em' }}>
+                        {myPosts.length}
+                    </Typography>
+                    <Typography sx={{ fontSize: '1em' }}>Posts</Typography>
                 </Stack>
-                <Stack>
-                    <Typography />
-                    <Typography />
+                <Stack spacing={1}>
+                    <Typography align="center" sx={{ fontSize: '1' }}>
+                        {myPosts.length}
+                    </Typography>
+                    <Typography sx={{ fontSize: '1em' }}>Followers</Typography>
                 </Stack>
-                <Stack>
-                    <Typography />
-                    <Typography />
+                <Stack spacing={1}>
+                    <Typography align="center" sx={{ fontSize: '1' }}>
+                        {myPosts.length}
+                    </Typography>
+                    <Typography sx={{ fontSize: '1' }}>Followed</Typography>
                 </Stack>
             </Stack>
         </Box>
