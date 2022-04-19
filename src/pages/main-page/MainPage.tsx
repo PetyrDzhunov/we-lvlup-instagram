@@ -6,7 +6,7 @@ const HomePage = React.lazy(() => import('../home-page/HomePage'))
 
 function MainPage(): JSX.Element {
     const isAuthenticated = useAppSelector(
-        (state) => state.auth.isAuthenticated
+        (state) => state.persistedReducer.auth.isAuthenticated
     )
     return (
         <>

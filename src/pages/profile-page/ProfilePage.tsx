@@ -10,7 +10,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
 
     const isAuthenticated = useAppSelector(
-        (state) => state.auth.isAuthenticated
+        (state) => state.persistedReducer.auth.isAuthenticated
     )
 
     useEffect(() => {

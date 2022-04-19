@@ -6,6 +6,7 @@ import {
     getDocs,
 } from 'firebase/firestore/lite'
 import { db } from '../config/firebase'
+import { Post } from '../types'
 
 const addUserToFirebaseDB = async (
     email: string,
@@ -47,7 +48,24 @@ const addUserToFirebaseDBLoggedInWithFacebook = async (
     }
 }
 
+const createPost = async (post: Post): Promise<void> => {
+    await addDoc(collection(db, 'posts'), {
+        post,
+    })
+}
+
+const getAllPosts = async (): Promise<Post[]> => {
+    const posts = await getDocs(collection(db, 'posts'))
+    const allPosts: Post[] = []
+    posts.forEach((post) => {
+        allPosts.push(post.data().post)
+    })
+    return allPosts
+}
+
 export const firebaseService = {
     addUserToFirebaseDB,
     addUserToFirebaseDBLoggedInWithFacebook,
+    createPost,
+    getAllPosts,
 }
