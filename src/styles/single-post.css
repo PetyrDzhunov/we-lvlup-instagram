@@ -5,9 +5,8 @@
 
 .single-post__image--small {
     height: 120px;
-    width: 42%;
+    width: 30%;
     object-fit: contain;
-    margin-left: 12px;
-    margin-right: 12px;
     margin-top: 8px;
+    margin: 2px
 }
