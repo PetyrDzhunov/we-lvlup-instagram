@@ -61,6 +61,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             dislikes: [],
                             comments: [],
                             image: url,
+                            id: '',
                         }
                         firebaseService
                             .createPost(newPost)
@@ -71,9 +72,9 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             })
                             .catch((err) => setError(err.message))
                     })
-                    .catch((err) => setError(err))
+                    .catch((err) => setError(err.message))
             })
-            .catch((err) => setError(err))
+            .catch((err) => setError(err.message))
     }
 
     const removeFileHandler = (): void => {

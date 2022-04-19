@@ -19,5 +19,6 @@ export interface Post {
     dislikes: string[]
     comments: Comment[]
     image: string
+    id: string
     description?: string
 }

@@ -58,7 +58,7 @@ const getAllPosts = async (): Promise<Post[]> => {
     const posts = await getDocs(collection(db, 'posts'))
     const allPosts: Post[] = []
     posts.forEach((post) => {
-        allPosts.push(post.data().post)
+        allPosts.push({ ...post.data().post, id: post.id })
     })
     return allPosts
 }
