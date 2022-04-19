@@ -14,7 +14,7 @@ function SinglePostHeader({ creator }: SinglePostHeaderProps): JSX.Element {
             alignItems="center"
             direction="row"
             spacing={2}
-            sx={{ width: '100%', marginBottom: '8px' }}
+            sx={{ width: '100%', marginBottom: '8px', marginLeft: '4px' }}
         >
             <Avatar {...stringAvatar(creator)} />
             <Typography sx={{ fontWeight: 'bolder', marginBottom: '4px' }}>

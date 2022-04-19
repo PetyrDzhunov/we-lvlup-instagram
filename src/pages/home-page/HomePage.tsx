@@ -12,7 +12,6 @@ import { PageProps, Post } from '../../types'
 function HomePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
     const [posts, setPosts] = useState<Post[]>([])
-    console.log(posts)
 
     const isAuthenticated = useAppSelector(
         (state) => state.persistedReducer.auth.isAuthenticated

@@ -1,17 +1,32 @@
 import Box from '@mui/material/Box'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
-import { PageProps } from '../../types'
+import { firebaseService } from '../../services/firebase-service'
+import { PageProps, Post } from '../../types'
+import ProfilePageHeader from './ProfilePageHeader'
 
 function ProfilePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
+    const [currentUserPosts, setCurrentUserPosts] = useState<Post[] | Post>([])
 
-    const isAuthenticated = useAppSelector(
-        (state) => state.persistedReducer.auth.isAuthenticated
+    const { isAuthenticated, uid, email, fullName } = useAppSelector(
+        (state) => state.persistedReducer.auth
     )
+
+    useEffect(() => {
+        const getMyPosts = async (): Promise<void> => {
+            try {
+                const posts = await firebaseService.getAllPostsByUserID(uid)
+                setCurrentUserPosts(posts)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getMyPosts()
+    }, [uid])
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -25,15 +40,11 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                 <title>{title}</title>
             </Helmet>
             <Box>
-                Profile Page
-                <p>Hello this is the Profile page</p>
-                <p>Hello this is the Profile page</p>
-                <p>Hello this is the Profile page</p>
-                <p>Hello this is the Profile page</p>
-                <p>Hello this is the Profile page</p>
-                <p>Hello this is the Profile page</p>
-                <p>Hello this is the Profile page</p>
-                <p>Hello this is the Profile page</p>
+                <ProfilePageHeader
+                    email={email}
+                    fullName={fullName}
+                    myPosts={currentUserPosts}
+                />
             </Box>
         </PageLayout>
     )

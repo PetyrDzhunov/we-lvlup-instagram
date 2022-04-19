@@ -4,6 +4,8 @@ import {
     query,
     where,
     getDocs,
+    QuerySnapshot,
+    DocumentData,
 } from 'firebase/firestore/lite'
 import { db } from '../config/firebase'
 import { Post } from '../types'
@@ -54,8 +56,7 @@ const createPost = async (post: Post): Promise<void> => {
     })
 }
 
-const getAllPosts = async (): Promise<Post[]> => {
-    const posts = await getDocs(collection(db, 'posts'))
+const getFilteredPosts = (posts: QuerySnapshot<DocumentData>): Post[] => {
     const allPosts: Post[] = []
     posts.forEach((post) => {
         allPosts.push({ ...post.data().post, id: post.id })
@@ -63,9 +64,24 @@ const getAllPosts = async (): Promise<Post[]> => {
     return allPosts
 }
 
+const getAllPosts = async (): Promise<Post[]> => {
+    const posts = await getDocs(collection(db, 'posts'))
+    return getFilteredPosts(posts)
+}
+
+const getAllPostsByUserID = async (uid: string): Promise<Post[]> => {
+    const q = query(
+        collection(db, 'posts'),
+        where('post.creator.uid', '==', uid)
+    )
+    const posts = await getDocs(q)
+    return getFilteredPosts(posts)
+}
+
 export const firebaseService = {
     addUserToFirebaseDB,
     addUserToFirebaseDBLoggedInWithFacebook,
     createPost,
     getAllPosts,
+    getAllPostsByUserID,
 }

@@ -14,6 +14,7 @@ import { useAppDispatch } from '../../hooks/redux-hooks'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
 import { login } from '../../store/auth/authSlice'
+// import { firebaseService } from '../../services/firebase-service'
 
 interface LoginFormInputs {
     email: string
@@ -32,26 +33,34 @@ function LoginForm(): JSX.Element {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const [error, setError] = useState<string>('')
-    const [isRegistering, setIsRegistering] = useState<boolean>(false)
+    const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false)
 
     const formSubmitHandler: SubmitHandler<LoginFormInputs> = async (
         data: LoginFormInputs
     ) => {
         const { email, password } = data
         try {
-            setIsRegistering(true)
+            setIsLoggingIn(true)
             const response = await signInWithEmailAndPassword(
                 auth,
                 email,
                 password
             )
+            console.log(response)
             // later maybe send some data to the login dispatch as a payload to hold the logged in user data
-            dispatch(login({ email, uid: response.user.uid }))
-            setIsRegistering(false)
+            // await firebaseService.getUserByUID
+            dispatch(
+                login({
+                    email,
+                    uid: response.user.uid,
+                    fullName: response.user.displayName!,
+                })
+            )
+            setIsLoggingIn(false)
 
             navigate('/')
         } catch (err: unknown) {
-            setIsRegistering(false)
+            setIsLoggingIn(false)
 
             if (err instanceof FirebaseError) {
                 if (err.code.includes('auth/user-not-found')) {
@@ -112,7 +121,7 @@ function LoginForm(): JSX.Element {
                         {error}
                     </Typography>
                 )}
-                {isRegistering && (
+                {isLoggingIn && (
                     <Box
                         sx={{
                             display: 'flex',

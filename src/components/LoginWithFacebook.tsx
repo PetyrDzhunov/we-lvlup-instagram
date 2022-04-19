@@ -60,6 +60,7 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
             const userObject = {
                 email: result.user.email!,
                 uid: result.user.uid,
+                fullName: result.user.displayName!,
             }
             dispatch(login(userObject))
             setIsRegistering(false)

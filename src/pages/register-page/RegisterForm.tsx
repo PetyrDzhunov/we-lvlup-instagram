@@ -51,13 +51,14 @@ function RegisterForm(): JSX.Element {
             const {
                 user: { uid },
             } = await createUserWithEmailAndPassword(auth, email, password)
+
             await firebaseService.addUserToFirebaseDB(
                 email,
                 fullName,
                 username,
                 uid
             )
-            dispatch(login({ email, uid }))
+            dispatch(login({ email, uid, fullName }))
             setIsRegistering(false)
             navigate('/')
         } catch (err: unknown) {
