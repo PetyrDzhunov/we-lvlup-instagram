@@ -91,7 +91,7 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
                     margin: '20px',
                 }}
             >
-                <Button variant="contained">
+                <Button variant="contained" disabled={isRegistering}>
                     <Box
                         onClick={loginWithFacebookHandler}
                         component="article"
@@ -120,29 +120,31 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
         )
     }
     return (
-        <Box
-            onClick={loginWithFacebookHandler}
-            component="article"
-            sx={{
-                display: 'flex',
-                flexFlow: 'row wrap',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: '15px',
-            }}
-        >
-            <FacebookIcon color="primary" />
-            <Typography
-                paragraph
-                variant="body2"
-                margin="10px"
-                sx={{ fontWeight: 'bold', color: '#385185' }}
+        <Button disabled={isRegistering}>
+            <Box
+                onClick={loginWithFacebookHandler}
+                component="article"
+                sx={{
+                    display: 'flex',
+                    flexFlow: 'row wrap',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '15px',
+                }}
             >
-                Влизане с Facebook
-            </Typography>
-            {displayError}
-            {LoadingSpinner}
-        </Box>
+                <FacebookIcon color="primary" />
+                <Typography
+                    paragraph
+                    variant="body2"
+                    margin="10px"
+                    sx={{ fontWeight: 'bold', color: '#385185' }}
+                >
+                    Влизане с Facebook
+                </Typography>
+                {displayError}
+                {LoadingSpinner}
+            </Box>
+        </Button>
     )
 }
 

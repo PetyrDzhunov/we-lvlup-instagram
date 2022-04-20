@@ -107,6 +107,7 @@ function LoginForm(): JSX.Element {
                     variant="contained"
                     fullWidth
                     color="primary"
+                    disabled={isLoggingIn}
                 >
                     Вход
                 </Button>

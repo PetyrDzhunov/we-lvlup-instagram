@@ -134,6 +134,7 @@ function RegisterForm(): JSX.Element {
                     variant="contained"
                     fullWidth
                     color="primary"
+                    disabled={isRegistering}
                 >
                     Напред
                 </Button>
