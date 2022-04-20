@@ -145,6 +145,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                         </Box>
                     )}
                 </div>
+
                 {selectedFile && (
                     <img
                         className="image-preview"
@@ -152,33 +153,29 @@ function UploadPage({ title }: PageProps): JSX.Element {
                         alt="Preview of your choice"
                     />
                 )}
-                <ButtonGroup
-                    variant="outlined"
-                    sx={{
-                        position: 'absolute',
-                        bottom: '65px',
-                    }}
-                >
-                    <Button
-                        onClick={addFileToDatabaseHandler}
-                        sx={{
-                            textTransform: 'lowercase',
-                            fontWeight: 'bold',
-                        }}
-                        disabled={isLoading}
-                    >
-                        Качете снимката
-                    </Button>
-                    <Button
-                        onClick={removeFileHandler}
-                        sx={{
-                            textTransform: 'lowercase',
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        Махнете снимката
-                    </Button>
-                </ButtonGroup>
+                {selectedFile && (
+                    <ButtonGroup variant="outlined">
+                        <Button
+                            onClick={addFileToDatabaseHandler}
+                            sx={{
+                                textTransform: 'lowercase',
+                                fontWeight: 'bold',
+                            }}
+                            disabled={isLoading}
+                        >
+                            Качете снимката
+                        </Button>
+                        <Button
+                            onClick={removeFileHandler}
+                            sx={{
+                                textTransform: 'lowercase',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            Махнете снимката
+                        </Button>
+                    </ButtonGroup>
+                )}
             </Box>
         </PageLayout>
     )
