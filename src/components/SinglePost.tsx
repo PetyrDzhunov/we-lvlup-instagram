@@ -15,7 +15,7 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
             sx={{
                 display: 'flex',
                 flexFlow: 'column wrap',
-                width: '100%',
+                width: '96%',
                 margin: '20px auto',
                 padding: '0px',
             }}

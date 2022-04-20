@@ -13,8 +13,8 @@ import { Post } from '../types'
 const addUserToFirebaseDB = async (
     email: string,
     fullName: string,
-    authID: string,
-    username: string
+    username: string,
+    authID: string
 ): Promise<void> => {
     await addDoc(collection(db, 'users'), {
         email,
@@ -48,6 +48,19 @@ const addUserToFirebaseDBLoggedInWithFacebook = async (
             followers: [],
         })
     }
+}
+
+// generic function getFiltereResponse (collection,query)
+
+const getUserById = async (id: string): Promise<DocumentData> => {
+    const q = query(collection(db, 'users'), where('authID', '==', id))
+    const users = await getDocs(q)
+    let currentUser: any
+    users.forEach((user) => {
+        currentUser = user.data()
+    })
+    return currentUser
+    // return user
 }
 
 const createPost = async (post: Post): Promise<void> => {
@@ -84,4 +97,5 @@ export const firebaseService = {
     createPost,
     getAllPosts,
     getAllPostsByUserID,
+    getUserById,
 }

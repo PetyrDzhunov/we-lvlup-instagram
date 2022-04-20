@@ -50,6 +50,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                     email={email}
                     fullName={fullName}
                     myPosts={currentUserPosts}
+                    uid={uid}
                 />
                 <Box
                     sx={{
