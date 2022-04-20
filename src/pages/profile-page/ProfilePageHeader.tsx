@@ -10,13 +10,14 @@ import {
     Typography,
 } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { doc, updateDoc } from 'firebase/firestore/lite'
+import { doc, DocumentData, updateDoc } from 'firebase/firestore/lite'
 import { Post } from '../../types'
 import '../../styles/file-input.css'
 import { db, storage } from '../../config/firebase'
 import { firebaseService } from '../../services/firebase-service'
+import { useAppSelector } from '../../hooks/redux-hooks'
 
 interface ProfilePageHeaderProps {
     email: string
@@ -37,6 +38,27 @@ function ProfilePageHeader({
     const [error, setError] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [hasUploaded, setHasUploaded] = useState<boolean>(false)
+
+    const userID = useAppSelector((state) => state.persistedReducer.auth.uid)
+
+    const [user, setUser] = useState<DocumentData>()
+
+    useEffect(() => {
+        const getUser = async (): Promise<void> => {
+            const currentUser = await firebaseService.getUserById(userID)
+            setUser(currentUser)
+        }
+        getUser()
+    }, [userID])
+
+    let imageSrc
+    if (selectedProfilePicture) {
+        imageSrc = URL.createObjectURL(selectedProfilePicture)
+    } else if (!selectedProfilePicture && !hasUploaded) {
+        imageSrc = user?.profileImage
+    } else {
+        imageSrc = '/broken-image.jpg'
+    }
 
     const handleFileChange = (e: Event): void => {
         const input = e.target as HTMLInputElement
@@ -59,9 +81,7 @@ function ProfilePageHeader({
             setIsLoading(true)
             await uploadBytes(storageRef, selectedProfilePicture as Blob)
             const downloadUrl = await getDownloadURL(storageRef)
-            console.log(downloadUrl)
             const currentUser = await firebaseService.getUserById(uid)
-            console.log(currentUser)
             const currUserRef = doc(db, 'users', currentUser.docID)
             await updateDoc(currUserRef, {
                 profileImage: downloadUrl,
@@ -97,13 +117,7 @@ function ProfilePageHeader({
                 <label htmlFor="userImage">
                     <IconButton component="span" aria-label="upload picture">
                         <Avatar
-                            src={
-                                selectedProfilePicture
-                                    ? URL.createObjectURL(
-                                          selectedProfilePicture
-                                      )
-                                    : '/broken-image'
-                            }
+                            src={imageSrc}
                             sx={{ width: '100px', height: '100px' }}
                         />
                     </IconButton>
