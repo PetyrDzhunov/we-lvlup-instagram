@@ -2,6 +2,8 @@
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import {
+    Button,
+    ButtonGroup,
     CircularProgress,
     Divider,
     IconButton,
@@ -10,9 +12,10 @@ import {
 import Avatar from '@mui/material/Avatar'
 import { useState } from 'react'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { doc, updateDoc } from 'firebase/firestore/lite'
 import { Post } from '../../types'
 import '../../styles/file-input.css'
-import { storage } from '../../config/firebase'
+import { db, storage } from '../../config/firebase'
 import { firebaseService } from '../../services/firebase-service'
 
 interface ProfilePageHeaderProps {
@@ -33,12 +36,17 @@ function ProfilePageHeader({
 
     const [error, setError] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [hasUploaded, setHasUploaded] = useState<boolean>(false)
 
     const handleFileChange = (e: Event): void => {
         const input = e.target as HTMLInputElement
         if (input.files && input.files.length > 0) {
             setSelectedProfilePicture(input.files[0])
         }
+    }
+
+    const removeImageHandler = (): void => {
+        setSelectedProfilePicture(null)
     }
 
     const handleCreateProfilePicture = async (): Promise<void> => {
@@ -54,8 +62,14 @@ function ProfilePageHeader({
             console.log(downloadUrl)
             const currentUser = await firebaseService.getUserById(uid)
             console.log(currentUser)
+            const currUserRef = doc(db, 'users', currentUser.docID)
+            await updateDoc(currUserRef, {
+                profileImage: downloadUrl,
+            })
+            setHasUploaded(true)
             setIsLoading(false)
         } catch (err) {
+            console.log(err)
             setIsLoading(false)
             setError('Something went wrong.')
         }
@@ -81,11 +95,7 @@ function ProfilePageHeader({
                     }}
                 />
                 <label htmlFor="userImage">
-                    <IconButton
-                        component="span"
-                        aria-label="upload picture"
-                        onClick={handleCreateProfilePicture}
-                    >
+                    <IconButton component="span" aria-label="upload picture">
                         <Avatar
                             src={
                                 selectedProfilePicture
@@ -98,6 +108,7 @@ function ProfilePageHeader({
                         />
                     </IconButton>
                 </label>
+
                 {error && (
                     <Typography
                         align="center"
@@ -121,6 +132,12 @@ function ProfilePageHeader({
                 )}
                 <Typography>{fullName || email}</Typography>
             </Stack>
+            {selectedProfilePicture && !hasUploaded && (
+                <ButtonGroup sx={{ marginTop: '16px' }}>
+                    <Button onClick={handleCreateProfilePicture}>Запази</Button>
+                    <Button onClick={removeImageHandler}>Премахни</Button>
+                </ButtonGroup>
+            )}
             <Stack
                 direction="row"
                 marginTop={3}

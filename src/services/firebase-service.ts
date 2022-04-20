@@ -26,11 +26,9 @@ const addUserToFirebaseDB = async (
 }
 
 const checkIfUserExistsInDb = async (id: string): Promise<boolean> => {
-    // check in the users collection if there's an authID === id we sending if it is don't add him to to db
     const q = query(collection(db, 'users'), where('authID', '==', id))
     const querySnapshot = await getDocs(q)
     if (querySnapshot.empty) {
-        // if there's no user found with that query it's ok to add the user in the users collection
         return true
     }
     return false
@@ -57,10 +55,9 @@ const getUserById = async (id: string): Promise<DocumentData> => {
     const users = await getDocs(q)
     let currentUser: any
     users.forEach((user) => {
-        currentUser = user.data()
+        currentUser = { ...user.data(), docID: user.id }
     })
     return currentUser
-    // return user
 }
 
 const createPost = async (post: Post): Promise<void> => {

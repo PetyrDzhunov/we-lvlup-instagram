@@ -13,6 +13,8 @@ type Comment = {
     comment: string
 }
 
+// type Follower = string
+
 export interface Post {
     creator: PostCreator
     likes: string[]
@@ -22,3 +24,12 @@ export interface Post {
     id: string
     description?: string
 }
+
+// export interface User {
+//     authID: string
+//     email: string
+//     followers: Follower[]
+//     fullName?: string
+//     userName?: string
+//     profilePicture?: string
+// }
