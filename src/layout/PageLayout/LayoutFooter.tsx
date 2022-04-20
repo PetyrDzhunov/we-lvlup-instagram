@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar/AppBar'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
@@ -15,12 +15,26 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import Button from '@mui/material/Button'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '../../hooks/redux-hooks'
+import { DocumentData } from 'firebase/firestore/lite'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { logout } from '../../store/auth/authSlice'
+import { firebaseService } from '../../services/firebase-service'
 
 function LayoutFooter(): JSX.Element {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+
+    const uid = useAppSelector((state) => state.persistedReducer.auth.uid)
+
+    const [user, setUser] = useState<DocumentData>()
+
+    useEffect(() => {
+        const getUser = async (): Promise<void> => {
+            const currentUser = await firebaseService.getUserById(uid)
+            setUser(currentUser)
+        }
+        getUser()
+    }, [uid])
 
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
         null
@@ -75,8 +89,10 @@ function LayoutFooter(): JSX.Element {
                 <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                         <Avatar
-                            alt="Petar Dzhunov"
-                            src="https://scontent-sof1-1.xx.fbcdn.net/v/t1.6435-9/46096237_2325829154111935_8649533757222551552_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=730e14&_nc_ohc=hV28oAX0DWwAX_zyn-u&_nc_oc=AQmdOiCP8hzovWuuhTyIpR3IjgdfZGafX-LREaRR_vL4NZp5db3vL9M6G0ZdThfVgo2w6fzNy5zcLEwUUQnBBRdR&_nc_ht=scontent-sof1-1.xx&oh=00_AT-K-VGKw1pjRjX4rdhvLDRLofvlyWy2vkHVrOKtCneIhA&oe=627E7ABD"
+                            alt="Profile picture of the user"
+                            src={
+                                user ? user?.profileImage : '/broken-image.jpg'
+                            }
                         />
                     </IconButton>
                 </Tooltip>
