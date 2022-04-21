@@ -7,6 +7,12 @@ import Typography from '@mui/material/Typography'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import { useEffect, useState } from 'react'
 import ButtonGroup from '@mui/material/ButtonGroup'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import TextField from '@mui/material/TextField'
+import DialogActions from '@mui/material/DialogActions'
 import { useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -25,6 +31,9 @@ function UploadPage({ title }: PageProps): JSX.Element {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
+    const [open, setOpen] = useState<boolean>(false)
+    const [description, setDescription] = useState<string>('')
+    const [hasSetDescription, setHasDescription] = useState<boolean>(false)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
@@ -36,6 +45,26 @@ function UploadPage({ title }: PageProps): JSX.Element {
             return navigate('/')
         }
     }, [isAuthenticated, navigate])
+
+    const handleClickOpen = (): void => {
+        setOpen(true)
+    }
+
+    const handleClose = (): void => {
+        setOpen(false)
+    }
+
+    const handleAddText = async (): Promise<void> => {
+        setOpen(false)
+        // add the description field to the current post
+        setHasDescription(true)
+    }
+
+    const handleDescriptionChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ): void => {
+        setDescription(e.target.value)
+    }
 
     const handleFileChange = (e: Event): void => {
         const input = e.target as HTMLInputElement
@@ -62,6 +91,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             comments: [],
                             image: url,
                             id: '',
+                            description,
                         }
                         firebaseService
                             .createPost(newPost)
@@ -79,6 +109,8 @@ function UploadPage({ title }: PageProps): JSX.Element {
 
     const removeFileHandler = (): void => {
         setSelectedFile(null)
+        setDescription('')
+        setHasDescription(false)
     }
 
     return (
@@ -128,6 +160,31 @@ function UploadPage({ title }: PageProps): JSX.Element {
                         }}
                     />
                     <label htmlFor="userImage">Изберете файл</label>
+                    <Dialog open={open} onClose={handleClose}>
+                        <DialogTitle>Subscribe</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Добави описание за твоя пост тук
+                            </DialogContentText>
+                            <TextField
+                                onChange={handleDescriptionChange}
+                                multiline
+                                autoFocus
+                                margin="dense"
+                                id="description"
+                                label="Описание"
+                                type="email"
+                                fullWidth
+                                variant="standard"
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>Назад</Button>
+                            <Button onClick={handleAddText}>
+                                Добави описание
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                     {error && (
                         <Typography
                             align="center"
@@ -153,26 +210,39 @@ function UploadPage({ title }: PageProps): JSX.Element {
                         alt="Preview of your choice"
                     />
                 )}
+                {hasSetDescription && <Typography>{description}</Typography>}
                 {selectedFile && (
-                    <ButtonGroup variant="outlined">
+                    <ButtonGroup variant="contained">
                         <Button
                             onClick={addFileToDatabaseHandler}
                             sx={{
                                 textTransform: 'lowercase',
                                 fontWeight: 'bold',
+                                margin: '4px',
                             }}
                             disabled={isLoading}
                         >
-                            Качете снимката
+                            качи
+                        </Button>
+                        <Button
+                            onClick={handleClickOpen}
+                            sx={{
+                                textTransform: 'lowercase',
+                                fontWeight: 'bold',
+                                margin: '4px',
+                            }}
+                        >
+                            Опиши
                         </Button>
                         <Button
                             onClick={removeFileHandler}
                             sx={{
                                 textTransform: 'lowercase',
                                 fontWeight: 'bold',
+                                margin: '4px',
                             }}
                         >
-                            Махнете снимката
+                            Премахни
                         </Button>
                     </ButtonGroup>
                 )}

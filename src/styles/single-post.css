@@ -1,11 +1,11 @@
 .single-post__image {
     height: 250px;
-    width: 102%;
+    width: 104.2%
 }
 
 .single-post__image--small {
     width: 32%;
-    object-fit: contain;
+    object-fit: cover;
     margin-top: 8px;
     margin: 2px;
 }

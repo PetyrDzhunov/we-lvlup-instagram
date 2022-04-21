@@ -4,13 +4,17 @@ import Toolbar from '@mui/material/Toolbar'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import CommentIcon from '@mui/icons-material/Comment'
 import ShareIcon from '@mui/icons-material/Share'
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 interface SinglePostFooterProps {
     likes: number
+    description?: string
 }
 
-function SinglePostFooter({ likes }: SinglePostFooterProps): JSX.Element {
+function SinglePostFooter({
+    likes,
+    description,
+}: SinglePostFooterProps): JSX.Element {
     return (
         <AppBar
             elevation={0}
@@ -47,6 +51,20 @@ function SinglePostFooter({ likes }: SinglePostFooterProps): JSX.Element {
             >
                 {likes} харесвания
             </Typography>
+            {description && (
+                <Typography
+                    variant="body2"
+                    paragraph
+                    sx={{
+                        color: '#000000',
+                        fontWeight: '600',
+                        marginTop: '4px',
+                        marginLeft: '10px',
+                    }}
+                >
+                    {description}
+                </Typography>
+            )}
         </AppBar>
     )
 }
