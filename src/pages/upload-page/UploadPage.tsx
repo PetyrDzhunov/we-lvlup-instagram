@@ -89,7 +89,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             dislikes: [],
                             comments: [],
                             image: url,
-                            id: '44',
+                            id: '',
                             description,
                         }
                         firebaseService

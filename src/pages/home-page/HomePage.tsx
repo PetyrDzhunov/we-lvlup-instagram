@@ -37,7 +37,6 @@ function HomePage({ title }: PageProps): JSX.Element {
         }
         getPosts()
     }, [dispatch])
-    console.log(posts)
     return (
         <PageLayout>
             <Helmet>

@@ -26,6 +26,11 @@ function SinglePostFooter({
     const currentPost = useAppSelector((state) =>
         state.posts.allPosts.find((post) => post.id === postID)
     )
+
+    const hasBeenLikedByCurrentUser = currentPost?.likes.some(
+        (like) => like === loggedInUserID
+    )
+
     const [error, setError] = useState<string>('')
     const dispatch = useAppDispatch()
     const [hasLiked, setHasLiked] = useState<boolean>(false)
@@ -52,7 +57,7 @@ function SinglePostFooter({
             }}
         >
             <Toolbar sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                {!hasLiked && (
+                {!hasBeenLikedByCurrentUser && (
                     <IconButton onClick={handleLike}>
                         <FavoriteBorderIcon
                             fontSize="medium"
@@ -60,7 +65,15 @@ function SinglePostFooter({
                         />
                     </IconButton>
                 )}
-                {hasLiked && (
+                {hasLiked && hasBeenLikedByCurrentUser && (
+                    <IconButton onClick={handleLike}>
+                        <FavoriteIcon
+                            fontSize="medium"
+                            sx={{ color: '#FF0000' }}
+                        />
+                    </IconButton>
+                )}
+                {hasBeenLikedByCurrentUser && (
                     <IconButton onClick={handleLike}>
                         <FavoriteIcon
                             fontSize="medium"
