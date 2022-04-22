@@ -3,36 +3,37 @@ import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
 import SinglePostImage from '../../components/SinglePostImage'
-import { useAppSelector } from '../../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
-import { firebaseService } from '../../services/firebase-service'
-import { PageProps, Post } from '../../types'
+import { PageProps } from '../../types'
 import ProfilePageHeader from './ProfilePageHeader'
 import '../../styles/single-post.css'
 import ProfilePageSkeleton from './ProfilePageSkeleton'
+import { loadAllPosts } from '../../store/posts/postsSlice'
+import { firebaseService } from '../../services/firebase-service'
 
 function ProfilePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
-    const [currentUserPosts, setCurrentUserPosts] = useState<Post[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
-
     const { isAuthenticated, uid, email, fullName } = useAppSelector(
         (state) => state.persistedReducer.auth
     )
 
+    const dispatch = useAppDispatch()
+
     useEffect(() => {
-        const getMyPosts = async (): Promise<void> => {
+        const getPosts = async (): Promise<void> => {
             setIsLoading(true)
-            try {
-                const posts = await firebaseService.getAllPostsByUserID(uid)
-                setCurrentUserPosts(posts)
-            } catch (err) {
-                console.log(err)
-            }
+            const allPosts = await firebaseService.getAllPosts()
+            dispatch(loadAllPosts(allPosts))
             setIsLoading(false)
         }
-        getMyPosts()
-    }, [uid])
+        getPosts()
+    }, [dispatch])
+
+    const currentUserPosts = useAppSelector((state) =>
+        state.posts.allPosts.filter((post) => post.creator.uid === uid)
+    )
 
     useEffect(() => {
         if (!isAuthenticated) {

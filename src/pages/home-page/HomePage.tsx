@@ -8,12 +8,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { firebaseService } from '../../services/firebase-service'
 import { loadAllPosts } from '../../store/posts/postsSlice'
-import { PageProps, Post } from '../../types'
+import { PageProps } from '../../types'
 import PostsSkeleton from './PostsSkeleton'
 
 function HomePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
-    const [posts, setPosts] = useState<Post[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const isAuthenticated = useAppSelector(
@@ -31,12 +30,13 @@ function HomePage({ title }: PageProps): JSX.Element {
         const getPosts = async (): Promise<void> => {
             setIsLoading(true)
             const allPosts = await firebaseService.getAllPosts()
-            setPosts(allPosts)
             dispatch(loadAllPosts(allPosts))
             setIsLoading(false)
         }
         getPosts()
     }, [dispatch])
+
+    const allPosts = useAppSelector((state) => state.posts.allPosts)
     return (
         <PageLayout>
             <Helmet>
@@ -45,7 +45,7 @@ function HomePage({ title }: PageProps): JSX.Element {
             <Box>
                 {isLoading && <PostsSkeleton />}
                 <List sx={{ padding: '0px', marginTop: '70px' }}>
-                    {posts.map((post) => (
+                    {allPosts.map((post) => (
                         <SinglePost key={post.id} post={post} />
                     ))}
                 </List>
