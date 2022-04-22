@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
 import SinglePost from '../../components/SinglePost'
-import { useAppSelector } from '../../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { firebaseService } from '../../services/firebase-service'
+import { loadAllPosts } from '../../store/posts/postsSlice'
 import { PageProps, Post } from '../../types'
 import PostsSkeleton from './PostsSkeleton'
 
@@ -18,6 +19,7 @@ function HomePage({ title }: PageProps): JSX.Element {
     const isAuthenticated = useAppSelector(
         (state) => state.persistedReducer.auth.isAuthenticated
     )
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -30,11 +32,12 @@ function HomePage({ title }: PageProps): JSX.Element {
             setIsLoading(true)
             const allPosts = await firebaseService.getAllPosts()
             setPosts(allPosts)
+            dispatch(loadAllPosts(allPosts))
             setIsLoading(false)
         }
         getPosts()
-    }, [])
-
+    }, [dispatch])
+    console.log(posts)
     return (
         <PageLayout>
             <Helmet>

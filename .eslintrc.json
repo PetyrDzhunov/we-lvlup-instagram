@@ -76,7 +76,8 @@
 		 "react/prop-types":"off",
 		 "react/jsx-props-no-spreading" : "off",
 		 "react/require-default-props" : "off",
-		 "consistent-return" :"off"
+		 "consistent-return" :"off",
+ 		"no-param-reassign":"off"
 	},
 	"settings":{
 		 "import/resolver":{

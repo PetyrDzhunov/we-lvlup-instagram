@@ -21,8 +21,9 @@ export interface Post {
     dislikes: string[]
     comments: Comment[]
     image: string
-    id: string
+    id?: string
     description?: string
+    docID?: string
 }
 
 // export interface User {

@@ -56,7 +56,6 @@ function UploadPage({ title }: PageProps): JSX.Element {
 
     const handleAddText = async (): Promise<void> => {
         setOpen(false)
-        // add the description field to the current post
         setHasDescription(true)
     }
 
@@ -90,7 +89,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             dislikes: [],
                             comments: [],
                             image: url,
-                            id: '',
+                            id: '44',
                             description,
                         }
                         firebaseService

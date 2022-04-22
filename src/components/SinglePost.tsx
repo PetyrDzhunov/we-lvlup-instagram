@@ -45,7 +45,7 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
             />
             <SinglePostImage image={post.image} />
             <SinglePostFooter
-                likes={post.likes.length}
+                postID={post.id!}
                 description={post?.description ? post.description : ''}
             />
         </ListItem>

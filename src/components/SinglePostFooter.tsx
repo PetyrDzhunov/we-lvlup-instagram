@@ -5,16 +5,40 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import CommentIcon from '@mui/icons-material/Comment'
 import ShareIcon from '@mui/icons-material/Share'
 import Typography from '@mui/material/Typography'
+import { useState } from 'react'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
+import { likeDislikePost } from '../store/posts/postsSlice'
+import { firebaseService } from '../services/firebase-service'
 
 interface SinglePostFooterProps {
-    likes: number
+    postID: string
     description?: string
 }
 
 function SinglePostFooter({
-    likes,
+    postID,
     description,
 }: SinglePostFooterProps): JSX.Element {
+    const loggedInUserID = useAppSelector(
+        (state) => state.persistedReducer.auth.uid
+    )
+    const currentPost = useAppSelector((state) =>
+        state.posts.allPosts.find((post) => post.id === postID)
+    )
+    const [error, setError] = useState<string>('')
+    const dispatch = useAppDispatch()
+    const [hasLiked, setHasLiked] = useState<boolean>(false)
+    const handleLike = async (): Promise<void> => {
+        dispatch(likeDislikePost({ id: postID, user: loggedInUserID }))
+        try {
+            setHasLiked((prev) => !prev)
+            await firebaseService.addLikeToPost(postID, loggedInUserID)
+        } catch (err) {
+            setError('Something went wrong')
+        }
+    }
+
     return (
         <AppBar
             elevation={0}
@@ -28,12 +52,23 @@ function SinglePostFooter({
             }}
         >
             <Toolbar sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                <IconButton>
-                    <FavoriteBorderIcon
-                        fontSize="medium"
-                        sx={{ color: '#000000' }}
-                    />
-                </IconButton>
+                {!hasLiked && (
+                    <IconButton onClick={handleLike}>
+                        <FavoriteBorderIcon
+                            fontSize="medium"
+                            sx={{ color: '#000000' }}
+                        />
+                    </IconButton>
+                )}
+                {hasLiked && (
+                    <IconButton onClick={handleLike}>
+                        <FavoriteIcon
+                            fontSize="medium"
+                            sx={{ color: '#FF0000' }}
+                        />
+                    </IconButton>
+                )}
+
                 <IconButton>
                     <CommentIcon fontSize="medium" sx={{ color: '#000000' }} />
                 </IconButton>
@@ -49,8 +84,20 @@ function SinglePostFooter({
                     fontWeight: '600',
                 }}
             >
-                {likes} харесвания
+                {currentPost?.likes.length} харесвания
             </Typography>
+            {error && (
+                <Typography
+                    align="center"
+                    color="error"
+                    variant="body2"
+                    sx={{ fontWeight: 'bolder', marginTop: '10px' }}
+                    paragraph
+                >
+                    {error}
+                </Typography>
+            )}
+
             {description && (
                 <Typography
                     variant="body2"
