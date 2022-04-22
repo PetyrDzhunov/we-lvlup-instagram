@@ -12,6 +12,8 @@ import ProfilePageSkeleton from './ProfilePageSkeleton'
 import { loadAllPosts } from '../../store/posts/postsSlice'
 import { firebaseService } from '../../services/firebase-service'
 
+let isInitial = true
+
 function ProfilePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -24,9 +26,11 @@ function ProfilePage({ title }: PageProps): JSX.Element {
     useEffect(() => {
         const getPosts = async (): Promise<void> => {
             setIsLoading(true)
+            isInitial = false
             const allPosts = await firebaseService.getAllPosts()
             dispatch(loadAllPosts(allPosts))
             setIsLoading(false)
+            console.log('here')
         }
         getPosts()
     }, [dispatch])
@@ -71,7 +75,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                     ))}
                 </Box>
             </Box>
-            {isLoading && <ProfilePageSkeleton />}
+            {isLoading && isInitial && <ProfilePageSkeleton />}
         </PageLayout>
     )
 }
