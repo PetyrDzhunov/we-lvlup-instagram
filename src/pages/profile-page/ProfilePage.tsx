@@ -30,7 +30,6 @@ function ProfilePage({ title }: PageProps): JSX.Element {
             const allPosts = await firebaseService.getAllPosts()
             dispatch(loadAllPosts(allPosts))
             setIsLoading(false)
-            console.log('here')
         }
         getPosts()
     }, [dispatch])

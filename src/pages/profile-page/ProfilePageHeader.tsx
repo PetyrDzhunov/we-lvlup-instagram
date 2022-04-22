@@ -57,7 +57,7 @@ function ProfilePageHeader({
     } else if (!selectedProfilePicture && !hasUploaded) {
         imageSrc = user?.profileImage
     } else {
-        imageSrc = '/broken-image.jpg'
+        imageSrc = ''
     }
 
     const handleFileChange = (e: Event): void => {
