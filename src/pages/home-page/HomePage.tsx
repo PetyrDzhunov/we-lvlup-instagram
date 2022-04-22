@@ -11,6 +11,8 @@ import { loadAllPosts } from '../../store/posts/postsSlice'
 import { PageProps } from '../../types'
 import PostsSkeleton from './PostsSkeleton'
 
+let isInitial = true
+
 function HomePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -31,6 +33,7 @@ function HomePage({ title }: PageProps): JSX.Element {
             setIsLoading(true)
             const allPosts = await firebaseService.getAllPosts()
             dispatch(loadAllPosts(allPosts))
+            isInitial = false
             setIsLoading(false)
         }
         getPosts()
@@ -43,7 +46,7 @@ function HomePage({ title }: PageProps): JSX.Element {
                 <title>{title}</title>
             </Helmet>
             <Box>
-                {isLoading && <PostsSkeleton />}
+                {isLoading && isInitial && <PostsSkeleton />}
                 <List sx={{ padding: '0px', marginTop: '70px' }}>
                     {allPosts.map((post) => (
                         <SinglePost key={post.id} post={post} />
