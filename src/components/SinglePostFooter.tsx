@@ -33,11 +33,11 @@ function SinglePostFooter({
 
     const [error, setError] = useState<string>('')
     const dispatch = useAppDispatch()
-    const [hasLiked, setHasLiked] = useState<boolean>(false)
+    // const [hasLiked, setHasLiked] = useState<boolean>(false)
     const handleLike = async (): Promise<void> => {
         dispatch(likeDislikePost({ id: postID, user: loggedInUserID }))
         try {
-            setHasLiked((prev) => !prev)
+            // setHasLiked((prev) => !prev)
             await firebaseService.addLikeToPost(postID, loggedInUserID)
         } catch (err) {
             setError('Something went wrong')
@@ -65,14 +65,7 @@ function SinglePostFooter({
                         />
                     </IconButton>
                 )}
-                {hasLiked && hasBeenLikedByCurrentUser && (
-                    <IconButton onClick={handleLike}>
-                        <FavoriteIcon
-                            fontSize="medium"
-                            sx={{ color: '#FF0000' }}
-                        />
-                    </IconButton>
-                )}
+
                 {hasBeenLikedByCurrentUser && (
                     <IconButton onClick={handleLike}>
                         <FavoriteIcon
