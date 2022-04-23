@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { firebaseService } from '../../services/firebase-service'
 import { loadAllPosts } from '../../store/posts/postsSlice'
+import { loadAllUsers } from '../../store/users/usersSlice'
 import { PageProps } from '../../types'
 import PostsSkeleton from './PostsSkeleton'
 
@@ -32,13 +33,14 @@ function HomePage({ title }: PageProps): JSX.Element {
         const getPosts = async (): Promise<void> => {
             setIsLoading(true)
             const allPosts = await firebaseService.getAllPosts()
+            const allUsers = await firebaseService.getAllUsers()
             dispatch(loadAllPosts(allPosts))
+            dispatch(loadAllUsers(allUsers))
             isInitial = false
             setIsLoading(false)
         }
         getPosts()
     }, [dispatch])
-
     const allPosts = useAppSelector((state) => state.posts.allPosts)
     return (
         <PageLayout>

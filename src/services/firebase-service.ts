@@ -13,7 +13,7 @@ import {
 } from 'firebase/firestore/lite'
 import { v4 as uuidv4 } from 'uuid'
 import { db } from '../config/firebase'
-import { Post } from '../types'
+import { Post, User } from '../types'
 
 const addUserToFirebaseDB = async (
     email: string,
@@ -60,6 +60,16 @@ const getFilteredPosts = (posts: QuerySnapshot<DocumentData>): Post[] => {
         }
     })
     return allPosts
+}
+
+const getFilteredUsers = (users: QuerySnapshot<DocumentData>): User[] => {
+    const allUsers: User[] = []
+    users.forEach((user) => {
+        if (user.exists()) {
+            allUsers.push(user.data() as User)
+        }
+    })
+    return allUsers
 }
 
 // generic function getFiltereResponse (collection,query)
@@ -111,6 +121,10 @@ const getAllPosts = async (): Promise<Post[]> => {
     const posts = await getDocs(collection(db, 'posts'))
     return getFilteredPosts(posts)
 }
+const getAllUsers = async (): Promise<User[]> => {
+    const users = await getDocs(collection(db, 'users'))
+    return getFilteredUsers(users)
+}
 
 const getAllPostsByUserID = async (uid: string): Promise<Post[]> => {
     const q = query(
@@ -130,4 +144,5 @@ export const firebaseService = {
     getUserById,
     addLikeToPost,
     getPostById,
+    getAllUsers,
 }
