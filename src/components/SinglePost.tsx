@@ -28,7 +28,7 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
             }}
         >
             <SinglePostHeader
-                creator={post.creator.email}
+                post={post}
                 profileImage={
                     currentUser?.profileImage
                         ? currentUser?.profileImage

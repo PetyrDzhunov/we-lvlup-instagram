@@ -27,6 +27,12 @@ function SinglePostFooter({
         state.posts.allPosts.find((post) => post.id === postID)
     )
 
+    const currentPostAuthor = useAppSelector((state) =>
+        state.users.allUsers.find(
+            (currentUser) => currentUser.authID === currentPost?.creator.uid
+        )
+    )
+
     const hasBeenLikedByCurrentUser = currentPost?.likes.some(
         (like) => like === loggedInUserID
     )
@@ -53,10 +59,15 @@ function SinglePostFooter({
                 top: 'auto',
                 bottom: 0,
                 backgroundColor: '#ffffff',
-                paddingLeft: '0px',
             }}
         >
-            <Toolbar sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <Toolbar
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    padding: '0',
+                }}
+            >
                 {!hasBeenLikedByCurrentUser && (
                     <IconButton onClick={handleLike}>
                         <FavoriteBorderIcon
@@ -107,7 +118,7 @@ function SinglePostFooter({
             {description && (
                 <Typography
                     variant="body2"
-                    paragraph
+                    component="h6"
                     sx={{
                         color: '#000000',
                         fontWeight: '600',
@@ -115,7 +126,23 @@ function SinglePostFooter({
                         marginLeft: '10px',
                     }}
                 >
-                    {description}
+                    {currentPostAuthor?.userName ||
+                        currentPostAuthor?.fullName ||
+                        currentPostAuthor?.email.split('@')[0]}
+                    <Typography
+                        variant="body2"
+                        component="p"
+                        sx={{
+                            color: '#000000',
+                            fontWeight: '400',
+                            marginTop: '4px',
+                            marginLeft: '5px',
+                            display: 'inline',
+                            wordBreak: 'break-all',
+                        }}
+                    >
+                        {description}
+                    </Typography>
                 </Typography>
             )}
         </AppBar>

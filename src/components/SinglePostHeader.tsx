@@ -1,16 +1,24 @@
 import Stack from '@mui/material/Stack'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
+import { Post } from '../types'
+import { useAppSelector } from '../hooks/redux-hooks'
 
 interface SinglePostHeaderProps {
-    creator: string
     profileImage: string
+    post: Post
 }
 
 function SinglePostHeader({
-    creator,
     profileImage,
+    post,
 }: SinglePostHeaderProps): JSX.Element {
+    const currentUser = useAppSelector((state) =>
+        state.users.allUsers.find(
+            (currUser) => currUser.authID === post.creator.uid
+        )
+    )
+
     return (
         <Stack
             justifyContent="flex-start"
@@ -21,7 +29,9 @@ function SinglePostHeader({
         >
             <Avatar src={profileImage} sx={{ width: '40px', height: '40px' }} />
             <Typography sx={{ fontWeight: 'bolder', marginBottom: '4px' }}>
-                {creator.split('@')[0]}
+                {currentUser?.userName ||
+                    currentUser?.fullName ||
+                    currentUser?.email.split('@')[0]}
             </Typography>
         </Stack>
     )
