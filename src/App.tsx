@@ -1,9 +1,10 @@
 import Box from '@mui/material/Box'
-import CircularProgress from '@mui/material/CircularProgress'
 import { ReactElement, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import GuestPageFooter from './components/GuestPageFooter'
 import { routes } from './routes'
+import './styles/single-post.css'
 
 function App(): ReactElement | null {
     return (
@@ -14,9 +15,15 @@ function App(): ReactElement | null {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
+                        height: '100vh',
                     }}
                 >
-                    <CircularProgress color="info" size="2em" />
+                    <img
+                        className="single-post__image--small"
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png"
+                        alt="Instagram-logo"
+                    />
+                    <GuestPageFooter suspense />
                 </Box>
             }
         >
