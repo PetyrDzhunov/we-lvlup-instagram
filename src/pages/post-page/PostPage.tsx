@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
@@ -6,32 +7,65 @@ import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
 import Picker from 'emoji-picker-react'
 import Box from '@mui/material/Box'
+import { Button } from '@mui/material'
 import SinglePost from '../../components/SinglePost'
-import { useAppSelector } from '../../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { PageProps } from '../../types'
 import '../../styles/post-page.css'
+import { addComment } from '../../store/posts/postsSlice'
+// import CommentsSection from './CommentsSection'
 
 function PostPage({ title }: PageProps): JSX.Element {
-    const [inputStr, setInputStr] = useState('')
+    const [comment, setComment] = useState('')
     const [showPicker, setShowPicker] = useState(false)
+    const dispatch = useAppDispatch()
 
     const onEmojiClick = (
         event: React.MouseEvent<Element, MouseEvent>,
         emojiObject: any
     ): void => {
         console.log(emojiObject.emoji)
-        setInputStr((prevInput) => prevInput + emojiObject.emoji)
+        setComment((prevInput) => prevInput + emojiObject.emoji)
         setShowPicker(false)
     }
+    const { postID } = useParams()
 
-    const { isAuthenticated } = useAppSelector(
+    const { isAuthenticated, uid } = useAppSelector(
         (state) => state.persistedReducer.auth
     )
-    const { postID } = useParams()
+
     const currentPost = useAppSelector((state) =>
         state.posts.allPosts.find((post) => post.id === postID)
     )
+
+    const loggedUser = useAppSelector((state) =>
+        state.users.allUsers.find((user) => user.authID === uid)
+    )
+
+    const addCommentHandler = async (
+        event: React.MouseEvent<HTMLElement>
+    ): Promise<void> => {
+        console.log(event)
+        if (loggedUser === undefined) {
+            return
+        }
+
+        const newComment = {
+            comment,
+            commentator: loggedUser?.username || loggedUser.email.split('@')[0],
+            id: postID!,
+        }
+        dispatch(addComment(newComment))
+        // add the comment to the current post in the database
+        // dispatch action for adding new comment to the current post
+        // i already load all the posts on initial load so i have them in the posts slice - comments
+        // refresh the post when adding new post , probably useEffect in commentsSection recieving
+        // all the comments from here through props and on change of their length rerun the useEffect
+
+        // or maybe with navigate to the same page will make re-render the new comments?
+        setComment('')
+    }
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -49,8 +83,8 @@ function PostPage({ title }: PageProps): JSX.Element {
             <Box className="picker-container">
                 <input
                     className="comment-input"
-                    value={inputStr}
-                    onChange={(e) => setInputStr(e.target.value)}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                     placeholder="Добави коментар..."
                 />
                 <img
@@ -65,7 +99,21 @@ function PostPage({ title }: PageProps): JSX.Element {
                         onEmojiClick={onEmojiClick}
                     />
                 )}
+                <Button
+                    onClick={addCommentHandler}
+                    variant="text"
+                    sx={{
+                        position: 'absolute',
+                        top: '8px',
+                        right: '-40px',
+                        verticalAlign: 'center',
+                        fontSize: '0.75em',
+                    }}
+                >
+                    Публикуване
+                </Button>
             </Box>
+            {/* <CommentsSection /> */}
         </PageLayout>
     )
 }

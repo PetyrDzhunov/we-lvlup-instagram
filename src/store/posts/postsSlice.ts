@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Post } from '../../types'
+import { Post, ReduxComment } from '../../types'
 
 export interface PostState {
     allPosts: Post[]
@@ -44,9 +44,18 @@ const postSlice = createSlice({
             // upgrade the current post in allPosts array?
             state.allPosts.splice(currentPostIndex, 1, currentPost)
         },
+        addComment: (state, action: PayloadAction<ReduxComment>) => {
+            const { comment, commentator, id } = action.payload
+            const currentPost = state.allPosts.find((post) => post.id === id)
+            if (!currentPost) {
+                return
+            }
+            currentPost.comments.push({ comment, commentator })
+        },
     },
 })
 
-export const { loadAllPosts, addPost, likeDislikePost } = postSlice.actions
+export const { loadAllPosts, addPost, likeDislikePost, addComment } =
+    postSlice.actions
 
 export default postSlice.reducer

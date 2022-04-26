@@ -34,7 +34,7 @@ function SinglePostHeader({
         >
             <Avatar src={profileImage} sx={{ width: '40px', height: '40px' }} />
             <Typography sx={{ fontWeight: 'bolder', marginBottom: '4px' }}>
-                {currentUser?.userName ||
+                {currentUser?.username ||
                     currentUser?.fullName ||
                     currentUser?.email.split('@')[0]}
             </Typography>

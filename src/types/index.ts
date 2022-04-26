@@ -8,9 +8,13 @@ type PostCreator = {
     uid: string
 }
 
-type Comment = {
+export interface Comment {
     commentator: string
     comment: string
+}
+
+export interface ReduxComment extends Comment {
+    id: string
 }
 
 type Follower = string
@@ -32,5 +36,5 @@ export interface User {
     followers: Follower[]
     fullName?: string
     profileImage?: string
-    userName?: string
+    username?: string
 }

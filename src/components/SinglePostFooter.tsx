@@ -133,7 +133,7 @@ function SinglePostFooter({
                         marginLeft: '10px',
                     }}
                 >
-                    {currentPostAuthor?.userName ||
+                    {currentPostAuthor?.username ||
                         currentPostAuthor?.fullName ||
                         currentPostAuthor?.email.split('@')[0]}
                     <Typography
