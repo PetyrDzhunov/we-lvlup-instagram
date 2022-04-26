@@ -15,6 +15,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
             (currUser) => currUser.authID === comment.commentatorID
         )
     })
+
     return (
         <ListItem>
             <Avatar

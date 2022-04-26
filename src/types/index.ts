@@ -36,6 +36,7 @@ export interface User {
     authID: string
     email: string
     followers: Follower[]
+    followed: Follower[]
     fullName?: string
     profileImage?: string
     username?: string

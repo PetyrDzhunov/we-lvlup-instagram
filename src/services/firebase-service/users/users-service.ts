@@ -27,6 +27,7 @@ const addUserToFirebaseDB = async (
         username,
         authID,
         followers: [],
+        followed: [],
     })
 }
 
@@ -40,6 +41,7 @@ const addUserToFirebaseDBLoggedInWithFacebook = async (
             email,
             authID,
             followers: [],
+            followed: [],
         })
     }
 }
