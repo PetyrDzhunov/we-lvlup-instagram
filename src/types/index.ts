@@ -11,6 +11,8 @@ type PostCreator = {
 export interface Comment {
     commentator: string
     comment: string
+    commentatorID: string
+    commentID: string
 }
 
 export interface ReduxComment extends Comment {

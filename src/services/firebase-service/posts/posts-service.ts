@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore/lite'
 import { v4 as uuidv4 } from 'uuid'
 import { db } from '../../../config/firebase'
-import { Post } from '../../../types'
+import { Post, Comment } from '../../../types'
 import { getFilteredPosts } from './utils'
 
 const getPostById = async (postID: string): Promise<Post[]> => {
@@ -62,10 +62,23 @@ const getAllPostsByUserID = async (uid: string): Promise<Post[]> => {
     return getFilteredPosts(posts)
 }
 
+const addCommentToPost = async (
+    postID: string,
+    comment: Comment
+): Promise<void> => {
+    const currentPost = await getPostById(postID)
+    const currentPostDocId = currentPost[0].docID!
+    const currentPostRef = doc(db, 'posts', currentPostDocId)
+    await updateDoc(currentPostRef, {
+        comments: arrayUnion(comment),
+    })
+}
+
 export default {
     getAllPosts,
     createPost,
     addLikeToPost,
     getAllPostsByUserID,
     getPostById,
+    addCommentToPost,
 }

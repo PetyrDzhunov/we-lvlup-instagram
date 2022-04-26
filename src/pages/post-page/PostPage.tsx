@@ -7,18 +7,22 @@ import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
 import Picker from 'emoji-picker-react'
 import Box from '@mui/material/Box'
-import { Button } from '@mui/material'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { Avatar, List, ListItem } from '@mui/material'
+import { v4 as uuidv4 } from 'uuid'
 import SinglePost from '../../components/SinglePost'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { PageProps } from '../../types'
 import '../../styles/post-page.css'
 import { addComment } from '../../store/posts/postsSlice'
-// import CommentsSection from './CommentsSection'
+import { firebasePostsService } from '../../services/firebase-service'
 
 function PostPage({ title }: PageProps): JSX.Element {
     const [comment, setComment] = useState('')
     const [showPicker, setShowPicker] = useState(false)
+    const [error, setError] = useState('')
     const dispatch = useAppDispatch()
 
     const onEmojiClick = (
@@ -43,27 +47,40 @@ function PostPage({ title }: PageProps): JSX.Element {
         state.users.allUsers.find((user) => user.authID === uid)
     )
 
-    const addCommentHandler = async (
-        event: React.MouseEvent<HTMLElement>
-    ): Promise<void> => {
-        console.log(event)
+    // const currentCommentCreator = useAppSelector((state) => (
+    // 	// to find the current comment creator for each comment
+    // 	// 1. loop through all the comments and inside
+    // 	state.posts.allComments.
+    // 	// 2. get the commentatorID = this is the user that created the comment
+    // 	// 3. with this ID we have to get this user to use his profile picture
+    // ))
+
+    const addCommentHandler = async (): Promise<void> => {
         if (loggedUser === undefined) {
+            return
+        }
+
+        if (postID === undefined) {
             return
         }
 
         const newComment = {
             comment,
             commentator: loggedUser?.username || loggedUser.email.split('@')[0],
-            id: postID!,
+            id: postID,
+            commentatorID: loggedUser.authID,
+            commentID: uuidv4(),
         }
-        dispatch(addComment(newComment))
-        // add the comment to the current post in the database
         // dispatch action for adding new comment to the current post
-        // i already load all the posts on initial load so i have them in the posts slice - comments
-        // refresh the post when adding new post , probably useEffect in commentsSection recieving
-        // all the comments from here through props and on change of their length rerun the useEffect
+        dispatch(addComment(newComment))
 
-        // or maybe with navigate to the same page will make re-render the new comments?
+        // add the comment to the current post in the database
+        try {
+            await firebasePostsService.addCommentToPost(postID, newComment)
+        } catch (err) {
+            setError('Something went wrong.')
+        }
+
         setComment('')
     }
 
@@ -113,7 +130,57 @@ function PostPage({ title }: PageProps): JSX.Element {
                     Публикуване
                 </Button>
             </Box>
-            {/* <CommentsSection /> */}
+            {error && (
+                <Typography
+                    align="center"
+                    color="error"
+                    variant="body2"
+                    sx={{ fontWeight: 'bolder', marginTop: '10px' }}
+                    paragraph
+                >
+                    {error}
+                </Typography>
+            )}
+            <List>
+                {currentPost?.comments?.map((currComment) => (
+                    <ListItem key={currComment.commentID}>
+                        <Avatar
+                            alt="Profile picture of the user"
+                            src={
+                                loggedUser
+                                    ? loggedUser?.profileImage
+                                    : '/broken-image.jpg'
+                            }
+                        />
+                        <Typography
+                            variant="body2"
+                            component="h6"
+                            sx={{
+                                color: '#000000',
+                                fontWeight: '600',
+                                marginTop: '4px',
+                                marginLeft: '10px',
+                            }}
+                        >
+                            {currComment.commentator}
+                            <Typography
+                                variant="body2"
+                                component="p"
+                                sx={{
+                                    color: '#000000',
+                                    fontWeight: '400',
+                                    marginTop: '4px',
+                                    marginLeft: '5px',
+                                    display: 'inline',
+                                    wordBreak: 'break-all',
+                                }}
+                            >
+                                {currComment.comment}
+                            </Typography>
+                        </Typography>
+                    </ListItem>
+                ))}
+            </List>
         </PageLayout>
     )
 }

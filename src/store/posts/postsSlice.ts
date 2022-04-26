@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Post, ReduxComment } from '../../types'
+import { Comment, Post, ReduxComment } from '../../types'
 
 export interface PostState {
     allPosts: Post[]
+    allComments: Comment[]
     likes: string[]
 }
 
 const initialState: PostState = {
     allPosts: [],
     likes: [],
+    allComments: [],
 }
 
 const postSlice = createSlice({
@@ -45,12 +47,20 @@ const postSlice = createSlice({
             state.allPosts.splice(currentPostIndex, 1, currentPost)
         },
         addComment: (state, action: PayloadAction<ReduxComment>) => {
-            const { comment, commentator, id } = action.payload
+            const { comment, commentator, id, commentatorID, commentID } =
+                action.payload
             const currentPost = state.allPosts.find((post) => post.id === id)
             if (!currentPost) {
                 return
             }
-            currentPost.comments.push({ comment, commentator })
+            const newComment = {
+                comment,
+                commentator,
+                commentatorID,
+                commentID,
+            }
+            currentPost.comments.push(newComment)
+            state.allComments.push(newComment)
         },
     },
 })
