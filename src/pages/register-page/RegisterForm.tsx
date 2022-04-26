@@ -13,7 +13,7 @@ import { useAppDispatch } from '../../hooks/redux-hooks'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
 import '../../styles/form.css'
-import { firebaseService } from '../../services/firebase-service'
+import { firebaseUsersService } from '../../services/firebase-service'
 import { login } from '../../store/auth/authSlice'
 
 interface RegisterFormInputs {
@@ -52,7 +52,7 @@ function RegisterForm(): JSX.Element {
                 user: { uid },
             } = await createUserWithEmailAndPassword(auth, email, password)
 
-            await firebaseService.addUserToFirebaseDB(
+            await firebaseUsersService.addUserToFirebaseDB(
                 email,
                 fullName,
                 username,

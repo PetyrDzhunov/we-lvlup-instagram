@@ -8,7 +8,7 @@ import { useState } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../config/firebase'
-import { firebaseService } from '../services/firebase-service'
+import { firebaseUsersService } from '../services/firebase-service'
 import { useAppDispatch } from '../hooks/redux-hooks'
 import { login } from '../store/auth/authSlice'
 
@@ -52,7 +52,7 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
         try {
             setIsRegistering(true)
             const result = await signInWithPopup(auth, provider)
-            await firebaseService.addUserToFirebaseDBLoggedInWithFacebook(
+            await firebaseUsersService.addUserToFirebaseDBLoggedInWithFacebook(
                 result.user.email,
                 result.user.uid
             )

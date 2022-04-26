@@ -24,7 +24,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import '../../styles/image-preview.css'
 
 import { storage } from '../../config/firebase'
-import { firebaseService } from '../../services/firebase-service'
+import { firebasePostsService } from '../../services/firebase-service'
 import { addPost } from '../../store/posts/postsSlice'
 
 function UploadPage({ title }: PageProps): JSX.Element {
@@ -92,7 +92,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             id: '',
                             description,
                         }
-                        firebaseService
+                        firebasePostsService
                             .createPost(newPost)
                             .then(() => {
                                 setIsLoading(false)

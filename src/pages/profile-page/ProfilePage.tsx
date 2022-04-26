@@ -10,7 +10,7 @@ import ProfilePageHeader from './ProfilePageHeader'
 import '../../styles/single-post.css'
 import ProfilePageSkeleton from './ProfilePageSkeleton'
 import { loadAllPosts } from '../../store/posts/postsSlice'
-import { firebaseService } from '../../services/firebase-service'
+import { firebasePostsService } from '../../services/firebase-service'
 
 let isInitial = true
 
@@ -27,7 +27,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
         const getPosts = async (): Promise<void> => {
             setIsLoading(true)
             isInitial = false
-            const allPosts = await firebaseService.getAllPosts()
+            const allPosts = await firebasePostsService.getAllPosts()
             dispatch(loadAllPosts(allPosts))
             setIsLoading(false)
         }

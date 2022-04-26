@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom'
 import SinglePost from '../../components/SinglePost'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
-import { firebaseService } from '../../services/firebase-service'
+import {
+    firebasePostsService,
+    firebaseUsersService,
+} from '../../services/firebase-service'
 import { loadAllPosts } from '../../store/posts/postsSlice'
 import { loadAllUsers } from '../../store/users/usersSlice'
 import { PageProps } from '../../types'
@@ -32,8 +35,8 @@ function HomePage({ title }: PageProps): JSX.Element {
     useEffect(() => {
         const getPosts = async (): Promise<void> => {
             setIsLoading(true)
-            const allPosts = await firebaseService.getAllPosts()
-            const allUsers = await firebaseService.getAllUsers()
+            const allPosts = await firebasePostsService.getAllPosts()
+            const allUsers = await firebaseUsersService.getAllUsers()
             dispatch(loadAllPosts(allPosts))
             dispatch(loadAllUsers(allUsers))
             isInitial = false

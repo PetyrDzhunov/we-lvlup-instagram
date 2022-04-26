@@ -14,7 +14,6 @@ import { useAppDispatch } from '../../hooks/redux-hooks'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
 import { login } from '../../store/auth/authSlice'
-// import { firebaseService } from '../../services/firebase-service'
 
 interface LoginFormInputs {
     email: string

@@ -9,7 +9,7 @@ import { useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { likeDislikePost } from '../store/posts/postsSlice'
-import { firebaseService } from '../services/firebase-service'
+import { firebasePostsService } from '../services/firebase-service'
 
 interface SinglePostFooterProps {
     postID: string
@@ -44,7 +44,7 @@ function SinglePostFooter({
         dispatch(likeDislikePost({ id: postID, user: loggedInUserID }))
         try {
             // setHasLiked((prev) => !prev)
-            await firebaseService.addLikeToPost(postID, loggedInUserID)
+            await firebasePostsService.addLikeToPost(postID, loggedInUserID)
         } catch (err) {
             setError('Something went wrong')
         }

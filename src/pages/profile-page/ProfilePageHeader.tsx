@@ -16,7 +16,7 @@ import { doc, DocumentData, updateDoc } from 'firebase/firestore/lite'
 import { Post } from '../../types'
 import '../../styles/file-input.css'
 import { db, storage } from '../../config/firebase'
-import { firebaseService } from '../../services/firebase-service'
+import { firebaseUsersService } from '../../services/firebase-service'
 import { useAppSelector } from '../../hooks/redux-hooks'
 
 interface ProfilePageHeaderProps {
@@ -45,7 +45,7 @@ function ProfilePageHeader({
 
     useEffect(() => {
         const getUser = async (): Promise<void> => {
-            const currentUser = await firebaseService.getUserById(userID)
+            const currentUser = await firebaseUsersService.getUserById(userID)
             setUser(currentUser)
         }
         getUser()
@@ -81,7 +81,7 @@ function ProfilePageHeader({
             setIsLoading(true)
             await uploadBytes(storageRef, selectedProfilePicture as Blob)
             const downloadUrl = await getDownloadURL(storageRef)
-            const currentUser = await firebaseService.getUserById(uid)
+            const currentUser = await firebaseUsersService.getUserById(uid)
             const currUserRef = doc(db, 'users', currentUser.docID)
             await updateDoc(currUserRef, {
                 profileImage: downloadUrl,

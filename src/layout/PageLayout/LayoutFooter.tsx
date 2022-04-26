@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom'
 import { DocumentData } from 'firebase/firestore/lite'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { logout } from '../../store/auth/authSlice'
-import { firebaseService } from '../../services/firebase-service'
+import { firebaseUsersService } from '../../services/firebase-service'
 
 function LayoutFooter(): JSX.Element {
     const dispatch = useAppDispatch()
@@ -30,7 +30,7 @@ function LayoutFooter(): JSX.Element {
 
     useEffect(() => {
         const getUser = async (): Promise<void> => {
-            const currentUser = await firebaseService.getUserById(uid)
+            const currentUser = await firebaseUsersService.getUserById(uid)
             setUser(currentUser)
         }
         getUser()
