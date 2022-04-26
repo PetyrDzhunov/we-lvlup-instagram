@@ -15,6 +15,8 @@ const NotFoundPage = React.lazy(
     () => import('../pages/not-found-page/NotFoundPage')
 )
 
+const PostPage = React.lazy(() => import('../pages/post-page/PostPage'))
+
 interface Routes {
     path: string
     element: JSX.Element
@@ -45,6 +47,11 @@ export const routes: Routes[] = [
     {
         path: '/upload',
         element: <UploadPage title="Upload page" />,
+        key: 5,
+    },
+    {
+        path: `/posts/:postID`,
+        element: <PostPage title="Post page" />,
         key: 5,
     },
     {

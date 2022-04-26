@@ -7,6 +7,7 @@ import ShareIcon from '@mui/icons-material/Share'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { likeDislikePost } from '../store/posts/postsSlice'
 import { firebasePostsService } from '../services/firebase-service'
@@ -32,6 +33,13 @@ function SinglePostFooter({
             (currentUser) => currentUser.authID === currentPost?.creator.uid
         )
     )
+
+    const navigate = useNavigate()
+
+    const commentHandler = (): void => {
+        console.log('comment')
+        navigate(`/posts/${postID}`)
+    }
 
     const hasBeenLikedByCurrentUser = currentPost?.likes.some(
         (like) => like === loggedInUserID
@@ -86,7 +94,7 @@ function SinglePostFooter({
                     </IconButton>
                 )}
 
-                <IconButton>
+                <IconButton onClick={commentHandler}>
                     <CommentIcon fontSize="medium" sx={{ color: '#000000' }} />
                 </IconButton>
                 <IconButton>
