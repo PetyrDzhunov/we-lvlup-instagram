@@ -9,7 +9,7 @@ import Picker from 'emoji-picker-react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { Avatar, List, ListItem } from '@mui/material'
+import List from '@mui/material/List'
 import { v4 as uuidv4 } from 'uuid'
 import SinglePost from '../../components/SinglePost'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
@@ -18,6 +18,7 @@ import { PageProps } from '../../types'
 import '../../styles/post-page.css'
 import { addComment } from '../../store/posts/postsSlice'
 import { firebasePostsService } from '../../services/firebase-service'
+import SingleComment from './SingleComment'
 
 function PostPage({ title }: PageProps): JSX.Element {
     const [comment, setComment] = useState('')
@@ -47,13 +48,13 @@ function PostPage({ title }: PageProps): JSX.Element {
         state.users.allUsers.find((user) => user.authID === uid)
     )
 
-    // const currentCommentCreator = useAppSelector((state) => (
-    // 	// to find the current comment creator for each comment
-    // 	// 1. loop through all the comments and inside
-    // 	state.posts.allComments.
-    // 	// 2. get the commentatorID = this is the user that created the comment
-    // 	// 3. with this ID we have to get this user to use his profile picture
-    // ))
+    const currentCommentCreator = currentPost?.comments.find((currCommment) =>
+        console.log(currCommment)
+    )
+
+    console.log(loggedUser)
+
+    console.log(currentCommentCreator)
 
     const addCommentHandler = async (): Promise<void> => {
         if (loggedUser === undefined) {
@@ -143,42 +144,10 @@ function PostPage({ title }: PageProps): JSX.Element {
             )}
             <List>
                 {currentPost?.comments?.map((currComment) => (
-                    <ListItem key={currComment.commentID}>
-                        <Avatar
-                            alt="Profile picture of the user"
-                            src={
-                                loggedUser
-                                    ? loggedUser?.profileImage
-                                    : '/broken-image.jpg'
-                            }
-                        />
-                        <Typography
-                            variant="body2"
-                            component="h6"
-                            sx={{
-                                color: '#000000',
-                                fontWeight: '600',
-                                marginTop: '4px',
-                                marginLeft: '10px',
-                            }}
-                        >
-                            {currComment.commentator}
-                            <Typography
-                                variant="body2"
-                                component="p"
-                                sx={{
-                                    color: '#000000',
-                                    fontWeight: '400',
-                                    marginTop: '4px',
-                                    marginLeft: '5px',
-                                    display: 'inline',
-                                    wordBreak: 'break-all',
-                                }}
-                            >
-                                {currComment.comment}
-                            </Typography>
-                        </Typography>
-                    </ListItem>
+                    <SingleComment
+                        key={currComment.commentID}
+                        comment={currComment}
+                    />
                 ))}
             </List>
         </PageLayout>
