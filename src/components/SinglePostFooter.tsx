@@ -37,7 +37,6 @@ function SinglePostFooter({
     const navigate = useNavigate()
 
     const commentHandler = (): void => {
-        console.log('comment')
         navigate(`/posts/${postID}`)
     }
 
