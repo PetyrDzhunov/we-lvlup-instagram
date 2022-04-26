@@ -48,14 +48,6 @@ function PostPage({ title }: PageProps): JSX.Element {
         state.users.allUsers.find((user) => user.authID === uid)
     )
 
-    const currentCommentCreator = currentPost?.comments.find((currCommment) =>
-        console.log(currCommment)
-    )
-
-    console.log(loggedUser)
-
-    console.log(currentCommentCreator)
-
     const addCommentHandler = async (): Promise<void> => {
         if (loggedUser === undefined) {
             return
