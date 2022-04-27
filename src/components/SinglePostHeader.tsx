@@ -2,9 +2,13 @@ import Stack from '@mui/material/Stack'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import { useState } from 'react'
+import Snackbar from '@mui/material/Snackbar'
+import Alert from '@mui/material/Alert'
 import { Post } from '../types'
-import { useAppSelector } from '../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { firebaseUsersService } from '../services/firebase-service'
+import { addFollower } from '../store/users/usersSlice'
 
 interface SinglePostHeaderProps {
     profileImage: string
@@ -15,33 +19,50 @@ function SinglePostHeader({
     profileImage,
     post,
 }: SinglePostHeaderProps): JSX.Element {
+    const [error, setError] = useState<string>('')
+    const [open, setOpen] = useState<boolean>(false)
+
+    const handleClose = (
+        event?: React.SyntheticEvent | Event,
+        reason?: string
+    ): void => {
+        if (reason === 'clickaway') {
+            return
+        }
+
+        setOpen(false)
+    }
     const currentUser = useAppSelector((state) =>
         state.users.allUsers.find(
             (currUser) => currUser.authID === post.creator.uid
         )
     )
-
-    // const dispatch = useAppDispatch()
+    // filter only the posts that the loggedInUser followed to know on which one to display to follow him / unfollow him
+    const dispatch = useAppDispatch()
 
     const { uid } = useAppSelector((state) => state.persistedReducer.auth)
-    // filter only the posts that the loggedInUser followed to know on which one to display to follow him / unfollow him
+    const hasFollowed = currentUser?.followers.includes(uid)
 
     const handleFollowUser = async (): Promise<void> => {
-        // get the ID of the currentUser browsing in the application (loggedInUser) === uid from persisted state in local storage
-        // get the ID of the user that we clicked to follow (followedUser) === currentUser.authID
-        // add his id to the FOLLOWERS array of the user that he presses to follow (send to the DB)
         if (currentUser === undefined) {
             return
+        }
+
+        dispatch(
+            addFollower({
+                loggedInUserId: uid,
+                currentUserId: currentUser.authID,
+            })
+        )
+        if (uid === currentUser.authID) {
+            setOpen(true)
+            return setError("You can't follow yourself.")
         }
         try {
             await firebaseUsersService.addFollower(uid, currentUser.authID)
         } catch (err) {
-            console.log(err)
+            setError('Unable to follow, try again later')
         }
-        // add the userID that he pressed to follow into his array of FOLLOWED users (send to DB)
-        // dispatch(addFollower(uid, currentUser?.authID))
-        // dispatch actions to redux store - one action that includes both the ID's as payload -
-        // the loggedInUserID and followedUserID
     }
 
     return (
@@ -78,8 +99,23 @@ function SinglePostHeader({
                 }}
                 onClick={handleFollowUser}
             >
-                Последване
+                {hasFollowed ? 'Unfollow' : 'Follow'}
             </Button>
+            {error && (
+                <Snackbar
+                    open={open}
+                    autoHideDuration={3000}
+                    onClose={handleClose}
+                >
+                    <Alert
+                        onClose={handleClose}
+                        severity="warning"
+                        sx={{ width: '100%' }}
+                    >
+                        {error}
+                    </Alert>
+                </Snackbar>
+            )}
         </Stack>
     )
 }

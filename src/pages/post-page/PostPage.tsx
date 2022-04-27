@@ -30,7 +30,6 @@ function PostPage({ title }: PageProps): JSX.Element {
         event: React.MouseEvent<Element, MouseEvent>,
         emojiObject: any
     ): void => {
-        console.log(emojiObject.emoji)
         setComment((prevInput) => prevInput + emojiObject.emoji)
         setShowPicker(false)
     }

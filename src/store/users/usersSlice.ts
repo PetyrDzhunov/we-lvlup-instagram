@@ -19,9 +19,44 @@ const usersSlice = createSlice({
         addUser: (state, action: PayloadAction<User>) => {
             state.allUsers.push(action.payload)
         },
+        addFollower: (
+            state,
+            action: PayloadAction<{
+                loggedInUserId: string
+                currentUserId: string
+            }>
+        ) => {
+            const { loggedInUserId, currentUserId } = action.payload
+            const userLoggedIn = state.allUsers.find(
+                (currUser) => currUser.authID === loggedInUserId
+            )
+            const userToFollow = state.allUsers.find(
+                (currUser) => currUser.authID === currentUserId
+            )
+
+            if (!userToFollow) {
+                return
+            }
+
+            if (userLoggedIn?.authID === userToFollow?.authID) {
+                return
+            }
+
+            if (!userLoggedIn?.followed.includes(currentUserId)) {
+                userLoggedIn?.followed.push(currentUserId)
+                userToFollow?.followers.push(loggedInUserId)
+            } else {
+                const indexOfFollowedUser =
+                    userLoggedIn.followed.indexOf(currentUserId)
+                const indexOfLoggedInUser =
+                    userToFollow?.followers.indexOf(loggedInUserId)
+                userLoggedIn.followed.splice(indexOfFollowedUser, 1)
+                userToFollow?.followers.splice(indexOfLoggedInUser, 1)
+            }
+        },
     },
 })
 
-export const { loadAllUsers, addUser } = usersSlice.actions
+export const { loadAllUsers, addUser, addFollower } = usersSlice.actions
 
 export default usersSlice.reducer
