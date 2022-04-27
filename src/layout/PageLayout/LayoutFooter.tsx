@@ -28,6 +28,20 @@ function LayoutFooter(): JSX.Element {
 
     const [user, setUser] = useState<DocumentData>()
 
+    const userID = useAppSelector((state) => state.persistedReducer.auth.uid)
+    const currentLoggedUser = useAppSelector((state) =>
+        state.users.allUsers.find((currUser) => currUser.authID === userID)
+    )
+
+    let imgSrc
+    if (currentLoggedUser) {
+        imgSrc = currentLoggedUser.profileImage
+    } else if (user) {
+        imgSrc = user.profileImage
+    } else {
+        imgSrc = ''
+    }
+
     useEffect(() => {
         const getUser = async (): Promise<void> => {
             const currentUser = await firebaseUsersService.getUserById(uid)
@@ -90,9 +104,7 @@ function LayoutFooter(): JSX.Element {
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                         <Avatar
                             alt="Profile picture of the user"
-                            src={
-                                user ? user?.profileImage : '/broken-image.jpg'
-                            }
+                            src={imgSrc}
                         />
                     </IconButton>
                 </Tooltip>
