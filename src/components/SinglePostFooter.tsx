@@ -8,6 +8,13 @@ import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useNavigate } from 'react-router-dom'
+import {
+    Avatar,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    Stack,
+} from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { likeDislikePost } from '../store/posts/postsSlice'
 import { firebasePostsService } from '../services/firebase-service'
@@ -21,6 +28,7 @@ function SinglePostFooter({
     postID,
     description,
 }: SinglePostFooterProps): JSX.Element {
+    const [open, setOpen] = useState<boolean>(false)
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
     )
@@ -34,10 +42,28 @@ function SinglePostFooter({
         )
     )
 
+    const currentPostUsersLikes = useAppSelector((state) =>
+        state.users.allUsers.filter((currUser) => {
+            return currentPost?.likes.includes(currUser.authID)
+        })
+    )
+
+    const handleClickOpen = (): void => {
+        setOpen(true)
+    }
+
+    const handleClickClosed = (): void => {
+        setOpen(false)
+    }
+
     const navigate = useNavigate()
 
     const commentHandler = (): void => {
         navigate(`/posts/${postID}`)
+    }
+
+    const showLikes = (): void => {
+        handleClickOpen()
     }
 
     const hasBeenLikedByCurrentUser = currentPost?.likes.some(
@@ -101,6 +127,7 @@ function SinglePostFooter({
                 </IconButton>
             </Toolbar>
             <Typography
+                onClick={showLikes}
                 sx={{
                     color: '#000000',
                     marginLeft: '10px',
@@ -152,6 +179,37 @@ function SinglePostFooter({
                     </Typography>
                 </Typography>
             )}
+            <Dialog open={open} onClose={handleClickClosed}>
+                <DialogTitle>Liked by</DialogTitle>
+                <DialogContent>
+                    {currentPostUsersLikes.map((currentUser) => (
+                        <Stack
+                            key={currentUser?.authID}
+                            direction="row"
+                            spacing={2}
+                            alignItems="center"
+                            sx={{
+                                margin: '15px',
+                            }}
+                        >
+                            <Avatar
+                                src={currentUser?.profileImage}
+                                sx={{ width: '40px', height: '40px' }}
+                            />
+                            <Typography
+                                sx={{
+                                    fontWeight: 'bolder',
+                                    marginBottom: '4px',
+                                }}
+                            >
+                                {currentUser?.username ||
+                                    currentUser?.fullName ||
+                                    currentUser?.email.split('@')[0]}
+                            </Typography>
+                        </Stack>
+                    ))}
+                </DialogContent>
+            </Dialog>
         </AppBar>
     )
 }
