@@ -89,6 +89,9 @@ function ProfilePageModal({ users, text }: ProfilePageModalProps): JSX.Element {
                                 direction="row"
                                 spacing={2}
                                 alignItems="center"
+                                sx={{
+                                    margin: '15px',
+                                }}
                             >
                                 <Avatar
                                     src={currUser?.profileImage}
