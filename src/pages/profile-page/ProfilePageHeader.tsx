@@ -1,14 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import {
-    Button,
-    ButtonGroup,
-    CircularProgress,
-    Divider,
-    IconButton,
-    Typography,
-} from '@mui/material'
+import { ButtonGroup, CircularProgress, Divider } from '@mui/material'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
 import Avatar from '@mui/material/Avatar'
 import { useEffect, useState } from 'react'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
@@ -18,6 +14,7 @@ import '../../styles/file-input.css'
 import { db, storage } from '../../config/firebase'
 import { firebaseUsersService } from '../../services/firebase-service'
 import { useAppSelector } from '../../hooks/redux-hooks'
+import ProfilePageModal from './ProfilePageModal'
 
 interface ProfilePageHeaderProps {
     email: string
@@ -34,7 +31,6 @@ function ProfilePageHeader({
 }: ProfilePageHeaderProps): JSX.Element {
     const [selectedProfilePicture, setSelectedProfilePicture] =
         useState<File | null>(null)
-
     const [error, setError] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [hasUploaded, setHasUploaded] = useState<boolean>(false)
@@ -42,6 +38,19 @@ function ProfilePageHeader({
     const userID = useAppSelector((state) => state.persistedReducer.auth.uid)
     const currentLoggedUser = useAppSelector((state) =>
         state.users.allUsers.find((currUser) => currUser.authID === userID)
+    )
+
+    // filter only those that have the loggedinUserId in their followed array
+    const currentUserFollowers = useAppSelector((state) =>
+        state.users.allUsers.filter((currUser) => {
+            return currUser.followed.includes(userID)
+        })
+    )
+
+    const currentUserFollowedByHim = useAppSelector((state) =>
+        state.users.allUsers.filter((currUser) => {
+            return currUser.followers.includes(userID)
+        })
     )
     const [user, setUser] = useState<DocumentData>()
 
@@ -179,6 +188,23 @@ function ProfilePageHeader({
                     </Typography>
                     <Typography sx={{ fontSize: '1' }}>Followed</Typography>
                 </Stack>
+            </Stack>
+            <Stack
+                direction="row"
+                spacing={3}
+                justifyContent="space-between"
+                sx={{
+                    marginTop: '15px',
+                }}
+            >
+                <ProfilePageModal
+                    users={currentUserFollowers}
+                    text="followers"
+                />
+                <ProfilePageModal
+                    users={currentUserFollowedByHim}
+                    text="followed"
+                />
             </Stack>
         </Box>
     )
