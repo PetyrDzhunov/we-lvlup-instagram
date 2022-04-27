@@ -5,6 +5,10 @@ import {
     where,
     getDocs,
     DocumentData,
+    doc,
+    updateDoc,
+    arrayUnion,
+    arrayRemove,
 } from 'firebase/firestore/lite'
 import { db } from '../../../config/firebase'
 import { User } from '../../../types'
@@ -56,9 +60,42 @@ const getUserById = async (id: string): Promise<DocumentData> => {
     return currentUser
 }
 
+const addFollower = async (
+    loggedInUserID: string,
+    followedUserID: string
+): Promise<void> => {
+    const followedUser = await getUserById(followedUserID)
+    const loggedInUser = await getUserById(loggedInUserID)
+    const followedUserRef = doc(db, 'users', followedUser.docID)
+    const loggedInUserRef = doc(db, 'users', loggedInUser.docID)
+
+    // to the user that we press to follow add in his followers array the user that wants to follow him - array with users that follow him
+    if (!followedUser.followers.includes(loggedInUserID)) {
+        await updateDoc(followedUserRef, {
+            followers: arrayUnion(loggedInUserID),
+        })
+    } else {
+        await updateDoc(followedUserRef, {
+            followers: arrayRemove(loggedInUserID),
+        })
+    }
+
+    // add to the current logged in user the user that he wants to follow into his followed array - array with users he follows
+    if (!loggedInUser.followed.includes(followedUserID)) {
+        await updateDoc(loggedInUserRef, {
+            followed: arrayUnion(followedUserID),
+        })
+    } else {
+        await updateDoc(loggedInUserRef, {
+            followed: arrayRemove(followedUserID),
+        })
+    }
+}
+
 export default {
     addUserToFirebaseDB,
     addUserToFirebaseDBLoggedInWithFacebook,
     getUserById,
     getAllUsers,
+    addFollower,
 }

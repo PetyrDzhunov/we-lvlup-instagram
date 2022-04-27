@@ -1,6 +1,7 @@
 .single-post__image {
-    height: 250px;
+    height: auto;
     width: 104.2%;
+    max-height: 500px;
 }
 
 .single-post__image--small {
