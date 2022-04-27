@@ -40,7 +40,9 @@ function ProfilePageHeader({
     const [hasUploaded, setHasUploaded] = useState<boolean>(false)
 
     const userID = useAppSelector((state) => state.persistedReducer.auth.uid)
-
+    const currentLoggedUser = useAppSelector((state) =>
+        state.users.allUsers.find((currUser) => currUser.authID === userID)
+    )
     const [user, setUser] = useState<DocumentData>()
 
     useEffect(() => {
@@ -55,7 +57,7 @@ function ProfilePageHeader({
     if (selectedProfilePicture) {
         imageSrc = URL.createObjectURL(selectedProfilePicture)
     } else if (!selectedProfilePicture && !hasUploaded) {
-        imageSrc = user?.profileImage
+        imageSrc = currentLoggedUser?.profileImage || user?.profileImage
     } else {
         imageSrc = ''
     }
@@ -89,7 +91,6 @@ function ProfilePageHeader({
             setHasUploaded(true)
             setIsLoading(false)
         } catch (err) {
-            console.log(err)
             setIsLoading(false)
             setError('Something went wrong.')
         }
@@ -166,13 +167,15 @@ function ProfilePageHeader({
                 </Stack>
                 <Stack spacing={1}>
                     <Typography align="center" sx={{ fontSize: '1' }}>
-                        0
+                        {currentLoggedUser?.followers.length ||
+                            user?.followers.length}
                     </Typography>
                     <Typography sx={{ fontSize: '1em' }}>Followers</Typography>
                 </Stack>
                 <Stack spacing={1}>
                     <Typography align="center" sx={{ fontSize: '1' }}>
-                        0
+                        {currentLoggedUser?.followed.length ||
+                            user?.followed.length}
                     </Typography>
                     <Typography sx={{ fontSize: '1' }}>Followed</Typography>
                 </Stack>
