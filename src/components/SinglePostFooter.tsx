@@ -5,6 +5,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import CommentIcon from '@mui/icons-material/Comment'
 import ShareIcon from '@mui/icons-material/Share'
 import Typography from '@mui/material/Typography'
+import CloseIcon from '@mui/icons-material/Close'
+
 import { useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useNavigate } from 'react-router-dom'
@@ -180,7 +182,20 @@ function SinglePostFooter({
                 </Typography>
             )}
             <Dialog open={open} onClose={handleClickClosed}>
-                <DialogTitle>Liked by</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>Liked by</DialogTitle>
+
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClickClosed}
+                    sx={{
+                        position: 'absolute',
+                        right: 0,
+                        top: 0,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
                 <DialogContent>
                     {currentPostUsersLikes.map((currentUser) => (
                         <Stack
