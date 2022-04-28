@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close'
 
 import { useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import {
     Avatar,
     Dialog,
@@ -37,6 +37,8 @@ function SinglePostFooter({
     const currentPost = useAppSelector((state) =>
         state.posts.allPosts.find((post) => post.id === postID)
     )
+
+    const { postID: hasParams } = useParams()
 
     const currentPostAuthor = useAppSelector((state) =>
         state.users.allUsers.find(
@@ -74,11 +76,9 @@ function SinglePostFooter({
 
     const [error, setError] = useState<string>('')
     const dispatch = useAppDispatch()
-    // const [hasLiked, setHasLiked] = useState<boolean>(false)
     const handleLike = async (): Promise<void> => {
         dispatch(likeDislikePost({ id: postID, user: loggedInUserID }))
         try {
-            // setHasLiked((prev) => !prev)
             await firebasePostsService.addLikeToPost(postID, loggedInUserID)
         } catch (err) {
             setError('Something went wrong')
@@ -149,7 +149,7 @@ function SinglePostFooter({
                     marginTop: '4px',
                 }}
             >
-                {currentPost!.comments.length > 0
+                {!hasParams && currentPost!.comments.length > 0
                     ? `Преглед на всички ${currentPost?.comments.length} коментари `
                     : null}
             </Typography>
