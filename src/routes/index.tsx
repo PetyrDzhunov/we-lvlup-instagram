@@ -40,28 +40,23 @@ export const routes: Routes[] = [
         key: 3,
     },
     {
-        path: '/profile',
+        path: '/profile/:userID',
         element: <ProfilePage title="Profile page" />,
         key: 4,
     },
     {
-        path: '/profile/:userID',
-        element: <ProfilePage title="Profile page" />,
-        key: 5,
-    },
-    {
         path: '/upload',
         element: <UploadPage title="Upload page" />,
-        key: 6,
+        key: 5,
     },
     {
         path: `/posts/:postID`,
         element: <PostPage title="Post page" />,
-        key: 7,
+        key: 6,
     },
     {
         path: '/*',
         element: <NotFoundPage title="Not found page" />,
-        key: 8,
+        key: 7,
     },
 ]
