@@ -54,6 +54,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                 sx={{
                     marginTop: '40px',
                     marginBottom: '53px',
+                    minHeight: '100vh',
                 }}
             >
                 <ProfilePageHeader

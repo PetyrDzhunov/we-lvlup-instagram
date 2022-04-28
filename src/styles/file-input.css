@@ -11,7 +11,13 @@
     width: 200px;
     height: 50px;
     border-radius: 25px;
-    background: linear-gradient( 124deg, rgba(0, 255, 244, 1) 0%, rgba(23, 200, 210, 0.4906337535014006) 10%, rgba(24, 200, 209, 1) 33%, rgba(65, 190, 173, 1) 81%);
+    background: linear-gradient(
+        124deg,
+        rgba(0, 255, 244, 1) 0%,
+        rgba(23, 200, 210, 0.4906337535014006) 10%,
+        rgba(24, 200, 209, 1) 33%,
+        rgba(65, 190, 173, 1) 81%
+    );
     box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
@@ -24,12 +30,12 @@
     margin-top: 20px;
 }
 
-input:hover+label,
-input:focus+label {
+input:hover + label,
+input:focus + label {
     transform: scale(1.02);
 }
 
-input:focus+label {
+input:focus + label {
     outline: 1px solid #000;
     outline: -webkit-focus-ring-color auto 2px;
 }
