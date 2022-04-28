@@ -39,6 +39,10 @@ function ProfilePageHeader({
         state.users.allUsers.find((currUser) => currUser.authID === uid)
     )
 
+    const { uid: loggedInUserID } = useAppSelector(
+        (state) => state.persistedReducer.auth
+    )
+
     // filter only those that have the loggedinUserId in their followed array
     const currentUserFollowers = useAppSelector((state) =>
         state.users.allUsers.filter((currUser) => {
@@ -71,6 +75,9 @@ function ProfilePageHeader({
     }
 
     const handleFileChange = (e: Event): void => {
+        if (loggedInUserID !== currentUserVisited?.authID) {
+            return setError('This is not your profile!')
+        }
         const input = e.target as HTMLInputElement
         if (input.files && input.files.length > 0) {
             setSelectedProfilePicture(input.files[0])
