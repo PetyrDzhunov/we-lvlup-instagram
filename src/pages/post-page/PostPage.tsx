@@ -76,6 +76,10 @@ function PostPage({ title }: PageProps): JSX.Element {
         setComment('')
     }
 
+    const currentTheme = useAppSelector(
+        (state) => state.persistedReducer.auth.theme
+    )
+
     const navigate = useNavigate()
     useEffect(() => {
         if (!isAuthenticated) {
@@ -85,62 +89,79 @@ function PostPage({ title }: PageProps): JSX.Element {
 
     return (
         <PageLayout>
-            <Helmet>
-                <title>{title}</title>
-            </Helmet>
-            <SinglePost key={currentPost?.id} post={currentPost!} />
-            <Box className="picker-container">
-                <input
-                    className="comment-input"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    placeholder="Добави коментар..."
-                />
-                <img
-                    alt=""
-                    className="emoji-icon"
-                    src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
-                    onClick={() => setShowPicker((val) => !val)}
-                />
-                {showPicker && (
-                    <Picker
-                        pickerStyle={{ width: '100%' }}
-                        onEmojiClick={onEmojiClick}
+            <Box
+                sx={{
+                    bgcolor: 'background.paper',
+                    marginTop: '56px',
+                }}
+            >
+                <Helmet>
+                    <title>{title}</title>
+                </Helmet>
+                <SinglePost key={currentPost?.id} post={currentPost!} />
+                <Box
+                    className={
+                        currentTheme === 'light'
+                            ? 'picker-container light'
+                            : 'picker-container dark'
+                    }
+                >
+                    <input
+                        className={
+                            currentTheme === 'light'
+                                ? 'comment-input comment-input-light'
+                                : 'comment-input comment-input-dark'
+                        }
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="Добави коментар..."
                     />
+                    <img
+                        alt=""
+                        className="emoji-icon"
+                        src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
+                        onClick={() => setShowPicker((val) => !val)}
+                    />
+                    {showPicker && (
+                        <Picker
+                            pickerStyle={{ width: '100%' }}
+                            onEmojiClick={onEmojiClick}
+                        />
+                    )}
+                    <Button
+                        onClick={addCommentHandler}
+                        variant="text"
+                        sx={{
+                            position: 'absolute',
+                            top: '8px',
+                            right: '-40px',
+                            verticalAlign: 'center',
+                            fontSize: '0.75em',
+                        }}
+                    >
+                        Публикуване
+                    </Button>
+                </Box>
+                {error && (
+                    <Typography
+                        align="center"
+                        color="error"
+                        variant="body2"
+                        sx={{ fontWeight: 'bolder', marginTop: '10px' }}
+                        paragraph
+                    >
+                        {error}
+                    </Typography>
                 )}
-                <Button
-                    onClick={addCommentHandler}
-                    variant="text"
-                    sx={{
-                        position: 'absolute',
-                        top: '8px',
-                        right: '-40px',
-                        verticalAlign: 'center',
-                        fontSize: '0.75em',
-                    }}
-                >
-                    Публикуване
-                </Button>
+                <List sx={{ bgcolor: 'background.paper' }}>
+                    {currentPost?.comments?.map((currComment) => (
+                        <SingleComment
+                            key={currComment.commentID}
+                            comment={currComment}
+                        />
+                    ))}
+                </List>
             </Box>
-            {error && (
-                <Typography
-                    align="center"
-                    color="error"
-                    variant="body2"
-                    sx={{ fontWeight: 'bolder', marginTop: '10px' }}
-                    paragraph
-                >
-                    {error}
-                </Typography>
-            )}
-            <List>
-                {currentPost?.comments?.map((currComment) => (
-                    <SingleComment
-                        key={currComment.commentID}
-                        comment={currComment}
-                    />
-                ))}
-            </List>
         </PageLayout>
     )
 }

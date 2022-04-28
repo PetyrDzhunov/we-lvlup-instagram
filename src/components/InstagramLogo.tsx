@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import SvgIcon from '@mui/material/SvgIcon'
 import { useTheme } from '@mui/material/styles'
+import { useNavigate } from 'react-router-dom'
 
 interface InstagramLogoProps {
     layoutLogo?: boolean
@@ -8,10 +9,11 @@ interface InstagramLogoProps {
 
 function InstagramLogo({ layoutLogo }: InstagramLogoProps): JSX.Element {
     const theme = useTheme()
-
+    const navigate = useNavigate()
     if (layoutLogo) {
         return (
             <Box
+                onClick={() => navigate('/')}
                 sx={{
                     margin: '0px',
                     fontSize: '40px',

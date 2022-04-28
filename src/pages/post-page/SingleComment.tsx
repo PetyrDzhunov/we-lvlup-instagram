@@ -30,7 +30,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                 variant="body2"
                 component="h6"
                 sx={{
-                    color: '#000000',
+                    color: 'text.primary',
                     fontWeight: '600',
                     marginTop: '4px',
                     marginLeft: '10px',
@@ -41,7 +41,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                     variant="body2"
                     component="p"
                     sx={{
-                        color: '#000000',
+                        color: 'text.primary',
                         fontWeight: '400',
                         marginTop: '4px',
                         marginLeft: '5px',

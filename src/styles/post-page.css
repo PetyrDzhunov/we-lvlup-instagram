@@ -4,6 +4,14 @@
     margin-top: 20px;
 }
 
+.picker-container.light {
+    background-color: #FFFFFF;
+}
+
+.picker-container.dark {
+    background-color: #121212;
+}
+
 .emoji-icon {
     cursor: pointer;
     position: absolute;
@@ -20,4 +28,12 @@
     border: 1px solid #999;
     margin-bottom: 10px;
     padding-left: 40px;
+}
+
+.comment-input.comment-input-light {
+    background-color: #FFFFFF;
+}
+
+.comment-input.comment-input-dark {
+    background-color: #121212;
 }
