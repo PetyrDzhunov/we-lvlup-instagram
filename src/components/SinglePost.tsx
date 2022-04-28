@@ -36,7 +36,7 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
                 }
                 id={currentUser ? currentUser?.authID : ''}
             />
-            <SinglePostImage image={post.image} />
+            <SinglePostImage id={post.id!} image={post.image} />
             <SinglePostFooter
                 postID={post.id!}
                 description={post?.description ? post.description : ''}
