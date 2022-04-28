@@ -5,6 +5,7 @@ import Button from '@mui/material/Button'
 import { useState } from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
+import { useNavigate } from 'react-router-dom'
 import { Post } from '../types'
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { firebaseUsersService } from '../services/firebase-service'
@@ -13,14 +14,21 @@ import { addFollower } from '../store/users/usersSlice'
 interface SinglePostHeaderProps {
     profileImage: string
     post: Post
+    id: string
 }
 
 function SinglePostHeader({
     profileImage,
     post,
+    id,
 }: SinglePostHeaderProps): JSX.Element {
     const [error, setError] = useState<string>('')
     const [open, setOpen] = useState<boolean>(false)
+
+    const navigate = useNavigate()
+    const leadToProfilePage = (): void => {
+        navigate(`/profile/${id}`)
+    }
 
     const handleClose = (
         event?: React.SyntheticEvent | Event,
@@ -80,6 +88,7 @@ function SinglePostHeader({
         >
             <Stack direction="row" spacing={2} alignItems="center">
                 <Avatar
+                    onClick={leadToProfilePage}
                     src={profileImage}
                     sx={{ width: '40px', height: '40px' }}
                 />

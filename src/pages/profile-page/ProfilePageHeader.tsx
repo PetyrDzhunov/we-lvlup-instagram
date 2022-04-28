@@ -17,15 +17,11 @@ import { useAppSelector } from '../../hooks/redux-hooks'
 import ProfilePageModal from './ProfilePageModal'
 
 interface ProfilePageHeaderProps {
-    email: string
-    fullName: string | null
     myPosts: Post[]
     uid: string
 }
 
 function ProfilePageHeader({
-    email,
-    fullName,
     myPosts,
     uid,
 }: ProfilePageHeaderProps): JSX.Element {
@@ -35,32 +31,35 @@ function ProfilePageHeader({
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [hasUploaded, setHasUploaded] = useState<boolean>(false)
 
-    const userID = useAppSelector((state) => state.persistedReducer.auth.uid)
+    const currentUserVisited = useAppSelector((state) =>
+        state.users.allUsers.find((currUser) => currUser.authID === uid)
+    )
+
     const currentLoggedUser = useAppSelector((state) =>
-        state.users.allUsers.find((currUser) => currUser.authID === userID)
+        state.users.allUsers.find((currUser) => currUser.authID === uid)
     )
 
     // filter only those that have the loggedinUserId in their followed array
     const currentUserFollowers = useAppSelector((state) =>
         state.users.allUsers.filter((currUser) => {
-            return currUser.followed.includes(userID)
+            return currUser.followed.includes(uid)
         })
     )
 
     const currentUserFollowedByHim = useAppSelector((state) =>
         state.users.allUsers.filter((currUser) => {
-            return currUser.followers.includes(userID)
+            return currUser.followers.includes(uid)
         })
     )
     const [user, setUser] = useState<DocumentData>()
 
     useEffect(() => {
         const getUser = async (): Promise<void> => {
-            const currentUser = await firebaseUsersService.getUserById(userID)
+            const currentUser = await firebaseUsersService.getUserById(uid)
             setUser(currentUser)
         }
         getUser()
-    }, [userID])
+    }, [uid])
 
     let imageSrc
     if (selectedProfilePicture) {
@@ -154,7 +153,11 @@ function ProfilePageHeader({
                         <CircularProgress size="1.5em" />
                     </Box>
                 )}
-                <Typography>{fullName || email}</Typography>
+                <Typography sx={{ textAlign: 'center' }}>
+                    {currentUserVisited?.fullName ||
+                        currentUserVisited?.username ||
+                        currentUserVisited?.email}
+                </Typography>
             </Stack>
             {selectedProfilePicture && !hasUploaded && (
                 <ButtonGroup sx={{ marginTop: '16px' }}>

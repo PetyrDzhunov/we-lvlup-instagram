@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles'
 import { useState } from 'react'
 import Dialog from '@mui/material/Dialog'
 import Button from '@mui/material/Button'
+import { useNavigate } from 'react-router-dom'
 import { User } from '../../types'
 
 export interface DialogTitleProps {
@@ -56,6 +57,8 @@ function ProfilePageModal({ users, text }: ProfilePageModalProps): JSX.Element {
         setOpen(false)
     }
 
+    const navigate = useNavigate()
+
     const BootstrapDialog = styled(Dialog)(({ theme }) => ({
         '& .MuiDialogContent-root': {
             padding: theme.spacing(2),
@@ -94,6 +97,10 @@ function ProfilePageModal({ users, text }: ProfilePageModalProps): JSX.Element {
                                 }}
                             >
                                 <Avatar
+                                    onClick={() => {
+                                        navigate(`/profile/${currUser?.authID}`)
+                                        setOpen(false)
+                                    }}
                                     src={currUser?.profileImage}
                                     sx={{ width: '40px', height: '40px' }}
                                 />

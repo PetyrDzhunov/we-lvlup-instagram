@@ -34,6 +34,7 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
                         ? currentUser?.profileImage
                         : '/broken-image.jpg'
                 }
+                id={currentUser ? currentUser?.authID : ''}
             />
             <SinglePostImage image={post.image} />
             <SinglePostFooter

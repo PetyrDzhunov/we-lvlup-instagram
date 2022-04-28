@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import SinglePostImage from '../../components/SinglePostImage'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
@@ -16,8 +16,9 @@ let isInitial = true
 
 function ProfilePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
+    const { userID } = useParams()
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const { isAuthenticated, uid, email, fullName } = useAppSelector(
+    const { isAuthenticated } = useAppSelector(
         (state) => state.persistedReducer.auth
     )
 
@@ -35,7 +36,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
     }, [dispatch])
 
     const currentUserPosts = useAppSelector((state) =>
-        state.posts.allPosts.filter((post) => post.creator.uid === uid)
+        state.posts.allPosts.filter((post) => post.creator.uid === userID)
     )
 
     useEffect(() => {
@@ -50,12 +51,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                 <title>{title}</title>
             </Helmet>
             <Box>
-                <ProfilePageHeader
-                    email={email}
-                    fullName={fullName}
-                    myPosts={currentUserPosts}
-                    uid={uid}
-                />
+                <ProfilePageHeader myPosts={currentUserPosts} uid={userID!} />
                 <Box
                     sx={{
                         display: 'flex',

@@ -208,6 +208,9 @@ function SinglePostFooter({
                             }}
                         >
                             <Avatar
+                                onClick={() =>
+                                    navigate(`/profile/${currentUser?.authID}`)
+                                }
                                 src={currentUser?.profileImage}
                                 sx={{ width: '40px', height: '40px' }}
                             />
