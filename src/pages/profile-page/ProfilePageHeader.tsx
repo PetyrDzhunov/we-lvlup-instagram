@@ -13,8 +13,9 @@ import { Post } from '../../types'
 import '../../styles/file-input.css'
 import { db, storage } from '../../config/firebase'
 import { firebaseUsersService } from '../../services/firebase-service'
-import { useAppSelector } from '../../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import ProfilePageModal from './ProfilePageModal'
+import { addFollower } from '../../store/users/usersSlice'
 
 interface ProfilePageHeaderProps {
     myPosts: Post[]
@@ -42,6 +43,32 @@ function ProfilePageHeader({
     const { uid: loggedInUserID } = useAppSelector(
         (state) => state.persistedReducer.auth
     )
+
+    const hasFollowed = currentUserVisited?.followers.includes(loggedInUserID)
+    const dispatch = useAppDispatch()
+    const handleFollowUser = async (): Promise<void> => {
+        if (currentUserVisited === undefined) {
+            return
+        }
+
+        dispatch(
+            addFollower({
+                loggedInUserId: loggedInUserID,
+                currentUserId: currentUserVisited.authID,
+            })
+        )
+        if (loggedInUserID === currentUserVisited.authID) {
+            return setError("You can't follow yourself.")
+        }
+        try {
+            await firebaseUsersService.addFollower(
+                loggedInUserID,
+                currentUserVisited.authID
+            )
+        } catch (err) {
+            setError('Unable to follow, try again later')
+        }
+    }
 
     // filter only those that have the loggedinUserId in their followed array
     const currentUserFollowers = useAppSelector((state) =>
@@ -119,6 +146,18 @@ function ProfilePageHeader({
                 alignItems: 'center',
             }}
         >
+            <Button
+                variant="text"
+                sx={{
+                    position: 'absolute',
+                    fontSize: '0.90em',
+                    fontWeight: 'bold',
+                    right: '0',
+                }}
+                onClick={handleFollowUser}
+            >
+                {hasFollowed ? 'Unfollow' : 'Follow'}
+            </Button>
             <Stack marginLeft={0.7} spacing={2} marginTop={1.5}>
                 <input
                     name="file"
