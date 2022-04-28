@@ -50,7 +50,9 @@ function SinglePostHeader({
 
     const { uid } = useAppSelector((state) => state.persistedReducer.auth)
     const hasFollowed = currentUser?.followers.includes(uid)
-
+    // get the logged in userID
+    // for each post get its ID and if its creator is equal to the logged in userID do not display the follow button!!!
+    const isDisplayingFollowButton = uid === post.creator.uid
     const handleFollowUser = async (): Promise<void> => {
         if (currentUser === undefined) {
             return
@@ -99,17 +101,20 @@ function SinglePostHeader({
                 </Typography>
             </Stack>
 
-            <Button
-                variant="text"
-                sx={{
-                    fontSize: '0.85em',
-                    fontWeight: 'bold',
-                    justifySelf: 'flex-end',
-                }}
-                onClick={handleFollowUser}
-            >
-                {hasFollowed ? 'Unfollow' : 'Follow'}
-            </Button>
+            {!isDisplayingFollowButton && (
+                <Button
+                    variant="text"
+                    sx={{
+                        fontSize: '0.85em',
+                        fontWeight: 'bold',
+                        justifySelf: 'flex-end',
+                    }}
+                    onClick={handleFollowUser}
+                >
+                    {hasFollowed ? 'Unfollow' : 'Follow'}
+                </Button>
+            )}
+
             {error && (
                 <Snackbar
                     open={open}

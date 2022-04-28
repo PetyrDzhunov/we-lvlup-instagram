@@ -1,13 +1,23 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+
+import { useNavigate } from 'react-router-dom'
+
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 interface SinglePostImageProps {
+    id: string
     image: string
     small?: boolean
 }
 
-function SinglePostImage({ image, small }: SinglePostImageProps): JSX.Element {
+function SinglePostImage({
+    id,
+    image,
+    small,
+}: SinglePostImageProps): JSX.Element {
+    const navigate = useNavigate()
     return (
         <img
+            onClick={() => navigate(`/posts/${id}`)}
             src={image}
             alt=""
             className={

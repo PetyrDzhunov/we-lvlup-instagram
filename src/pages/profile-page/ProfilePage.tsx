@@ -66,6 +66,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                 >
                     {currentUserPosts.map((post) => (
                         <SinglePostImage
+                            id={post.id}
                             key={post.id}
                             image={post.image}
                             small
