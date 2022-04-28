@@ -46,6 +46,8 @@ function ProfilePageHeader({
 
     const hasFollowed = currentUserVisited?.followers.includes(loggedInUserID)
     const dispatch = useAppDispatch()
+    const isInLoggedInProfilePage =
+        loggedInUserID === currentUserVisited?.authID
     const handleFollowUser = async (): Promise<void> => {
         if (currentUserVisited === undefined) {
             return
@@ -57,9 +59,7 @@ function ProfilePageHeader({
                 currentUserId: currentUserVisited.authID,
             })
         )
-        if (loggedInUserID === currentUserVisited.authID) {
-            return setError("You can't follow yourself.")
-        }
+
         try {
             await firebaseUsersService.addFollower(
                 loggedInUserID,
@@ -146,18 +146,20 @@ function ProfilePageHeader({
                 alignItems: 'center',
             }}
         >
-            <Button
-                variant="text"
-                sx={{
-                    position: 'absolute',
-                    fontSize: '0.90em',
-                    fontWeight: 'bold',
-                    right: '0',
-                }}
-                onClick={handleFollowUser}
-            >
-                {hasFollowed ? 'Unfollow' : 'Follow'}
-            </Button>
+            {!isInLoggedInProfilePage && (
+                <Button
+                    variant="text"
+                    sx={{
+                        position: 'absolute',
+                        fontSize: '0.90em',
+                        fontWeight: 'bold',
+                        right: '0',
+                    }}
+                    onClick={handleFollowUser}
+                >
+                    {hasFollowed ? 'Unfollow' : 'Follow'}
+                </Button>
+            )}
             <Stack marginLeft={0.7} spacing={2} marginTop={1.5}>
                 <input
                     name="file"
