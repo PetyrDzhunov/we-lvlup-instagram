@@ -139,6 +139,21 @@ function SinglePostFooter({
             >
                 {currentPost?.likes.length} харесвания
             </Typography>
+            <Typography
+                onClick={commentHandler}
+                sx={{
+                    color: '#000000',
+                    marginLeft: '10px',
+                    fontSize: '0.9em',
+                    fontWeight: '600',
+                    marginTop: '4px',
+                }}
+            >
+                {currentPost!.comments.length > 0
+                    ? `Преглед на всички ${currentPost?.comments.length} коментари `
+                    : null}
+            </Typography>
+
             {error && (
                 <Typography
                     align="center"
