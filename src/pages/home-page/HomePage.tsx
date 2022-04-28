@@ -20,7 +20,6 @@ let isInitial = true
 function HomePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState<boolean>(false)
-
     const isAuthenticated = useAppSelector(
         (state) => state.persistedReducer.auth.isAuthenticated
     )
@@ -52,7 +51,13 @@ function HomePage({ title }: PageProps): JSX.Element {
             </Helmet>
             <Box>
                 {isLoading && isInitial && <PostsSkeleton />}
-                <List sx={{ padding: '0px', marginTop: '70px' }}>
+                <List
+                    sx={{
+                        bgcolor: 'background.paper',
+                        padding: '0px',
+                        marginTop: '70px',
+                    }}
+                >
                     {allPosts.map((post) => (
                         <SinglePost key={post.id} post={post} />
                     ))}

@@ -17,6 +17,7 @@ import {
     DialogTitle,
     Stack,
 } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { likeDislikePost } from '../store/posts/postsSlice'
 import { firebasePostsService } from '../services/firebase-service'
@@ -37,6 +38,8 @@ function SinglePostFooter({
     const currentPost = useAppSelector((state) =>
         state.posts.allPosts.find((post) => post.id === postID)
     )
+
+    const theme = useTheme()
 
     const { postID: hasParams } = useParams()
 
@@ -93,7 +96,7 @@ function SinglePostFooter({
             sx={{
                 top: 'auto',
                 bottom: 0,
-                backgroundColor: '#ffffff',
+                backgroundColor: theme.palette.background.paper,
             }}
         >
             <Toolbar
@@ -107,7 +110,7 @@ function SinglePostFooter({
                     <IconButton onClick={handleLike}>
                         <FavoriteBorderIcon
                             fontSize="medium"
-                            sx={{ color: '#000000' }}
+                            sx={{ color: theme.palette.text.primary }}
                         />
                     </IconButton>
                 )}
@@ -122,16 +125,22 @@ function SinglePostFooter({
                 )}
 
                 <IconButton onClick={commentHandler}>
-                    <CommentIcon fontSize="medium" sx={{ color: '#000000' }} />
+                    <CommentIcon
+                        fontSize="medium"
+                        sx={{ color: theme.palette.text.primary }}
+                    />
                 </IconButton>
                 <IconButton>
-                    <ShareIcon fontSize="medium" sx={{ color: '#000000' }} />
+                    <ShareIcon
+                        fontSize="medium"
+                        sx={{ color: theme.palette.text.primary }}
+                    />
                 </IconButton>
             </Toolbar>
             <Typography
                 onClick={showLikes}
                 sx={{
-                    color: '#000000',
+                    color: theme.palette.text.primary,
                     marginLeft: '10px',
                     fontSize: '0.9em',
                     fontWeight: '600',
@@ -142,7 +151,7 @@ function SinglePostFooter({
             <Typography
                 onClick={commentHandler}
                 sx={{
-                    color: '#000000',
+                    color: theme.palette.text.primary,
                     marginLeft: '10px',
                     fontSize: '0.9em',
                     fontWeight: '600',
@@ -171,7 +180,7 @@ function SinglePostFooter({
                     variant="body2"
                     component="h6"
                     sx={{
-                        color: '#000000',
+                        color: theme.palette.text.primary,
                         fontWeight: '600',
                         marginTop: '4px',
                         marginLeft: '10px',
@@ -184,7 +193,7 @@ function SinglePostFooter({
                         variant="body2"
                         component="p"
                         sx={{
-                            color: '#000000',
+                            color: theme.palette.text.primary,
                             fontWeight: '400',
                             marginTop: '4px',
                             marginLeft: '5px',
@@ -206,7 +215,7 @@ function SinglePostFooter({
                         position: 'absolute',
                         right: 0,
                         top: 0,
-                        color: (theme) => theme.palette.grey[500],
+                        color: (themed) => themed.palette.grey[500],
                     }}
                 >
                     <CloseIcon />
@@ -233,6 +242,7 @@ function SinglePostFooter({
                                 sx={{
                                     fontWeight: 'bolder',
                                     marginBottom: '4px',
+                                    color: theme.palette.text.primary,
                                 }}
                             >
                                 {currentUser?.username ||

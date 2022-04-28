@@ -1,4 +1,5 @@
 import ListItem from '@mui/material/ListItem'
+import { useTheme } from '@mui/material/styles'
 import SinglePostHeader from './SinglePostHeader'
 import { Post } from '../types'
 import '../styles/single-post.css'
@@ -17,6 +18,8 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
         )
     )
 
+    const theme = useTheme()
+
     return (
         <ListItem
             sx={{
@@ -25,6 +28,7 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
                 width: '96%',
                 margin: '20px 0',
                 padding: '0px',
+                backgroundColor: theme.palette.background.paper,
             }}
         >
             <SinglePostHeader

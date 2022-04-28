@@ -1,18 +1,21 @@
 import { Box } from '@mui/material'
 import SvgIcon from '@mui/material/SvgIcon'
+import { useTheme } from '@mui/material/styles'
 
 interface InstagramLogoProps {
     layoutLogo?: boolean
 }
 
 function InstagramLogo({ layoutLogo }: InstagramLogoProps): JSX.Element {
+    const theme = useTheme()
+
     if (layoutLogo) {
         return (
             <Box
                 sx={{
                     margin: '0px',
                     fontSize: '40px',
-                    color: 'black',
+                    color: theme.palette.text.primary,
                 }}
             >
                 <SvgIcon

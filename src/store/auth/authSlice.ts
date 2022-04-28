@@ -5,6 +5,7 @@ export interface AuthState {
     email: string
     uid: string
     fullName: string
+    theme: string
 }
 
 const initialState: AuthState = {
@@ -12,6 +13,7 @@ const initialState: AuthState = {
     email: '',
     uid: '',
     fullName: '',
+    theme: 'light',
 }
 
 const authSlice = createSlice({
@@ -28,6 +30,7 @@ const authSlice = createSlice({
             state.email = email
             state.uid = uid
             state.fullName = fullName
+            state.theme = 'light'
         },
         logout(state) {
             state.isAuthenticated = false
@@ -35,9 +38,17 @@ const authSlice = createSlice({
             state.uid = ''
             state.fullName = ''
         },
+        toggleTheme(state) {
+            console.log('here')
+            if (state.theme === 'light') {
+                state.theme = 'dark'
+            } else {
+                state.theme = 'light'
+            }
+        },
     },
 })
 
-export const { login, logout } = authSlice.actions
+export const { login, logout, toggleTheme } = authSlice.actions
 
 export default authSlice.reducer

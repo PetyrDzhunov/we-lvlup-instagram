@@ -78,25 +78,31 @@ function LayoutFooter(): JSX.Element {
         <AppBar
             position="fixed"
             color="primary"
-            sx={{ top: 'auto', bottom: 0, backgroundColor: '#ffffff' }}
+            sx={{ top: 'auto', bottom: 0, bgcolor: 'background.paper' }}
         >
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-around' }}>
                 <IconButton onClick={homeHandler}>
-                    <HomeIcon fontSize="medium" sx={{ color: '#000000' }} />
+                    <HomeIcon
+                        fontSize="medium"
+                        sx={{ color: 'text.primary' }}
+                    />
                 </IconButton>
                 <IconButton>
-                    <SearchIcon fontSize="medium" sx={{ color: '#000000' }} />
+                    <SearchIcon
+                        fontSize="medium"
+                        sx={{ color: 'text.primary' }}
+                    />
                 </IconButton>
                 <IconButton>
                     <SlideshowIcon
                         fontSize="medium"
-                        sx={{ color: '#000000' }}
+                        sx={{ color: 'text.primary' }}
                     />
                 </IconButton>
                 <IconButton>
                     <ShoppingBagIcon
                         fontSize="medium"
-                        sx={{ color: '#000000' }}
+                        sx={{ color: 'text.primary' }}
                     />
                 </IconButton>
                 <Tooltip title="Open settings">
@@ -124,7 +130,7 @@ function LayoutFooter(): JSX.Element {
                 >
                     <MenuItem onClick={logoutHandler}>
                         <Button
-                            sx={{ color: '#000000' }}
+                            sx={{ color: 'text.primary' }}
                             endIcon={<LogoutIcon />}
                         >
                             Logout
@@ -132,7 +138,7 @@ function LayoutFooter(): JSX.Element {
                     </MenuItem>
                     <MenuItem onClick={profileHandler}>
                         <Button
-                            sx={{ color: '#000000' }}
+                            sx={{ color: 'text.primary' }}
                             endIcon={<AccountBoxIcon />}
                         >
                             Profile
