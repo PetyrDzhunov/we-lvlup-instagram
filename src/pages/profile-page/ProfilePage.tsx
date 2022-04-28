@@ -18,7 +18,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
     const { userID } = useParams()
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const { isAuthenticated } = useAppSelector(
+    const { isAuthenticated, uid } = useAppSelector(
         (state) => state.persistedReducer.auth
     )
 
@@ -51,7 +51,10 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                 <title>{title}</title>
             </Helmet>
             <Box>
-                <ProfilePageHeader myPosts={currentUserPosts} uid={userID!} />
+                <ProfilePageHeader
+                    myPosts={currentUserPosts}
+                    uid={userID || uid}
+                />
                 <Box
                     sx={{
                         display: 'flex',

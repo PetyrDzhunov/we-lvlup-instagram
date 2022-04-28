@@ -67,7 +67,7 @@ function LayoutFooter(): JSX.Element {
 
     const profileHandler = (): void => {
         handleCloseUserMenu()
-        navigate('/profile')
+        navigate(`/profile/${userID}`)
     }
 
     const homeHandler = (): void => {
