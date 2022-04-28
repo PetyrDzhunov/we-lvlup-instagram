@@ -32,8 +32,10 @@
 
 .comment-input.comment-input-light {
     background-color: #ffffff;
+    color: "#121212"
 }
 
 .comment-input.comment-input-dark {
     background-color: #121212;
+    color: #ffffff
 }

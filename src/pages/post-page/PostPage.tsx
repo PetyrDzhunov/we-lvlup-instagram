@@ -93,6 +93,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                 sx={{
                     bgcolor: 'background.paper',
                     marginTop: '56px',
+                    marginBottom: '40px',
                 }}
             >
                 <Helmet>

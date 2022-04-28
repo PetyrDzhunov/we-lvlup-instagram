@@ -1,6 +1,7 @@
 import Avatar from '@mui/material/Avatar'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
+import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../hooks/redux-hooks'
 // import { useAppSelector } from '../../hooks/redux-hooks'
 import { Comment } from '../../types'
@@ -16,9 +17,14 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
         )
     })
 
+    const navigate = useNavigate()
+
     return (
         <ListItem>
             <Avatar
+                onClick={() =>
+                    navigate(`/profile/${currentCommentCreator?.authID}`)
+                }
                 alt="Profile picture of the user"
                 src={
                     currentCommentCreator
