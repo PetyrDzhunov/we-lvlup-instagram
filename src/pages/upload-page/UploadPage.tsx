@@ -141,7 +141,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                     component="h3"
                     sx={{
                         fontWeight: '300',
-                        color: 'rgba(38,38,38,0.7)',
+                        color: 'text.primary',
                     }}
                 >
                     Добавете снимки и видеоклипове, за да създадете нова

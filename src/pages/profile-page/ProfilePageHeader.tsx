@@ -154,6 +154,7 @@ function ProfilePageHeader({
                         fontSize: '0.90em',
                         fontWeight: 'bold',
                         right: '0',
+                        top: '60px',
                     }}
                     onClick={handleFollowUser}
                 >

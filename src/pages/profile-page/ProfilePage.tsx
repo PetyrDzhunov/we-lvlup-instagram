@@ -50,7 +50,12 @@ function ProfilePage({ title }: PageProps): JSX.Element {
             <Helmet>
                 <title>{title}</title>
             </Helmet>
-            <Box>
+            <Box
+                sx={{
+                    marginTop: '40px',
+                    marginBottom: '53px',
+                }}
+            >
                 <ProfilePageHeader
                     myPosts={currentUserPosts}
                     uid={userID || uid}

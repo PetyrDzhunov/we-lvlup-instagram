@@ -32,7 +32,7 @@ function PageLayout({ children }: PageLayoutProps): JSX.Element {
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
             <Paper>
                 <LayoutNavigation />
-                <div className="page-root">{children}</div>
+                <div>{children}</div>
                 <LayoutFooter />
             </Paper>
         </ThemeProvider>

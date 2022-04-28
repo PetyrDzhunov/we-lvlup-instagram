@@ -49,7 +49,12 @@ function HomePage({ title }: PageProps): JSX.Element {
             <Helmet>
                 <title>{title}</title>
             </Helmet>
-            <Box>
+            <Box
+                sx={{
+                    marginTop: '-14px',
+                    marginBottom: '56px',
+                }}
+            >
                 {isLoading && isInitial && <PostsSkeleton />}
                 <List
                     sx={{
