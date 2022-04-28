@@ -20,6 +20,11 @@
     height: 30px;
 }
 
+.emoji-icon.dark {
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
 .comment-input {
     padding: 7px 30px 7px 10px;
     width: 91.7%;
@@ -32,10 +37,10 @@
 
 .comment-input.comment-input-light {
     background-color: #ffffff;
-    color: "#121212"
+    color: '#121212';
 }
 
 .comment-input.comment-input-dark {
     background-color: #121212;
-    color: #ffffff
+    color: #ffffff;
 }

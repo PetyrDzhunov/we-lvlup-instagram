@@ -8,9 +8,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Picker from 'emoji-picker-react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
 import List from '@mui/material/List'
 import { v4 as uuidv4 } from 'uuid'
+import { Alert, Snackbar } from '@mui/material'
 import SinglePost from '../../components/SinglePost'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
@@ -47,6 +47,8 @@ function PostPage({ title }: PageProps): JSX.Element {
         state.users.allUsers.find((user) => user.authID === uid)
     )
 
+    const [open, setOpen] = useState<boolean>(false)
+
     const addCommentHandler = async (): Promise<void> => {
         if (loggedUser === undefined) {
             return
@@ -54,6 +56,11 @@ function PostPage({ title }: PageProps): JSX.Element {
 
         if (postID === undefined) {
             return
+        }
+
+        if (comment === '') {
+            setOpen(true)
+            return setError('Коментарът не може да бъде празен')
         }
 
         const newComment = {
@@ -79,6 +86,17 @@ function PostPage({ title }: PageProps): JSX.Element {
     const currentTheme = useAppSelector(
         (state) => state.persistedReducer.auth.theme
     )
+
+    const handleClose = (
+        event?: React.SyntheticEvent | Event,
+        reason?: string
+    ): void => {
+        if (reason === 'clickaway') {
+            return
+        }
+
+        setOpen(false)
+    }
 
     const navigate = useNavigate()
     useEffect(() => {
@@ -119,7 +137,11 @@ function PostPage({ title }: PageProps): JSX.Element {
                     />
                     <img
                         alt=""
-                        className="emoji-icon"
+                        className={
+                            currentTheme === 'light'
+                                ? 'emoji-icon emoji-icon-light'
+                                : 'emoji-icon emoji-icon-dark'
+                        }
                         src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
                         onClick={() => setShowPicker((val) => !val)}
                     />
@@ -143,17 +165,19 @@ function PostPage({ title }: PageProps): JSX.Element {
                         Публикуване
                     </Button>
                 </Box>
-                {error && (
-                    <Typography
-                        align="center"
-                        color="error"
-                        variant="body2"
-                        sx={{ fontWeight: 'bolder', marginTop: '10px' }}
-                        paragraph
+                <Snackbar
+                    open={open}
+                    autoHideDuration={3000}
+                    onClose={handleClose}
+                >
+                    <Alert
+                        onClose={handleClose}
+                        severity="error"
+                        sx={{ width: '100%' }}
                     >
                         {error}
-                    </Typography>
-                )}
+                    </Alert>
+                </Snackbar>
                 <List sx={{ bgcolor: 'background.paper' }}>
                     {currentPost?.comments?.map((currComment) => (
                         <SingleComment
