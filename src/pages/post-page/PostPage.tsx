@@ -113,6 +113,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                     bgcolor: 'background.paper',
                     marginTop: '56px',
                     marginBottom: '50px',
+                    minHeight: '100vh',
                 }}
             >
                 <Helmet>
