@@ -94,8 +94,6 @@ const addLikeToComment = async (
         newLikes?.splice(indexOfUserID!, 1)
     }
 
-    currentPost[0].comments.likes! = newLikes
-
     await updateDoc(currentPostRef, {
         ...currentPost[0],
         likes: newLikes,

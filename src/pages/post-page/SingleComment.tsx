@@ -6,10 +6,11 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { useAppSelector } from '../../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 // import { useAppSelector } from '../../hooks/redux-hooks'
 import { Comment } from '../../types'
 import { firebasePostsService } from '../../services/firebase-service'
+import { likeDislikeComment } from '../../store/posts/postsSlice'
 
 interface SingleCommentProps {
     comment: Comment
@@ -22,6 +23,8 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
             (currUser) => currUser.authID === comment.commentatorID
         )
     })
+
+    const dispatch = useAppDispatch()
 
     const currentPost = useAppSelector((state) =>
         state.posts.allPosts.find((post) => post.comments.includes(comment))
@@ -36,14 +39,18 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     )
 
     const handleLike = async (): Promise<void> => {
-        // dispatch(
-        //     likeDislikeComment({ id: comment.commentID, user: loggedInUserID })
-        // )
-        console.log(currentPost)
+        if (currentPost?.id === undefined) {
+            return
+        }
+
+        dispatch(
+            likeDislikeComment({
+                postID: currentPost.id,
+                commentID: comment.commentID,
+                userID: loggedInUserID,
+            })
+        )
         try {
-            if (currentPost?.id === undefined) {
-                return
-            }
             await firebasePostsService.addLikeToComment(
                 currentPost.id,
                 comment.commentID,

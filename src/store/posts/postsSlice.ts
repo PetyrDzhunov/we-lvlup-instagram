@@ -62,10 +62,43 @@ const postSlice = createSlice({
             currentPost.comments.push(newComment)
             state.allComments.push(newComment)
         },
+        likeDislikeComment: (
+            state,
+            action: PayloadAction<{
+                postID: string
+                commentID: string
+                userID: string
+            }>
+        ) => {
+            const { postID, commentID, userID } = action.payload
+            const currentPost = state.allPosts.find(
+                (currPost) => currPost.id === postID
+            )
+
+            const currentComment = currentPost?.comments.find(
+                (currPost) => currPost.commentID === commentID
+            )
+
+            if (!currentComment) {
+                return
+            }
+
+            if (!currentComment?.likes.includes(userID)) {
+                currentComment.likes.push(userID)
+            } else {
+                const userIndex = currentComment.likes.indexOf(userID)
+                currentComment.likes.splice(userIndex, 1)
+            }
+        },
     },
 })
 
-export const { loadAllPosts, addPost, likeDislikePost, addComment } =
-    postSlice.actions
+export const {
+    loadAllPosts,
+    addPost,
+    likeDislikePost,
+    addComment,
+    likeDislikeComment,
+} = postSlice.actions
 
 export default postSlice.reducer
