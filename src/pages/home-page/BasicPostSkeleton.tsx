@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack'
 function BasicPostSkeleton(): JSX.Element {
     return (
         <>
-            <Stack direction="row" spacing={1}>
+            <Stack sx={{ marginTop: '75px' }} direction="row" spacing={1}>
                 <Skeleton variant="circular" width={40} height={40} />
                 <Skeleton variant="text" width={100} />
             </Stack>

@@ -74,6 +74,7 @@ function PostPage({ title }: PageProps): JSX.Element {
         }
         // dispatch action for adding new comment to the current post
         dispatch(addComment(newComment))
+        setComment('')
 
         // add the comment to the current post in the database
         try {
@@ -81,8 +82,6 @@ function PostPage({ title }: PageProps): JSX.Element {
         } catch (err) {
             setError('Something went wrong.')
         }
-
-        setComment('')
     }
 
     const currentTheme = useAppSelector(

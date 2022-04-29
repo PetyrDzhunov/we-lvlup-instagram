@@ -39,7 +39,6 @@ const authSlice = createSlice({
             state.fullName = ''
         },
         toggleTheme(state) {
-            console.log('here')
             if (state.theme === 'light') {
                 state.theme = 'dark'
             } else {

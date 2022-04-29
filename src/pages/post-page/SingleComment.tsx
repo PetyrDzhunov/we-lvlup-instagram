@@ -62,7 +62,6 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     }
 
     const navigate = useNavigate()
-    console.log(comment)
     return (
         <Box>
             <ListItem sx={{ justifyContent: 'space-between' }}>
