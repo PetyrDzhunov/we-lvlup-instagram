@@ -74,6 +74,31 @@ const addCommentToPost = async (
     })
 }
 
+const addLikeToComment = async (
+    postID: string,
+    commentID: string,
+    userID: string
+): Promise<void> => {
+    const currentPost = await getPostById(postID)
+    const currentPostDocId = currentPost[0].docID!
+    const currentPostRef = doc(db, 'posts', currentPostDocId)
+
+    console.log(currentPost)
+    const commentToAddLikeTo = currentPost[0].comments.find(
+        (currComment) => currComment.commentID === commentID
+    )
+
+    if (!commentToAddLikeTo?.likes.includes(userID)) {
+        await updateDoc(currentPostRef, {
+            // add the like to comments - currentComment - likes array inside it push the userID
+        })
+    } else {
+        await updateDoc(currentPostRef, {
+            // remove the like
+        })
+    }
+}
+
 export default {
     getAllPosts,
     createPost,
@@ -81,4 +106,5 @@ export default {
     getAllPostsByUserID,
     getPostById,
     addCommentToPost,
+    addLikeToComment,
 }

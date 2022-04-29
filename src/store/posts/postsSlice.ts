@@ -53,11 +53,13 @@ const postSlice = createSlice({
             if (!currentPost) {
                 return
             }
-            const newComment = {
+            const newComment: Comment = {
                 comment,
                 commentator,
                 commentatorID,
                 commentID,
+                likes: [],
+                replies: [],
             }
             currentPost.comments.push(newComment)
             state.allComments.push(newComment)

@@ -13,6 +13,8 @@ export interface Comment {
     comment: string
     commentatorID: string
     commentID: string
+    likes: string[]
+    replies?: Comment[]
 }
 
 export interface ReduxComment extends Comment {

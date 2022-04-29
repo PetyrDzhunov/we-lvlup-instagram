@@ -69,6 +69,8 @@ function PostPage({ title }: PageProps): JSX.Element {
             id: postID,
             commentatorID: loggedUser.authID,
             commentID: uuidv4(),
+            replies: [],
+            likes: [],
         }
         // dispatch action for adding new comment to the current post
         dispatch(addComment(newComment))
@@ -111,7 +113,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                 sx={{
                     bgcolor: 'background.paper',
                     marginTop: '56px',
-                    marginBottom: '40px',
+                    marginBottom: '50px',
                 }}
             >
                 <Helmet>

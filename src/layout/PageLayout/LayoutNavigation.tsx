@@ -99,7 +99,7 @@ function LayoutNavigation(): JSX.Element {
                     control={
                         <MaterialUISwitch
                             sx={{ m: 1 }}
-                            defaultChecked={currentUserTheme === 'dark'}
+                            checked={currentUserTheme === 'dark'}
                         />
                     }
                     label=""
