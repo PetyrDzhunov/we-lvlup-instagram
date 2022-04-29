@@ -26,13 +26,13 @@ const getAllPosts = async (): Promise<Post[]> => {
 }
 
 const createPost = async (post: Post): Promise<void> => {
-    const { comments, creator, dislikes, image, likes, description } = post
+    const { comments, creator, dislikes, image, likedBy, description } = post
     await addDoc(collection(db, 'posts'), {
         comments,
         creator,
         dislikes,
         image,
-        likes,
+        likedBy,
         description,
         id: uuidv4(),
     })
@@ -42,13 +42,13 @@ const addLikeToPost = async (postID: string, userID: string): Promise<void> => {
     const currentPost = await getPostById(postID)
     const currentPostDocId = currentPost[0].docID!
     const currentPostRef = doc(db, 'posts', currentPostDocId)
-    if (!currentPost[0].likes.includes(userID)) {
+    if (!currentPost[0].likedBy.includes(userID)) {
         await updateDoc(currentPostRef, {
-            likes: arrayUnion(userID),
+            likedBy: arrayUnion(userID),
         })
     } else {
         await updateDoc(currentPostRef, {
-            likes: arrayRemove(userID),
+            likedBy: arrayRemove(userID),
         })
     }
 }
@@ -82,21 +82,24 @@ const addLikeToComment = async (
     const currentPost = await getPostById(postID)
     const currentPostDocId = currentPost[0].docID!
     const currentPostRef = doc(db, 'posts', currentPostDocId)
-
-    console.log(currentPost)
     const commentToAddLikeTo = currentPost[0].comments.find(
         (currComment) => currComment.commentID === commentID
     )
+    const newLikes = commentToAddLikeTo?.likes
 
     if (!commentToAddLikeTo?.likes.includes(userID)) {
-        await updateDoc(currentPostRef, {
-            // add the like to comments - currentComment - likes array inside it push the userID
-        })
+        newLikes?.push(userID)
     } else {
-        await updateDoc(currentPostRef, {
-            // remove the like
-        })
+        const indexOfUserID = newLikes?.indexOf(userID)
+        newLikes?.splice(indexOfUserID!, 1)
     }
+
+    currentPost[0].comments.likes! = newLikes
+
+    await updateDoc(currentPostRef, {
+        ...currentPost[0],
+        likes: newLikes,
+    })
 }
 
 export default {

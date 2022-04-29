@@ -4,12 +4,10 @@ import { Comment, Post, ReduxComment } from '../../types'
 export interface PostState {
     allPosts: Post[]
     allComments: Comment[]
-    likes: string[]
 }
 
 const initialState: PostState = {
     allPosts: [],
-    likes: [],
     allComments: [],
 }
 
@@ -37,11 +35,11 @@ const postSlice = createSlice({
                 return
             }
             // if you have not liked it yet you are added to the likes array
-            if (!currentPost.likes.includes(user)) {
-                currentPost.likes.push(user)
+            if (!currentPost.likedBy.includes(user)) {
+                currentPost.likedBy.push(user)
             } else {
-                const index = currentPost.likes.indexOf(user)
-                currentPost.likes.splice(index, 1)
+                const index = currentPost.likedBy.indexOf(user)
+                currentPost.likedBy.splice(index, 1)
             }
             // upgrade the current post in allPosts array?
             state.allPosts.splice(currentPostIndex, 1, currentPost)

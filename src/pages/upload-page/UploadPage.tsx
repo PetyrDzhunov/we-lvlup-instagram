@@ -85,7 +85,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                     .then((url) => {
                         const newPost: Post = {
                             creator: { email, uid },
-                            likes: [],
+                            likedBy: [],
                             dislikes: [],
                             comments: [],
                             image: url,

@@ -51,7 +51,7 @@ function SinglePostFooter({
 
     const currentPostUsersLikes = useAppSelector((state) =>
         state.users.allUsers.filter((currUser) => {
-            return currentPost?.likes.includes(currUser.authID)
+            return currentPost?.likedBy.includes(currUser.authID)
         })
     )
 
@@ -73,7 +73,7 @@ function SinglePostFooter({
         handleClickOpen()
     }
 
-    const hasBeenLikedByCurrentUser = currentPost?.likes.some(
+    const hasBeenLikedByCurrentUser = currentPost?.likedBy.some(
         (like) => like === loggedInUserID
     )
 
@@ -146,7 +146,7 @@ function SinglePostFooter({
                     fontWeight: '600',
                 }}
             >
-                {currentPost?.likes.length} харесвания
+                {currentPost?.likedBy.length} харесвания
             </Typography>
             <Typography
                 onClick={commentHandler}

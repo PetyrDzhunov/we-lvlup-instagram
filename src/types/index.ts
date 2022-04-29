@@ -25,7 +25,7 @@ type Follower = string
 
 export interface Post {
     creator: PostCreator
-    likes: string[]
+    likedBy: string[]
     dislikes: string[]
     comments: Comment[]
     image: string
