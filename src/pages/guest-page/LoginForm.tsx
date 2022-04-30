@@ -6,10 +6,10 @@ import Button from '@mui/material/Button'
 import '../../styles/form.css'
 import { FirebaseError } from 'firebase/app'
 import { useState } from 'react'
-import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
+import Error from '../../components/Error'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
@@ -107,17 +107,8 @@ function LoginForm(): JSX.Element {
                 >
                     Вход
                 </Button>
-                {error && (
-                    <Typography
-                        align="center"
-                        color="error"
-                        variant="body2"
-                        sx={{ fontWeight: 'bolder', marginTop: '10px' }}
-                        paragraph
-                    >
-                        {error}
-                    </Typography>
-                )}
+                {error && <Error error={error} />}
+
                 {isLoggingIn && (
                     <Box
                         sx={{

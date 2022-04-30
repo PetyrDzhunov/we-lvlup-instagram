@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import CircularProgress from '@mui/material/CircularProgress'
+import Error from '../../components/Error'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import '../../styles/file-input.css'
 import { PageProps, Post } from '../../types'
@@ -180,17 +181,8 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             </Button>
                         </DialogActions>
                     </Dialog>
-                    {error && (
-                        <Typography
-                            align="center"
-                            color="error"
-                            variant="body2"
-                            sx={{ fontWeight: 'bolder', marginTop: '10px' }}
-                            paragraph
-                        >
-                            {error}
-                        </Typography>
-                    )}
+                    {error && <Error error={error} />}
+
                     {isLoading && (
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                             <CircularProgress size="1.5em" />

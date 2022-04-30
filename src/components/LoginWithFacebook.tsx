@@ -11,6 +11,7 @@ import { auth } from '../config/firebase'
 import { firebaseUsersService } from '../services/firebase-service'
 import { useAppDispatch } from '../hooks/redux-hooks'
 import { login } from '../store/auth/authSlice'
+import Error from './Error'
 
 interface LoginWithFacebookProps {
     contained?: boolean
@@ -34,18 +35,6 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
         >
             <CircularProgress size="1.5em" />
         </Box>
-    )
-
-    const displayError = error && (
-        <Typography
-            align="center"
-            color="error"
-            variant="body2"
-            sx={{ fontWeight: 'bolder', marginTop: '10px' }}
-            paragraph
-        >
-            {error}
-        </Typography>
     )
 
     const loginWithFacebookHandler = async (): Promise<void> => {
@@ -113,7 +102,7 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
                             Влизане с Facebook
                         </Typography>
                     </Box>
-                    {displayError}
+                    {error && <Error error={error} />}
                 </Button>
                 {LoadingSpinner}
             </Box>
@@ -141,7 +130,8 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
                 >
                     Влизане с Facebook
                 </Typography>
-                {displayError}
+                {error && <Error error={error} />}
+
                 {LoadingSpinner}
             </Box>
         </Button>

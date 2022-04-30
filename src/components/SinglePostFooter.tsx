@@ -6,7 +6,6 @@ import CommentIcon from '@mui/icons-material/Comment'
 import ShareIcon from '@mui/icons-material/Share'
 import Typography from '@mui/material/Typography'
 import CloseIcon from '@mui/icons-material/Close'
-
 import { useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -18,6 +17,7 @@ import {
     Stack,
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
+import Error from './Error'
 import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
 import { likeDislikePost } from '../store/posts/postsSlice'
 import { firebasePostsService } from '../services/firebase-service'
@@ -163,17 +163,7 @@ function SinglePostFooter({
                     : null}
             </Typography>
 
-            {error && (
-                <Typography
-                    align="center"
-                    color="error"
-                    variant="body2"
-                    sx={{ fontWeight: 'bolder', marginTop: '10px' }}
-                    paragraph
-                >
-                    {error}
-                </Typography>
-            )}
+            {error && <Error error={error} />}
 
             {description && (
                 <Typography

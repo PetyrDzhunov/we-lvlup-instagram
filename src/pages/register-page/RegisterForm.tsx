@@ -4,11 +4,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
-import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useState } from 'react'
 import { FirebaseError } from 'firebase/app'
 import Box from '@mui/material/Box'
+import Error from '../../components/Error'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import { auth } from '../../config/firebase'
 import InputController from '../../components/InputController'
@@ -138,17 +138,8 @@ function RegisterForm(): JSX.Element {
                 >
                     Напред
                 </Button>
-                {error && (
-                    <Typography
-                        align="center"
-                        color="error"
-                        variant="body2"
-                        sx={{ fontWeight: 'bolder', marginTop: '10px' }}
-                        paragraph
-                    >
-                        {error}
-                    </Typography>
-                )}
+                {error && <Error error={error} />}
+
                 {isRegistering && (
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                         <CircularProgress size="1.5em" />

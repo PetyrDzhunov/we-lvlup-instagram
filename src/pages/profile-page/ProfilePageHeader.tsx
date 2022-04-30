@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { doc, DocumentData, updateDoc } from 'firebase/firestore/lite'
 import { Post } from '../../types'
+import Error from '../../components/Error'
 import '../../styles/file-input.css'
 import { db, storage } from '../../config/firebase'
 import { firebaseUsersService } from '../../services/firebase-service'
@@ -180,22 +181,7 @@ function ProfilePageHeader({
                         />
                     </IconButton>
                 </label>
-
-                {error && (
-                    <Typography
-                        align="center"
-                        color="error"
-                        variant="body2"
-                        sx={{
-                            fontWeight: 'bolder',
-                            marginTop: '10px',
-                            marginBottom: '10px',
-                        }}
-                        paragraph
-                    >
-                        {error}
-                    </Typography>
-                )}
+                {error && <Error error={error} />}
 
                 {isLoading && (
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
