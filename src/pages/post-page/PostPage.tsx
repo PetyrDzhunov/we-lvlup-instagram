@@ -5,7 +5,6 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
-import Picker from 'emoji-picker-react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import List from '@mui/material/List'
@@ -22,17 +21,9 @@ import SingleComment from './SingleComment'
 
 function PostPage({ title }: PageProps): JSX.Element {
     const [comment, setComment] = useState('')
-    const [showPicker, setShowPicker] = useState(false)
     const [error, setError] = useState('')
     const dispatch = useAppDispatch()
 
-    const onEmojiClick = (
-        event: React.MouseEvent<Element, MouseEvent>,
-        emojiObject: any
-    ): void => {
-        setComment((prevInput) => prevInput + emojiObject.emoji)
-        setShowPicker(false)
-    }
     const { postID } = useParams()
 
     const { isAuthenticated, uid } = useAppSelector(
@@ -137,22 +128,6 @@ function PostPage({ title }: PageProps): JSX.Element {
                         onChange={(e) => setComment(e.target.value)}
                         placeholder="Добави коментар..."
                     />
-                    <img
-                        alt=""
-                        className={
-                            currentTheme === 'light'
-                                ? 'emoji-icon emoji-icon-light'
-                                : 'emoji-icon emoji-icon-dark'
-                        }
-                        src="https://icons.getbootstrap.com/assets/icons/emoji-smile.svg"
-                        onClick={() => setShowPicker((val) => !val)}
-                    />
-                    {showPicker && (
-                        <Picker
-                            pickerStyle={{ width: '100%' }}
-                            onEmojiClick={onEmojiClick}
-                        />
-                    )}
                     <Button
                         onClick={addCommentHandler}
                         variant="text"
