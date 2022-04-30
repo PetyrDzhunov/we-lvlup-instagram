@@ -10,7 +10,6 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
 import TextField from '@mui/material/TextField'
 import DialogActions from '@mui/material/DialogActions'
 import { useNavigate } from 'react-router-dom'
@@ -160,11 +159,8 @@ function UploadPage({ title }: PageProps): JSX.Element {
                     />
                     <label htmlFor="userImage">Изберете файл</label>
                     <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>Subscribe</DialogTitle>
+                        <DialogTitle>Добави описание за твоя пост</DialogTitle>
                         <DialogContent>
-                            <DialogContentText>
-                                Добави описание за твоя пост тук
-                            </DialogContentText>
                             <TextField
                                 onChange={handleDescriptionChange}
                                 multiline
@@ -211,7 +207,10 @@ function UploadPage({ title }: PageProps): JSX.Element {
                 )}
                 {hasSetDescription && <Typography>{description}</Typography>}
                 {selectedFile && (
-                    <ButtonGroup variant="contained">
+                    <ButtonGroup
+                        sx={{ marginBottom: '60px' }}
+                        variant="contained"
+                    >
                         <Button
                             onClick={addFileToDatabaseHandler}
                             sx={{

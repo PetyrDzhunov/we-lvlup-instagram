@@ -45,9 +45,6 @@ function LoginForm(): JSX.Element {
                 email,
                 password
             )
-            console.log(response)
-            // later maybe send some data to the login dispatch as a payload to hold the logged in user data
-            // await firebaseService.getUserByUID
             dispatch(
                 login({
                     email,

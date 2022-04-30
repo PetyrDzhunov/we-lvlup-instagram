@@ -3,10 +3,13 @@ import { ReactElement, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import GuestPageFooter from './components/GuestPageFooter'
+import { useAppSelector } from './hooks/redux-hooks'
 import { routes } from './routes'
 import './styles/single-post.css'
 
 function App(): ReactElement | null {
+    const theme = useAppSelector((state) => state.persistedReducer.auth.theme)
+    const backgroundColor = theme === 'dark' ? '#121212' : '#FFFFFF'
     return (
         <Suspense
             fallback={
@@ -16,6 +19,7 @@ function App(): ReactElement | null {
                         justifyContent: 'center',
                         alignItems: 'center',
                         height: '100vh',
+                        backgroundColor: { backgroundColor },
                     }}
                 >
                     <img
