@@ -1,4 +1,11 @@
-import { Box, IconButton, Stack } from '@mui/material'
+import {
+    Box,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    IconButton,
+    Stack,
+} from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import ListItem from '@mui/material/ListItem'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
@@ -6,7 +13,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import CloseIcon from '@mui/icons-material/Close'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+
 // import { useAppSelector } from '../../hooks/redux-hooks'
 import { Comment } from '../../types'
 import { firebasePostsService } from '../../services/firebase-service'
@@ -18,11 +27,19 @@ interface SingleCommentProps {
 
 function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     const [error, setError] = useState<string>('')
+    const [open, setOpen] = useState<boolean>(false)
     const currentCommentCreator = useAppSelector((state) => {
         return state.users.allUsers.find(
             (currUser) => currUser.authID === comment.commentatorID
         )
     })
+
+    // comment -> komentara
+    const currentCommentUsersLikes = useAppSelector((state) =>
+        state.users.allUsers.filter((currUser) => {
+            return comment.likes.includes(currUser.authID)
+        })
+    )
 
     const dispatch = useAppDispatch()
 
@@ -37,6 +54,18 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     const hasBeenLikedByCurrentUser = comment?.likes.some(
         (like) => like === loggedInUserID
     )
+
+    const handleClickOpen = (): void => {
+        setOpen(true)
+    }
+
+    const handleClickClosed = (): void => {
+        setOpen(false)
+    }
+
+    const showLikes = (): void => {
+        handleClickOpen()
+    }
 
     const handleLike = async (): Promise<void> => {
         if (currentPost?.id === undefined) {
@@ -133,8 +162,59 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                     </IconButton>
                 )}
             </ListItem>
+
+            <Dialog open={open} onClose={handleClickClosed}>
+                <DialogTitle sx={{ textAlign: 'center' }}>Liked by</DialogTitle>
+
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClickClosed}
+                    sx={{
+                        position: 'absolute',
+                        right: 0,
+                        top: 0,
+                        color: (themed) => themed.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+                <DialogContent>
+                    {currentCommentUsersLikes.map((currentUser) => (
+                        <Stack
+                            key={currentUser?.authID}
+                            direction="row"
+                            spacing={2}
+                            alignItems="center"
+                            sx={{
+                                margin: '15px',
+                            }}
+                        >
+                            <Avatar
+                                onClick={() =>
+                                    navigate(`/profile/${currentUser?.authID}`)
+                                }
+                                src={currentUser?.profileImage}
+                                sx={{ width: '40px', height: '40px' }}
+                            />
+                            <Typography
+                                sx={{
+                                    fontWeight: 'bolder',
+                                    marginBottom: '4px',
+                                    color: 'text.primary',
+                                }}
+                            >
+                                {currentUser?.username ||
+                                    currentUser?.fullName ||
+                                    currentUser?.email.split('@')[0]}
+                            </Typography>
+                        </Stack>
+                    ))}
+                </DialogContent>
+            </Dialog>
             <Stack direction="row" spacing={3} sx={{ marginLeft: '65px' }}>
-                <Typography>{comment.likes.length} харесвания</Typography>
+                <Typography onClick={showLikes}>
+                    {comment.likes.length} харесвания
+                </Typography>
                 <Typography>Отговор</Typography>
             </Stack>
         </Box>
