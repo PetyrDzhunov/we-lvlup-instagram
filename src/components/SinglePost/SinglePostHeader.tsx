@@ -6,10 +6,10 @@ import { useState } from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 import { useNavigate } from 'react-router-dom'
-import { Post } from '../types'
-import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
-import { firebaseUsersService } from '../services/firebase-service'
-import { addFollower } from '../store/users/usersSlice'
+import { Post } from '../../types'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+import { firebaseUsersService } from '../../services/firebase-service'
+import { addFollower } from '../../store/users/usersSlice'
 
 interface SinglePostHeaderProps {
     profileImage: string

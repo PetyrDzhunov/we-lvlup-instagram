@@ -7,8 +7,8 @@ import InstagramLogo from '../../components/InstagramLogo'
 import LoginOrComponent from '../../components/LoginOrComponent'
 import LoginWithFacebook from '../../components/LoginWithFacebook'
 import RegisterForm from './RegisterForm'
-import DownloadApplication from '../../components/DownloadApplication'
-import GuestPageFooter from '../../components/GuestPageFooter'
+import DownloadApplication from '../../components/OptionalLogin/DownloadApplication'
+import GuestPageFooter from '../../components/OptionalLogin/GuestPageFooter'
 import { PageProps } from '../../types'
 
 function RegisterPage({ title }: PageProps): JSX.Element {

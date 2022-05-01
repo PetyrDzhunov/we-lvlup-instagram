@@ -3,7 +3,7 @@ import List from '@mui/material/List'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
-import SinglePost from '../../components/SinglePost'
+import SinglePost from '../../components/SinglePost/SinglePost'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import {

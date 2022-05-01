@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { Typography } from '@mui/material'
-import '../styles/meta-footer.css'
+import '../../styles/meta-footer.css'
 
 interface GuestPageFooterProps {
     register?: boolean

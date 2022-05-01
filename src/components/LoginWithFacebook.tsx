@@ -131,7 +131,6 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
                     Влизане с Facebook
                 </Typography>
                 {error && <Error error={error} />}
-
                 {LoadingSpinner}
             </Box>
         </Button>

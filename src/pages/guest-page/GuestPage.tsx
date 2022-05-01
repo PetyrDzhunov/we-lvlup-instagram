@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container'
 import { Helmet } from 'react-helmet'
 import InstagramLogo from '../../components/InstagramLogo'
-import OptionalLogin from '../../components/OptionalLogin'
+import OptionalLogin from '../../components/OptionalLogin/OptionalLogin'
 import { PageProps } from '../../types'
 import LoginForm from './LoginForm'
 

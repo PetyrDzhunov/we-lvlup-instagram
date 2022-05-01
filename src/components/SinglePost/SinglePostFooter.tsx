@@ -17,10 +17,10 @@ import {
     Stack,
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import Error from './Error'
-import { useAppDispatch, useAppSelector } from '../hooks/redux-hooks'
-import { likeDislikePost } from '../store/posts/postsSlice'
-import { firebasePostsService } from '../services/firebase-service'
+import Error from '../Error'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+import { likeDislikePost } from '../../store/posts/postsSlice'
+import { firebasePostsService } from '../../services/firebase-service'
 
 interface SinglePostFooterProps {
     postID: string
