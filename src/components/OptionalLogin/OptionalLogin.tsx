@@ -1,9 +1,11 @@
-import '../../styles/optional-login.css'
 import Box from '@mui/material/Box'
-import DownloadApplication from './DownloadApplication'
+
+import '../../styles/optional-login.css'
+import LoginOrComponent from '../LoginOrComponent'
+
 import FacebookLogin from './FacebookLogin'
 import GuestPageFooter from './GuestPageFooter'
-import LoginOrComponent from '../LoginOrComponent'
+import DownloadApplication from './DownloadApplication'
 
 function OptionalLogin(): JSX.Element {
     return (

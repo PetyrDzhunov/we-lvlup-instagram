@@ -1,20 +1,22 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { FirebaseError } from 'firebase/app'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import Button from '@mui/material/Button'
-import { useNavigate } from 'react-router-dom'
-import CircularProgress from '@mui/material/CircularProgress'
-import { useState } from 'react'
-import { FirebaseError } from 'firebase/app'
+
 import Box from '@mui/material/Box'
-import Error from '../../components/Error'
-import { useAppDispatch } from '../../hooks/redux-hooks'
-import { auth } from '../../config/firebase'
-import InputController from '../../components/InputController'
+import Button from '@mui/material/Button'
+import CircularProgress from '@mui/material/CircularProgress'
+
 import '../../styles/form.css'
-import { firebaseUsersService } from '../../services/firebase-service'
+import Error from '../../components/Error'
+import { auth } from '../../config/firebase'
 import { login } from '../../store/auth/authSlice'
+import { useAppDispatch } from '../../hooks/redux-hooks'
+import InputController from '../../components/InputController'
+import { firebaseUsersService } from '../../services/firebase-service'
 
 interface RegisterFormInputs {
     email: string

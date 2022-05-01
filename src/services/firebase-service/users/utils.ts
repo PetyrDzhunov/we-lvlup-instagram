@@ -6,6 +6,7 @@ import {
     DocumentData,
     QuerySnapshot,
 } from 'firebase/firestore/lite'
+
 import { db } from '../../../config/firebase'
 import { User } from '../../../types'
 

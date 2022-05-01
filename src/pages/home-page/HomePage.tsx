@@ -1,18 +1,21 @@
-import Box from '@mui/material/Box'
-import List from '@mui/material/List'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router-dom'
-import SinglePost from '../../components/SinglePost/SinglePost'
+
+import Box from '@mui/material/Box'
+import List from '@mui/material/List'
+
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import {
     firebasePostsService,
     firebaseUsersService,
 } from '../../services/firebase-service'
+import SinglePost from '../../components/SinglePost/SinglePost'
 import { loadAllPosts } from '../../store/posts/postsSlice'
 import { loadAllUsers } from '../../store/users/usersSlice'
 import { PageProps } from '../../types'
+
 import PostsSkeleton from './PostsSkeleton'
 
 let isInitial = true

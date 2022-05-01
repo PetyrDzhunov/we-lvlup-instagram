@@ -10,8 +10,10 @@ import {
     arrayUnion,
     arrayRemove,
 } from 'firebase/firestore/lite'
+
 import { db } from '../../../config/firebase'
 import { User } from '../../../types'
+
 import { getFilteredUsers, checkIfUserExistsInDb } from './utils'
 
 const getAllUsers = async (): Promise<User[]> => {

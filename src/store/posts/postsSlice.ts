@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { Comment, Post, ReduxComment } from '../../types'
 
 export interface PostState {

@@ -1,16 +1,19 @@
+import { useState } from 'react'
+import { FirebaseError } from 'firebase/app'
+import { useNavigate } from 'react-router-dom'
 import { signInWithPopup, FacebookAuthProvider } from 'firebase/auth'
+
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import FacebookIcon from '@mui/icons-material/Facebook'
-import Button from '@mui/material/Button'
-import { FirebaseError } from 'firebase/app'
-import { useState } from 'react'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useNavigate } from 'react-router-dom'
+
 import { auth } from '../config/firebase'
-import { firebaseUsersService } from '../services/firebase-service'
-import { useAppDispatch } from '../hooks/redux-hooks'
 import { login } from '../store/auth/authSlice'
+import { useAppDispatch } from '../hooks/redux-hooks'
+import { firebaseUsersService } from '../services/firebase-service'
+
 import Error from './Error'
 
 interface LoginWithFacebookProps {

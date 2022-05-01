@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react'
-import Typography from '@mui/material/Typography'
+
 import Box from '@mui/material/Box'
 import Snackbar from '@mui/material/Snackbar'
-import MuiAlert, { AlertProps } from '@mui/material/Alert'
+import Typography from '@mui/material/Typography'
 import Slide, { SlideProps } from '@mui/material/Slide'
+import MuiAlert, { AlertProps } from '@mui/material/Alert'
 
 type TransitionProps = Omit<SlideProps, 'direction'>
 

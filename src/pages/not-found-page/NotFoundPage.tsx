@@ -1,9 +1,12 @@
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
+
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import { Helmet } from 'react-helmet'
-import { Link } from 'react-router-dom'
-import PageLayout from '../../layout/PageLayout/PageLayout'
+
 import { PageProps } from '../../types'
+import '../../styles/optional-login.css'
+import PageLayout from '../../layout/PageLayout/PageLayout'
 
 function NotFoundPage({ title }: PageProps): JSX.Element {
     return (
@@ -17,6 +20,7 @@ function NotFoundPage({ title }: PageProps): JSX.Element {
                     flexFlow: 'column wrap',
                     justifyContent: 'center',
                     padding: '40px',
+                    height: '100vh',
                 }}
             >
                 <Typography

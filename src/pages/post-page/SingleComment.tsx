@@ -1,25 +1,23 @@
-import {
-    Box,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    IconButton,
-    Stack,
-} from '@mui/material'
-import Avatar from '@mui/material/Avatar'
-import ListItem from '@mui/material/ListItem'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import Typography from '@mui/material/Typography'
-import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import CloseIcon from '@mui/icons-material/Close'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+import { useNavigate } from 'react-router-dom'
 
-// import { useAppSelector } from '../../hooks/redux-hooks'
+import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
+import Avatar from '@mui/material/Avatar'
+import Dialog from '@mui/material/Dialog'
+import ListItem from '@mui/material/ListItem'
+import CloseIcon from '@mui/icons-material/Close'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import DialogTitle from '@mui/material/DialogTitle'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import DialogContent from '@mui/material/DialogContent'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+
 import { Comment } from '../../types'
-import { firebasePostsService } from '../../services/firebase-service'
 import { likeDislikeComment } from '../../store/posts/postsSlice'
+import { firebasePostsService } from '../../services/firebase-service'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 
 interface SingleCommentProps {
     comment: Comment

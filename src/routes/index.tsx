@@ -1,21 +1,11 @@
-import React from 'react'
+import { lazy } from 'react'
 
-const UploadPage = React.lazy(() => import('../pages/upload-page/UploadPage'))
-const MainPage = React.lazy(() => import('../pages/main-page/MainPage'))
-
-const RegisterPage = React.lazy(
-    () => import('../pages/register-page/RegisterPage')
-)
-
-const ProfilePage = React.lazy(
-    () => import('../pages/profile-page/ProfilePage')
-)
-
-const NotFoundPage = React.lazy(
-    () => import('../pages/not-found-page/NotFoundPage')
-)
-
-const PostPage = React.lazy(() => import('../pages/post-page/PostPage'))
+const UploadPage = lazy(() => import('../pages/upload-page/UploadPage'))
+const MainPage = lazy(() => import('../pages/main-page/MainPage'))
+const RegisterPage = lazy(() => import('../pages/register-page/RegisterPage'))
+const ProfilePage = lazy(() => import('../pages/profile-page/ProfilePage'))
+const NotFoundPage = lazy(() => import('../pages/not-found-page/NotFoundPage'))
+const PostPage = lazy(() => import('../pages/post-page/PostPage'))
 
 interface Routes {
     path: string

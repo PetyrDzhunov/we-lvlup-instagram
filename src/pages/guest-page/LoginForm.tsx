@@ -1,19 +1,21 @@
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import Button from '@mui/material/Button'
-import '../../styles/form.css'
-import { FirebaseError } from 'firebase/app'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { FirebaseError } from 'firebase/app'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
+
+import '../../styles/form.css'
 import Error from '../../components/Error'
-import { useAppDispatch } from '../../hooks/redux-hooks'
 import { auth } from '../../config/firebase'
-import InputController from '../../components/InputController'
 import { login } from '../../store/auth/authSlice'
+import { useAppDispatch } from '../../hooks/redux-hooks'
+import InputController from '../../components/InputController'
 
 interface LoginFormInputs {
     email: string

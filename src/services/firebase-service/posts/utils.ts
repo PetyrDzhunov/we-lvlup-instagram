@@ -1,4 +1,5 @@
 import { DocumentData, QuerySnapshot } from 'firebase/firestore/lite'
+
 import { Post } from '../../../types'
 
 // utility function to return all posts with their data

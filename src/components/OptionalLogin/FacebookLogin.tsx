@@ -1,7 +1,9 @@
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
+
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+
 import LoginWithFacebook from '../LoginWithFacebook'
 
 function FacebookLogin(): JSX.Element {

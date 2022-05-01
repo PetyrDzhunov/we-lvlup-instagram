@@ -1,4 +1,5 @@
 import Stack from '@mui/material/Stack'
+
 import BasicPostSkeleton from './BasicPostSkeleton'
 
 function PostsSkeleton(): JSX.Element {

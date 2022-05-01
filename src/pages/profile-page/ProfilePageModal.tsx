@@ -1,16 +1,18 @@
-import DialogTitle from '@mui/material/DialogTitle'
-import IconButton from '@mui/material/IconButton'
-import CloseIcon from '@mui/icons-material/Close'
-import DialogContent from '@mui/material/DialogContent'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import List from '@mui/material/List'
 import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
-import Avatar from '@mui/material/Avatar'
-import { styled } from '@mui/material/styles'
-import { useState } from 'react'
 import Dialog from '@mui/material/Dialog'
+import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
-import { useNavigate } from 'react-router-dom'
+import { styled } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
+import CloseIcon from '@mui/icons-material/Close'
+import IconButton from '@mui/material/IconButton'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+
 import { User } from '../../types'
 
 export interface DialogTitleProps {

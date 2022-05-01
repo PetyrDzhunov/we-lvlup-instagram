@@ -1,22 +1,22 @@
+import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+
+import Stack from '@mui/material/Stack'
 import AppBar from '@mui/material/AppBar'
-import IconButton from '@mui/material/IconButton'
+import Avatar from '@mui/material/Avatar'
+import Dialog from '@mui/material/Dialog'
 import Toolbar from '@mui/material/Toolbar'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import CommentIcon from '@mui/icons-material/Comment'
+import { useTheme } from '@mui/material/styles'
+import IconButton from '@mui/material/IconButton'
 import ShareIcon from '@mui/icons-material/Share'
 import Typography from '@mui/material/Typography'
 import CloseIcon from '@mui/icons-material/Close'
-import { useState } from 'react'
+import DialogTitle from '@mui/material/DialogTitle'
+import CommentIcon from '@mui/icons-material/Comment'
+import DialogContent from '@mui/material/DialogContent'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import { useNavigate, useParams } from 'react-router-dom'
-import {
-    Avatar,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    Stack,
-} from '@mui/material'
-import { useTheme } from '@mui/material/styles'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+
 import Error from '../Error'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { likeDislikePost } from '../../store/posts/postsSlice'

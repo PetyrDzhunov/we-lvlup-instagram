@@ -1,7 +1,8 @@
-import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore/lite'
+import { initializeApp } from 'firebase/app'
 import { getStorage } from 'firebase/storage'
+import { getFirestore } from 'firebase/firestore/lite'
+
 import config from './config'
 
 const app = initializeApp(config.firebase)

@@ -1,16 +1,19 @@
-import Box from '@mui/material/Box'
 import { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
-import SinglePostImage from '../../components/SinglePost/SinglePostImage'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
-import PageLayout from '../../layout/PageLayout/PageLayout'
-import { PageProps } from '../../types'
-import ProfilePageHeader from './ProfilePageHeader'
+import { Helmet } from 'react-helmet'
+
+import Box from '@mui/material/Box'
+
 import '../../styles/single-post.css'
-import ProfilePageSkeleton from './ProfilePageSkeleton'
+import { PageProps } from '../../types'
+import PageLayout from '../../layout/PageLayout/PageLayout'
 import { loadAllPosts } from '../../store/posts/postsSlice'
 import { firebasePostsService } from '../../services/firebase-service'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+import SinglePostImage from '../../components/SinglePost/SinglePostImage'
+
+import ProfilePageHeader from './ProfilePageHeader'
+import ProfilePageSkeleton from './ProfilePageSkeleton'
 
 let isInitial = true
 

@@ -1,8 +1,11 @@
-import Container from '@mui/material/Container'
 import { Helmet } from 'react-helmet'
+
+import Container from '@mui/material/Container'
+
+import { PageProps } from '../../types'
 import InstagramLogo from '../../components/InstagramLogo'
 import OptionalLogin from '../../components/OptionalLogin/OptionalLogin'
-import { PageProps } from '../../types'
+
 import LoginForm from './LoginForm'
 
 function GuestPage({ title }: PageProps): JSX.Element {

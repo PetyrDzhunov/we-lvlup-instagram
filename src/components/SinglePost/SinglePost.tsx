@@ -1,11 +1,13 @@
 import ListItem from '@mui/material/ListItem'
 import { useTheme } from '@mui/material/styles'
-import SinglePostHeader from './SinglePostHeader'
+
 import { Post } from '../../types'
 import '../../styles/single-post.css'
-import SinglePostFooter from './SinglePostFooter'
-import SinglePostImage from './SinglePostImage'
 import { useAppSelector } from '../../hooks/redux-hooks'
+
+import SinglePostImage from './SinglePostImage'
+import SinglePostHeader from './SinglePostHeader'
+import SinglePostFooter from './SinglePostFooter'
 
 interface SinglePostProps {
     post: Post

@@ -10,8 +10,10 @@ import {
     arrayRemove,
 } from 'firebase/firestore/lite'
 import { v4 as uuidv4 } from 'uuid'
+
 import { db } from '../../../config/firebase'
 import { Post, Comment } from '../../../types'
+
 import { getFilteredPosts } from './utils'
 
 const getPostById = async (postID: string): Promise<Post[]> => {

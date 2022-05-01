@@ -1,22 +1,27 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import Stack from '@mui/material/Stack'
-import Box from '@mui/material/Box'
-import { ButtonGroup, CircularProgress, Divider } from '@mui/material'
-import Button from '@mui/material/Button'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Avatar from '@mui/material/Avatar'
 import { useEffect, useState } from 'react'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { doc, DocumentData, updateDoc } from 'firebase/firestore/lite'
+
+import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import ButtonGroup from '@mui/material/ButtonGroup'
+import CircularProgress from '@mui/material/CircularProgress'
+
 import { Post } from '../../types'
-import Error from '../../components/Error'
 import '../../styles/file-input.css'
+import Error from '../../components/Error'
 import { db, storage } from '../../config/firebase'
+import { addFollower } from '../../store/users/usersSlice'
 import { firebaseUsersService } from '../../services/firebase-service'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+
 import ProfilePageModal from './ProfilePageModal'
-import { addFollower } from '../../store/users/usersSlice'
 
 interface ProfilePageHeaderProps {
     myPosts: Post[]

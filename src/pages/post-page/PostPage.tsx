@@ -1,44 +1,60 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import List from '@mui/material/List'
 import { v4 as uuidv4 } from 'uuid'
-import { Alert, Snackbar } from '@mui/material'
-import SinglePost from '../../components/SinglePost/SinglePost'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
-import PageLayout from '../../layout/PageLayout/PageLayout'
-import { PageProps } from '../../types'
+
+import Box from '@mui/material/Box'
+import List from '@mui/material/List'
+import Button from '@mui/material/Button'
+import Alert from '@mui/material/Alert'
+import Snackbar from '@mui/material/Snackbar'
+
 import '../../styles/post-page.css'
+import { PageProps } from '../../types'
+import NotFoundPage from '../not-found-page/NotFoundPage'
 import { addComment } from '../../store/posts/postsSlice'
+import PageLayout from '../../layout/PageLayout/PageLayout'
+import SinglePost from '../../components/SinglePost/SinglePost'
 import { firebasePostsService } from '../../services/firebase-service'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+
 import SingleComment from './SingleComment'
 
 function PostPage({ title }: PageProps): JSX.Element {
-    const [comment, setComment] = useState('')
-    const [error, setError] = useState('')
-    const dispatch = useAppDispatch()
+    const [open, setOpen] = useState<boolean>(false)
+    const [error, setError] = useState<string>('')
+    const [comment, setComment] = useState<string>('')
 
-    const { postID } = useParams()
+    const navigate = useNavigate()
 
     const { isAuthenticated, uid } = useAppSelector(
         (state) => state.persistedReducer.auth
+    )
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            return navigate('/')
+        }
+    }, [isAuthenticated, navigate])
+
+    const dispatch = useAppDispatch()
+    const { postID } = useParams()
+
+    const loggedUser = useAppSelector((state) =>
+        state.users.allUsers.find((user) => user.authID === uid)
     )
 
     const currentPost = useAppSelector((state) =>
         state.posts.allPosts.find((post) => post.id === postID)
     )
 
-    const loggedUser = useAppSelector((state) =>
-        state.users.allUsers.find((user) => user.authID === uid)
+    const currentTheme = useAppSelector(
+        (state) => state.persistedReducer.auth.theme
     )
 
-    const [open, setOpen] = useState<boolean>(false)
+    if (!currentPost) {
+        return <NotFoundPage />
+    }
 
     const addCommentHandler = async (): Promise<void> => {
         if (loggedUser === undefined) {
@@ -63,21 +79,15 @@ function PostPage({ title }: PageProps): JSX.Element {
             replies: [],
             likes: [],
         }
-        // dispatch action for adding new comment to the current post
         dispatch(addComment(newComment))
         setComment('')
 
-        // add the comment to the current post in the database
         try {
             await firebasePostsService.addCommentToPost(postID, newComment)
         } catch (err) {
             setError('Something went wrong.')
         }
     }
-
-    const currentTheme = useAppSelector(
-        (state) => state.persistedReducer.auth.theme
-    )
 
     const handleClose = (
         event?: React.SyntheticEvent | Event,
@@ -89,13 +99,6 @@ function PostPage({ title }: PageProps): JSX.Element {
 
         setOpen(false)
     }
-
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (!isAuthenticated) {
-            return navigate('/')
-        }
-    }, [isAuthenticated, navigate])
 
     return (
         <PageLayout>
@@ -110,7 +113,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                 <Helmet>
                     <title>{title}</title>
                 </Helmet>
-                <SinglePost key={currentPost?.id} post={currentPost!} />
+                <SinglePost key={currentPost.id} post={currentPost} />
                 <Box
                     className={
                         currentTheme === 'light'
