@@ -93,11 +93,11 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             id: '',
                             description,
                         }
+                        dispatch(addPost(newPost))
                         firebasePostsService
                             .createPost(newPost)
                             .then(() => {
                                 setIsLoading(false)
-                                dispatch(addPost(newPost))
                                 navigate('/')
                             })
                             .catch((err) => setError(err.message))
