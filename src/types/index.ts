@@ -23,7 +23,8 @@ export type Reply = {
     replyID: string
     replier: string
     commentID: string
-    likes: string[]
+    replyLikes: string[]
+    postID?: string
 }
 
 export interface ReduxComment extends Comment {

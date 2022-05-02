@@ -65,7 +65,11 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
         setWantsToReply((prevState) => !prevState)
     }
 
-    const handleSendReply = (): void => {
+    const currentPost = useAppSelector((state) =>
+        state.posts.allPosts.find((post) => post.comments.includes(comment))
+    )
+
+    const handleSendReply = async (): Promise<void> => {
         // dispatch action to add this reply (reply) to this comment replies array like an object - replyUserID(logedIN),
         // and the reply itself + create id for the reply -replyID (uid), replier : username of the replier, and commentID
         // to have connection between
@@ -74,20 +78,26 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
             return
         }
 
-        dispatch(
-            addReplyToComment({
-                replyUserID: loggedInUserID,
-                commentID: comment.commentID,
-                reply,
-                replier: userLoggedIn?.username,
-                replyID: uuidv4(),
-                likes: [],
-            })
-        )
+        if (currentPost === undefined) {
+            return
+        }
+
+        const newReply = {
+            postID: currentPost.id,
+            replyUserID: loggedInUserID,
+            commentID: comment.commentID,
+            reply,
+            replier: userLoggedIn?.username,
+            replyID: uuidv4(),
+            replyLikes: [],
+        }
+
+        dispatch(addReplyToComment(newReply))
         setReply('')
         setWantsToReply((prev) => !prev)
 
         // await firebasePostService.addReplyToComment(commentID,replyUserID,id:uidv4,replier:username of loggedINuser,commentID: curr comment id)
+        await firebasePostsService.addReplyToComment(newReply)
     }
 
     const handleReplyChange = (
@@ -95,10 +105,6 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     ): void => {
         setReply(event.target.value)
     }
-
-    const currentPost = useAppSelector((state) =>
-        state.posts.allPosts.find((post) => post.comments.includes(comment))
-    )
 
     const hasBeenLikedByCurrentUser = comment?.likes.some(
         (like) => like === loggedInUserID
@@ -117,9 +123,9 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     }
 
     const handleReplyLike = async (currReply: Reply): Promise<void> => {
-        console.log(currReply)
-        // dispatch action for liking the current reply by currentUser - send the current commentID and the userLoggedID
-        // const currentReply = comment.replies.find(())
+        if (currentPost === undefined || currentPost.id === undefined) {
+            return
+        }
         dispatch(
             likeDislikeReply({
                 userID: loggedInUserID,
@@ -127,7 +133,12 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                 reply: currReply,
             })
         )
-        // firebas stuff
+        await firebasePostsService.addLikeToReply({
+            postID: currentPost?.id,
+            commentID: comment.commentID,
+            replyUserID: loggedInUserID,
+            replyID: currReply.replyID,
+        })
     }
 
     const handleLike = async (): Promise<void> => {
@@ -286,7 +297,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                     (userMapped) => userMapped.authID === currReply.replyUserID
                 )
                 const replyHasBeenLikedByCurrentUser =
-                    currReply.likes.includes(loggedInUserID)
+                    currReply.replyLikes.includes(loggedInUserID)
                 return (
                     <React.Fragment key={currReply.replyID}>
                         <ListItem
@@ -377,8 +388,8 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                             sx={{ marginLeft: '65px' }}
                         >
                             <Typography>
-                                {currReply.likes.length > 0
-                                    ? `${currReply.likes.length}  харесвания`
+                                {currReply.replyLikes.length > 0
+                                    ? `${currReply.replyLikes.length}  харесвания`
                                     : null}
                             </Typography>
                         </Stack>

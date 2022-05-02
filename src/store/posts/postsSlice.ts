@@ -92,8 +92,14 @@ const postSlice = createSlice({
             }
         },
         addReplyToComment: (state, action: PayloadAction<Reply>) => {
-            const { commentID, replier, reply, replyID, replyUserID, likes } =
-                action.payload
+            const {
+                commentID,
+                replier,
+                reply,
+                replyID,
+                replyUserID,
+                replyLikes,
+            } = action.payload
             const currentPost = state.allPosts.find((post) => {
                 return post.comments.map((comment) => {
                     return comment.commentID === commentID
@@ -109,7 +115,7 @@ const postSlice = createSlice({
                 reply,
                 replyID,
                 replyUserID,
-                likes,
+                replyLikes,
             })
         },
         likeDislikeReply: (
@@ -134,11 +140,11 @@ const postSlice = createSlice({
                 (currReply) => currReply.replyID === reply.replyID
             )
 
-            if (!currentReply?.likes.includes(userID)) {
-                currentReply?.likes.push(userID)
+            if (!currentReply?.replyLikes.includes(userID)) {
+                currentReply?.replyLikes.push(userID)
             } else {
-                const replyLikeIndex = currentReply?.likes.indexOf(userID)
-                currentReply.likes.splice(replyLikeIndex, 1)
+                const replyLikeIndex = currentReply?.replyLikes.indexOf(userID)
+                currentReply.replyLikes.splice(replyLikeIndex, 1)
             }
         },
     },

@@ -12,7 +12,7 @@ import {
 import { v4 as uuidv4 } from 'uuid'
 
 import { db } from '../../../config/firebase'
-import { Post, Comment } from '../../../types'
+import { Post, Comment, Reply } from '../../../types'
 
 import { getFilteredPosts } from './utils'
 
@@ -98,7 +98,81 @@ const addLikeToComment = async (
 
     await updateDoc(currentPostRef, {
         ...currentPost[0],
-        likes: newLikes,
+        likedBy: newLikes,
+    })
+}
+
+const addReplyToComment = async ({
+    postID,
+    replyUserID,
+    commentID,
+    reply,
+    replier,
+    replyID,
+    replyLikes,
+}: Reply): Promise<void> => {
+    if (postID === undefined) {
+        return
+    }
+    const currentPost = await getPostById(postID)
+    const currentPostDocId = currentPost[0].docID!
+    const currentPostRef = doc(db, 'posts', currentPostDocId)
+    const commentToAddReplyTo = currentPost[0].comments.find(
+        (currComment) => currComment.commentID === commentID
+    )
+
+    const newReplies = commentToAddReplyTo?.replies
+    newReplies?.push({
+        replyUserID,
+        reply,
+        replyID,
+        replier,
+        commentID,
+        replyLikes,
+    })
+
+    await updateDoc(currentPostRef, {
+        ...currentPost[0],
+        replies: newReplies,
+    })
+}
+
+const addLikeToReply = async ({
+    postID,
+    commentID,
+    replyUserID,
+    replyID,
+}: {
+    postID: string
+    commentID: string
+    replyUserID: string
+    replyID: string
+}): Promise<void> => {
+    const currentPost = await getPostById(postID)
+    const currentPostDocId = currentPost[0].docID!
+    const currentPostRef = doc(db, 'posts', currentPostDocId)
+    const commentToAddReplyTo = currentPost[0].comments.find(
+        (currComment) => currComment.commentID === commentID
+    )
+    if (!commentToAddReplyTo === undefined) {
+        return
+    }
+    const currentReply = commentToAddReplyTo?.replies?.find(
+        (currReply) => currReply.replyID === replyID
+    )
+
+    const newReplyLikes = currentReply?.replyLikes
+
+    if (!newReplyLikes?.includes(replyUserID)) {
+        newReplyLikes?.push(replyUserID)
+    } else {
+        const indexOfUserID = newReplyLikes?.indexOf(replyUserID)
+        newReplyLikes.splice(indexOfUserID!, 1)
+    }
+
+    await updateDoc(currentPostRef, {
+        ...currentPost[0],
+        replyLikes: newReplyLikes,
     })
 }
 
@@ -110,4 +184,6 @@ export default {
     getPostById,
     addCommentToPost,
     addLikeToComment,
+    addReplyToComment,
+    addLikeToReply,
 }
