@@ -26,7 +26,6 @@ const postSlice = createSlice({
             state,
             action: PayloadAction<{ id: string; user: string }>
         ) => {
-            // recieve the id for the current post clicked and the user logged in to add him to the likes array
             const { id, user } = action.payload
             const currentPost = state.allPosts.find((post) => post.id === id)
             const currentPostIndex = state.allPosts

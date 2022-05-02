@@ -8,6 +8,8 @@ import {
     arrayUnion,
     doc,
     arrayRemove,
+    serverTimestamp,
+    orderBy,
 } from 'firebase/firestore/lite'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -23,7 +25,10 @@ const getPostById = async (postID: string): Promise<Post[]> => {
 }
 
 const getAllPosts = async (): Promise<Post[]> => {
-    const posts = await getDocs(collection(db, 'posts'))
+    const q = query(collection(db, 'posts'), orderBy('created', 'asc'))
+    const posts = await getDocs(q)
+    console.log(posts)
+    // return ordered by timestamp
     return getFilteredPosts(posts)
 }
 
@@ -37,6 +42,7 @@ const createPost = async (post: Post): Promise<void> => {
         likedBy,
         description,
         id: uuidv4(),
+        created: serverTimestamp(),
     })
 }
 
