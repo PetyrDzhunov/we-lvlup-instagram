@@ -159,12 +159,13 @@ function PostPage({ title }: PageProps): JSX.Element {
                     </Alert>
                 </Snackbar>
                 <List sx={{ bgcolor: 'background.paper' }}>
-                    {currentPost?.comments?.map((currComment) => (
-                        <SingleComment
-                            key={currComment.commentID}
-                            comment={currComment}
-                        />
-                    ))}
+                    {currentPost?.comments.length > 0 &&
+                        currentPost?.comments?.map((currComment) => (
+                            <SingleComment
+                                key={currComment.commentID}
+                                comment={currComment}
+                            />
+                        ))}
                 </List>
             </Box>
         </PageLayout>

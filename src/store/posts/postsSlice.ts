@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
 
 import { Comment, Post, ReduxComment, Reply } from '../../types'
 
@@ -92,18 +92,19 @@ const postSlice = createSlice({
         },
         addReplyToComment: (state, action: PayloadAction<Reply>) => {
             const {
-                commentID,
-                replier,
-                reply,
-                replyID,
+                postID,
                 replyUserID,
+                commentID,
+                reply,
+                replier,
+                replyID,
                 replyLikes,
             } = action.payload
-            const currentPost = state.allPosts.find((post) => {
-                return post.comments.map((comment) => {
-                    return comment.commentID === commentID
-                })
-            })
+
+            const currentPost = state.allPosts.find(
+                (post) => post.id === postID
+            )
+
             const currentComment = currentPost?.comments.find(
                 (comm) => comm.commentID === commentID
             )
@@ -120,17 +121,17 @@ const postSlice = createSlice({
         likeDislikeReply: (
             state,
             action: PayloadAction<{
+                postID: string
                 userID: string
                 commentID: string
                 reply: Reply
             }>
         ) => {
-            const { userID, commentID, reply } = action.payload
-            const currentPost = state.allPosts.find((post) => {
-                return post.comments.map((comment) => {
-                    return comment.commentID === commentID
-                })
-            })
+            const { postID, userID, commentID, reply } = action.payload
+            const currentPost = state.allPosts.find(
+                (post) => post.id === postID
+            )
+
             const currentComment = currentPost?.comments.find(
                 (comm) => comm.commentID === commentID
             )

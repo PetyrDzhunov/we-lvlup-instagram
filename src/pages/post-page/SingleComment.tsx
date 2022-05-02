@@ -66,14 +66,15 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     }
 
     const currentPost = useAppSelector((state) =>
-        state.posts.allPosts.find((post) => post.comments.includes(comment))
+        state.posts.allPosts.find((post) => {
+            if (post.comments.length > 0) {
+                return post.comments.includes(comment)
+            }
+            return null
+        })
     )
 
     const handleSendReply = async (): Promise<void> => {
-        // dispatch action to add this reply (reply) to this comment replies array like an object - replyUserID(logedIN),
-        // and the reply itself + create id for the reply -replyID (uid), replier : username of the replier, and commentID
-        // to have connection between
-
         if (userLoggedIn?.username === undefined) {
             return
         }
@@ -96,7 +97,6 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
         setReply('')
         setWantsToReply((prev) => !prev)
 
-        // await firebasePostService.addReplyToComment(commentID,replyUserID,id:uidv4,replier:username of loggedINuser,commentID: curr comment id)
         await firebasePostsService.addReplyToComment(newReply)
     }
 
@@ -128,6 +128,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
         }
         dispatch(
             likeDislikeReply({
+                postID: currentPost.id,
                 userID: loggedInUserID,
                 commentID: comment.commentID,
                 reply: currReply,

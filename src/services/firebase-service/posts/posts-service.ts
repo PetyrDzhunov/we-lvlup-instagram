@@ -103,7 +103,6 @@ const addLikeToComment = async (
 
     await updateDoc(currentPostRef, {
         ...currentPost[0],
-        likedBy: newLikes,
     })
 }
 
@@ -138,7 +137,6 @@ const addReplyToComment = async ({
 
     await updateDoc(currentPostRef, {
         ...currentPost[0],
-        replies: newReplies,
     })
 }
 
