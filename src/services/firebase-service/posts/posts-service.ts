@@ -25,9 +25,8 @@ const getPostById = async (postID: string): Promise<Post[]> => {
 }
 
 const getAllPosts = async (): Promise<Post[]> => {
-    const q = query(collection(db, 'posts'), orderBy('created', 'asc'))
+    const q = query(collection(db, 'posts'), orderBy('created', 'desc'))
     const posts = await getDocs(q)
-    console.log(posts)
     // return ordered by timestamp
     return getFilteredPosts(posts)
 }
