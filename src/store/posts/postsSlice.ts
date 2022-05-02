@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { Comment, Post, ReduxComment } from '../../types'
+import { Comment, Post, ReduxComment, Reply } from '../../types'
 
 export interface PostState {
     allPosts: Post[]
@@ -91,6 +91,56 @@ const postSlice = createSlice({
                 currentComment.likes.splice(userIndex, 1)
             }
         },
+        addReplyToComment: (state, action: PayloadAction<Reply>) => {
+            const { commentID, replier, reply, replyID, replyUserID, likes } =
+                action.payload
+            const currentPost = state.allPosts.find((post) => {
+                return post.comments.map((comment) => {
+                    return comment.commentID === commentID
+                })
+            })
+            const currentComment = currentPost?.comments.find(
+                (comm) => comm.commentID === commentID
+            )
+
+            currentComment?.replies?.push({
+                commentID,
+                replier,
+                reply,
+                replyID,
+                replyUserID,
+                likes,
+            })
+        },
+        likeDislikeReply: (
+            state,
+            action: PayloadAction<{
+                userID: string
+                commentID: string
+                reply: Reply
+            }>
+        ) => {
+            const { userID, commentID, reply } = action.payload
+            const currentPost = state.allPosts.find((post) => {
+                return post.comments.map((comment) => {
+                    return comment.commentID === commentID
+                })
+            })
+            const currentComment = currentPost?.comments.find(
+                (comm) => comm.commentID === commentID
+            )
+
+            const currentReply = currentComment?.replies?.find(
+                (currReply) => currReply.replyID === reply.replyID
+            )
+
+            if (!currentReply?.likes.includes(userID)) {
+                currentReply?.likes.push(userID)
+            } else {
+                const replyLikeIndex = currentReply?.likes.indexOf(userID)
+                currentReply.likes.splice(replyLikeIndex, 1)
+            }
+        },
     },
 })
 
@@ -100,6 +150,8 @@ export const {
     likeDislikePost,
     addComment,
     likeDislikeComment,
+    addReplyToComment,
+    likeDislikeReply,
 } = postSlice.actions
 
 export default postSlice.reducer

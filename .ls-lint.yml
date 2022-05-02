@@ -1,6 +1,6 @@
 ls:
   src/components:
-    .dir: kebab-case
+    .dir: PascalCase
     .module.scss: kebab-case
     .props.tsx: kebab-case
     .tsx: PascalCase
@@ -25,3 +25,4 @@ ls:
 
 ignore:
   - src/pages/_app.tsx
+  - src/components

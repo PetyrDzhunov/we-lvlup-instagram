@@ -14,7 +14,16 @@ export interface Comment {
     commentatorID: string
     commentID: string
     likes: string[]
-    replies?: Comment[]
+    replies?: Reply[]
+}
+
+export type Reply = {
+    replyUserID: string
+    reply: string
+    replyID: string
+    replier: string
+    commentID: string
+    likes: string[]
 }
 
 export interface ReduxComment extends Comment {
