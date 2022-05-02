@@ -304,7 +304,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                         <ListItem
                             sx={{
                                 justifyContent: 'space-between',
-                                marginLeft: '50px',
+                                paddingLeft: '50px',
                             }}
                         >
                             <Stack direction="row" alignItems="center">
@@ -357,7 +357,6 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                                     onClick={() => handleReplyLike(currReply)}
                                     sx={{
                                         alignSelf: 'flex-end',
-                                        marginRight: '50px',
                                     }}
                                 >
                                     <FavoriteBorderIcon
@@ -377,7 +376,6 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                                         fontSize="medium"
                                         sx={{
                                             color: '#FF0000',
-                                            marginRight: '50px',
                                         }}
                                     />
                                 </IconButton>
