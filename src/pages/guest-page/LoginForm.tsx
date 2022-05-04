@@ -6,7 +6,6 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 
@@ -16,6 +15,7 @@ import { auth } from '../../config/firebase'
 import { login } from '../../store/auth/authSlice'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import InputController from '../../components/InputController'
+import FlexBoxCentered from '../../components/FlexBoxCentered'
 
 interface LoginFormInputs {
     email: string
@@ -112,15 +112,14 @@ function LoginForm(): JSX.Element {
                 {error && <Error error={error} />}
 
                 {isLoggingIn && (
-                    <Box
+                    <FlexBoxCentered
+                        flexDirection="row wrap"
                         sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
                             marginTop: '15px',
                         }}
                     >
                         <CircularProgress size="1.5em" />
-                    </Box>
+                    </FlexBoxCentered>
                 )}
             </form>
         </FormProvider>

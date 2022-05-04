@@ -3,7 +3,6 @@ import { FirebaseError } from 'firebase/app'
 import { useNavigate } from 'react-router-dom'
 import { signInWithPopup, FacebookAuthProvider } from 'firebase/auth'
 
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import FacebookIcon from '@mui/icons-material/Facebook'
@@ -15,6 +14,7 @@ import { useAppDispatch } from '../hooks/redux-hooks'
 import { firebaseUsersService } from '../services/firebase-service'
 
 import Error from './Error'
+import FlexBoxCentered from './FlexBoxCentered'
 
 interface LoginWithFacebookProps {
     contained?: boolean
@@ -29,15 +29,9 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const LoadingSpinner = isRegistering && (
-        <Box
-            sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-        >
+        <FlexBoxCentered flexDirection="row wrap">
             <CircularProgress size="1.5em" />
-        </Box>
+        </FlexBoxCentered>
     )
 
     const loginWithFacebookHandler = async (): Promise<void> => {
@@ -74,23 +68,19 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
 
     if (contained) {
         return (
-            <Box
+            <FlexBoxCentered
+                flexDirection="row wrap"
                 sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
                     height: '40px',
                     margin: '20px',
                 }}
             >
                 <Button variant="contained" disabled={isRegistering}>
-                    <Box
+                    <FlexBoxCentered
+                        flexDirection="row wrap"
                         onClick={loginWithFacebookHandler}
                         component="article"
                         sx={{
-                            display: 'flex',
-                            flexFlow: 'row wrap',
-                            justifyContent: 'center',
                             alignItems: 'center',
                             marginTop: '0px',
                         }}
@@ -104,23 +94,20 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
                         >
                             Влизане с Facebook
                         </Typography>
-                    </Box>
+                    </FlexBoxCentered>
                     {error && <Error error={error} />}
                 </Button>
                 {LoadingSpinner}
-            </Box>
+            </FlexBoxCentered>
         )
     }
     return (
         <Button disabled={isRegistering}>
-            <Box
+            <FlexBoxCentered
+                flexDirection="row wrap"
                 onClick={loginWithFacebookHandler}
                 component="article"
                 sx={{
-                    display: 'flex',
-                    flexFlow: 'row wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                     marginTop: '15px',
                 }}
             >
@@ -135,7 +122,7 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
                 </Typography>
                 {error && <Error error={error} />}
                 {LoadingSpinner}
-            </Box>
+            </FlexBoxCentered>
         </Button>
     )
 }

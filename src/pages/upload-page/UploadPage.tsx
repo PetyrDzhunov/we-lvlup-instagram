@@ -27,6 +27,7 @@ import { addPost } from '../../store/posts/postsSlice'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { firebasePostsService } from '../../services/firebase-service'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+import FlexBoxCentered from '../../components/FlexBoxCentered'
 
 function UploadPage({ title }: PageProps): JSX.Element {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -118,14 +119,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
             <Helmet>
                 <title>{title}</title>
             </Helmet>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexFlow: 'column wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
+            <FlexBoxCentered flexDirection="column wrap">
                 <Typography
                     component="h1"
                     variant="body1"
@@ -237,7 +231,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                         </Button>
                     </ButtonGroup>
                 )}
-            </Box>
+            </FlexBoxCentered>
         </PageLayout>
     )
 }

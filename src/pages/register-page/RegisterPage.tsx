@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
@@ -14,6 +13,7 @@ import GuestPageFooter from '../../components/OptionalLogin/GuestPageFooter'
 import DownloadApplication from '../../components/OptionalLogin/DownloadApplication'
 
 import RegisterForm from './RegisterForm'
+import FlexBoxCentered from '../../components/FlexBoxCentered'
 
 function RegisterPage({ title }: PageProps): JSX.Element {
     return (
@@ -54,15 +54,7 @@ function RegisterPage({ title }: PageProps): JSX.Element {
                 Политика зза данни, както и как използваме бисквитките и сходни
                 техноогии в нашата Политика за бисквитки.
             </Typography>
-            <Box
-                component="article"
-                sx={{
-                    display: 'flex',
-                    flexFlow: 'row wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
+            <FlexBoxCentered flexDirection="row wrap" component="article">
                 <Typography
                     sx={{
                         display: 'inline',
@@ -77,7 +69,7 @@ function RegisterPage({ title }: PageProps): JSX.Element {
                         Влезте
                     </Button>
                 </Link>
-            </Box>
+            </FlexBoxCentered>
             <DownloadApplication />
             <GuestPageFooter register />
         </Container>

@@ -1,20 +1,17 @@
-import Box from '@mui/material/Box'
 import { Link } from 'react-router-dom'
 
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
 import LoginWithFacebook from '../LoginWithFacebook'
+import FlexBoxCentered from '../FlexBoxCentered'
 
 function FacebookLogin(): JSX.Element {
     return (
-        <Box
+        <FlexBoxCentered
+            flexDirection="column wrap"
             component="section"
             sx={{
-                display: 'flex',
-                flexFlow: 'column wrap',
-                justifyContent: 'center',
-                alignItems: 'center',
                 marginTop: '15px',
             }}
         >
@@ -29,13 +26,10 @@ function FacebookLogin(): JSX.Element {
             >
                 Забравена парола?
             </Typography>
-            <Box
+            <FlexBoxCentered
+                flexDirection="row wrap"
                 component="article"
                 sx={{
-                    display: 'flex',
-                    flexFlow: 'row wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                     marginTop: '15px',
                 }}
             >
@@ -61,8 +55,8 @@ function FacebookLogin(): JSX.Element {
                         Регистрация
                     </Button>
                 </Link>
-            </Box>
-        </Box>
+            </FlexBoxCentered>
+        </FlexBoxCentered>
     )
 }
 

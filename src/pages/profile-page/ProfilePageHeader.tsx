@@ -22,6 +22,7 @@ import { firebaseUsersService } from '../../services/firebase-service'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 
 import ProfilePageModal from './ProfilePageModal'
+import FlexBoxCentered from '../../components/FlexBoxCentered'
 
 interface ProfilePageHeaderProps {
     myPosts: Post[]
@@ -145,13 +146,7 @@ function ProfilePageHeader({
     }
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexFlow: 'column wrap',
-                alignItems: 'center',
-            }}
-        >
+        <FlexBoxCentered flexDirection="column wrap">
             {!isInLoggedInProfilePage && (
                 <Button
                     variant="text"
@@ -249,7 +244,7 @@ function ProfilePageHeader({
                     text="followed"
                 />
             </Stack>
-        </Box>
+        </FlexBoxCentered>
     )
 }
 export default ProfilePageHeader

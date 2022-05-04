@@ -1,7 +1,7 @@
-import Box from '@mui/material/Box'
 import { ReactElement, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import FlexBoxRowCentered from './components/FlexBoxCentered'
 import GuestPageFooter from './components/OptionalLogin/GuestPageFooter'
 import { useAppSelector } from './hooks/redux-hooks'
 import { routes } from './routes'
@@ -13,11 +13,8 @@ function App(): ReactElement | null {
     return (
         <Suspense
             fallback={
-                <Box
+                <FlexBoxRowCentered
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
                         height: '100vh',
                         backgroundColor: { backgroundColor },
                     }}
@@ -28,7 +25,7 @@ function App(): ReactElement | null {
                         alt="Instagram-logo"
                     />
                     <GuestPageFooter suspense />
-                </Box>
+                </FlexBoxRowCentered>
             }
         >
             <Routes>

@@ -7,6 +7,7 @@ import Snackbar from '@mui/material/Snackbar'
 import Typography from '@mui/material/Typography'
 import Slide, { SlideProps } from '@mui/material/Slide'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
+import FlexBoxCentered from '../FlexBoxCentered'
 
 type TransitionProps = Omit<SlideProps, 'direction'>
 
@@ -54,12 +55,9 @@ function DownloadApplication(): JSX.Element {
             >
                 Изтеглете приложението
             </Typography>
-            <Box
+            <FlexBoxCentered
+                flexDirection="row wrap"
                 sx={{
-                    display: 'flex',
-                    flexFlow: 'row wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                     marginLeft: '5px',
                 }}
             >
@@ -94,7 +92,7 @@ function DownloadApplication(): JSX.Element {
                     alt="download from google play"
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1200px-Google_Play_Store_badge_EN.svg.png"
                 />
-            </Box>
+            </FlexBoxCentered>
         </Box>
     )
 }
