@@ -52,4 +52,5 @@ export interface User {
     fullName?: string
     profileImage?: string
     username?: string
+    story?: string
 }

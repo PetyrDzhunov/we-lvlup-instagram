@@ -17,6 +17,7 @@ import { loadAllUsers } from '../../store/users/usersSlice'
 import { PageProps } from '../../types'
 
 import PostsSkeleton from './PostsSkeleton'
+import SingleStory from './SingleStory'
 
 let isInitial = true
 
@@ -47,6 +48,9 @@ function HomePage({ title }: PageProps): JSX.Element {
         getPosts()
     }, [dispatch])
     const allPosts = useAppSelector((state) => state.posts.allPosts)
+    const allUsers = useAppSelector((state) => state.users.allUsers)
+
+    const usersWithStories = allUsers.filter((currUser) => currUser.story)
     return (
         <PageLayout>
             <Helmet>
@@ -54,16 +58,21 @@ function HomePage({ title }: PageProps): JSX.Element {
             </Helmet>
             <Box
                 sx={{
-                    marginTop: '-14px',
                     marginBottom: '56px',
                 }}
             >
+                {!isInitial && (
+                    <Box sx={{ marginLeft: '0px' }}>
+                        {usersWithStories.map((user) => (
+                            <SingleStory key={user.authID} user={user} />
+                        ))}
+                    </Box>
+                )}
                 {isLoading && isInitial && <PostsSkeleton />}
                 <List
                     sx={{
                         bgcolor: 'background.paper',
                         padding: '0px',
-                        marginTop: '70px',
                     }}
                 >
                     {allPosts.map((post) => (

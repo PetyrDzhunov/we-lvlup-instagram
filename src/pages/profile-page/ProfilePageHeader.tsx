@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { doc, DocumentData, updateDoc } from 'firebase/firestore/lite'
 
-import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
@@ -184,9 +183,9 @@ function ProfilePageHeader({
                 {error && <Error error={error} />}
 
                 {isLoading && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <FlexBoxCentered flexDirection="row wrap">
                         <CircularProgress size="1.5em" />
-                    </Box>
+                    </FlexBoxCentered>
                 )}
                 <Typography sx={{ textAlign: 'center' }}>
                     {currentUserVisited?.fullName ||

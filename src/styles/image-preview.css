@@ -2,3 +2,8 @@
     width: 100%;
     min-height: 230px;
 }
+
+.story-preview {
+    width: 100%;
+    height: auto
+}
