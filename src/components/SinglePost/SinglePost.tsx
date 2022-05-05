@@ -28,7 +28,6 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
                 display: 'flex',
                 flexFlow: 'column wrap',
                 width: '96%',
-                margin: '20px 0',
                 padding: '0px',
                 backgroundColor: theme.palette.background.paper,
             }}

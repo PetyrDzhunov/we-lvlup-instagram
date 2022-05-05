@@ -76,7 +76,6 @@ function ProfilePageHeader({
         }
     }
 
-    // filter only those that have the loggedinUserId in their followed array
     const currentUserFollowers = useAppSelector((state) =>
         state.users.allUsers.filter((currUser) => {
             return currUser.followed.includes(uid)

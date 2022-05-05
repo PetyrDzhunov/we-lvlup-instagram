@@ -18,6 +18,7 @@ import { PageProps } from '../../types'
 
 import PostsSkeleton from './PostsSkeleton'
 import SingleStory from './SingleStory'
+import LoggedInUserStory from './LoggedInUserStory'
 
 let isInitial = true
 
@@ -59,10 +60,19 @@ function HomePage({ title }: PageProps): JSX.Element {
             <Box
                 sx={{
                     marginBottom: '56px',
+                    marginTop: '25px',
                 }}
             >
                 {!isInitial && (
-                    <Box sx={{ marginLeft: '0px' }}>
+                    <Box
+                        sx={{
+                            marginLeft: '0px',
+                            display: 'flex',
+                            flexFlow: 'row nowrap',
+                            bgcolor: 'background.paper',
+                        }}
+                    >
+                        <LoggedInUserStory />
                         {usersWithStories.map((user) => (
                             <SingleStory key={user.authID} user={user} />
                         ))}
