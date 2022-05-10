@@ -8,6 +8,12 @@ type PostCreator = {
     uid: string
 }
 
+type Story = {
+    createdAt: string
+    expiresAt: string
+    image: string
+}
+
 export interface Comment {
     commentator: string
     comment: string
@@ -52,5 +58,5 @@ export interface User {
     fullName?: string
     profileImage?: string
     username?: string
-    story?: string
+    story?: Story
 }

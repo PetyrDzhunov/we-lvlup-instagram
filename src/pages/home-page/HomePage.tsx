@@ -70,6 +70,8 @@ function HomePage({ title }: PageProps): JSX.Element {
                             display: 'flex',
                             flexFlow: 'row nowrap',
                             bgcolor: 'background.paper',
+                            overflowY: 'scroll',
+                            paddingBottom: '8px',
                         }}
                     >
                         <LoggedInUserStory />

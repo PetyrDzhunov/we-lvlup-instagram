@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { doc, updateDoc } from 'firebase/firestore/lite'
+import { doc, serverTimestamp, updateDoc } from 'firebase/firestore/lite'
 import { useAppSelector } from '../../hooks/redux-hooks'
 import NotFoundPage from '../not-found-page/NotFoundPage'
 import FlexBoxCentered from '../../components/FlexBoxCentered'
@@ -62,21 +62,32 @@ function LoggedInUserStory(): JSX.Element {
 
     const addStoryHandler = async (): Promise<void> => {
         const storageRef = ref(storage, `stories/${selectedFile?.name}`)
-
         try {
+            // dispatch to change the image immediatly
             setIsLoading(true)
             handleClose()
             await uploadBytes(storageRef, selectedFile as Blob)
             const downloadUrl = await getDownloadURL(storageRef)
+            const now = new Date()
+
+            const story = {
+                image: downloadUrl,
+                createdAt: serverTimestamp(),
+                expiresAt: new Date(
+                    new Date(now).getTime() + 60 * 60 * 24 * 1000
+                ),
+            }
+            // dispatch(addStory(loggedInUserID, story))
+
             const currentUser = await firebaseUsersService.getUserById(
                 loggedInUserID
             )
             const currUserRef = doc(db, 'users', currentUser.docID)
             await updateDoc(currUserRef, {
-                story: downloadUrl,
+                story,
             })
             setIsLoading(false)
-            setHasUploaded((prev) => !prev)
+            setHasUploaded(true)
         } catch (err) {
             setIsLoading(false)
             setError('Something went wrong.')
@@ -90,6 +101,8 @@ function LoggedInUserStory(): JSX.Element {
                 marginLeft: '12px',
                 display: 'flex',
                 flexFlow: 'row nowrap',
+                alignItems: 'center',
+                justifyContent: 'center',
             }}
         >
             <input
@@ -104,7 +117,7 @@ function LoggedInUserStory(): JSX.Element {
             />
 
             <label htmlFor="userStory" style={{ marginLeft: '0px' }}>
-                {loggedInUser && !loggedInUser.story && (
+                {loggedInUser && !loggedInUser.story?.image && (
                     <Stack
                         direction="column"
                         sx={{
@@ -126,7 +139,7 @@ function LoggedInUserStory(): JSX.Element {
                                 alt="profile picture of the user"
                                 src={
                                     hasUploaded
-                                        ? loggedInUser.story
+                                        ? loggedInUser?.story?.image
                                         : loggedInUser.profileImage
                                 }
                                 sx={{ width: 56, height: 56 }}
@@ -135,34 +148,47 @@ function LoggedInUserStory(): JSX.Element {
                         <Typography
                             sx={{
                                 fontSize: '0.7rem',
-
                                 marginTop: '8px',
                             }}
                         >
-                            Моя история
-                        </Typography>
-                    </Stack>
-                )}
-
-                {loggedInUser && loggedInUser.story && (
-                    <Stack direction="column" spacing={1}>
-                        <Avatar
-                            onClick={viewStoryHandler}
-                            alt="profile picture of the user"
-                            src={loggedInUser.story}
-                            sx={{ width: 56, height: 56 }}
-                        />
-                        <Typography
-                            sx={{
-                                fontSize: '0.7rem',
-                                marginTop: '8px',
-                            }}
-                        >
-                            Моя история
+                            Моя
                         </Typography>
                     </Stack>
                 )}
             </label>
+
+            {loggedInUser && loggedInUser.story?.image && (
+                <Stack
+                    direction="column"
+                    spacing={1}
+                    sx={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Stack
+                        sx={{
+                            borderRadius: '50%',
+                            border: '2px solid red',
+                        }}
+                    >
+                        <Avatar
+                            onClick={viewStoryHandler}
+                            alt="profile picture of the user"
+                            src={loggedInUser.profileImage}
+                            sx={{ width: 56, height: 56 }}
+                        />
+                    </Stack>
+                    <Typography
+                        sx={{
+                            fontSize: '0.7rem',
+                            marginTop: '8px',
+                        }}
+                    >
+                        Моя
+                    </Typography>
+                </Stack>
+            )}
             {error && <Error error={error} />}
             {isLoading && (
                 <FlexBoxCentered flexDirection="row wrap">
@@ -200,15 +226,49 @@ function LoggedInUserStory(): JSX.Element {
                         />
                     )}
                 </DialogContent>
-                <DialogActions sx={{ justifyContent: 'center' }}>
-                    <Button
-                        sx={{ alignText: 'center' }}
-                        onClick={addStoryHandler}
-                    >
-                        Добави в историята си
-                    </Button>
-                </DialogActions>
+                {!hasUploaded && !loggedInUser.story?.image && (
+                    <DialogActions sx={{ justifyContent: 'center' }}>
+                        <Button
+                            sx={{ alignText: 'center' }}
+                            onClick={addStoryHandler}
+                        >
+                            Добави в историята си
+                        </Button>
+                    </DialogActions>
+                )}
             </Dialog>
+            {loggedInUser.story?.image && (
+                <Dialog
+                    sx={{
+                        minWidth: '60%',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        margin: '0',
+                    }}
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <IconButton
+                        aria-label="close"
+                        onClick={handleClose}
+                        sx={{
+                            position: 'absolute',
+                            right: 0,
+                            top: 0,
+                            color: 'primary.text',
+                        }}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                    <DialogContent sx={{ padding: '0' }}>
+                        <img
+                            className="story-preview"
+                            src={loggedInUser.story.image}
+                            alt="Preview of your choice"
+                        />
+                    </DialogContent>
+                </Dialog>
+            )}
         </Box>
     )
 }

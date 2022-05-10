@@ -20,7 +20,7 @@ interface SingleStoryProps {
     user: User
 }
 
-function SingleStory({ user }: SingleStoryProps): JSX.Element {
+function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     const [open, setOpen] = useState<boolean>(false)
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
@@ -31,7 +31,14 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element {
         (currUser) => currUser.authID === loggedInUserID
     )
 
+    if (user.authID === loggedInUserID) {
+        return null
+    }
+
     if (loggedInUser === undefined) {
+        return <NotFoundPage />
+    }
+    if (user === undefined) {
         return <NotFoundPage />
     }
 
@@ -81,9 +88,11 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element {
                         sx={{
                             fontSize: '0.7rem',
                             marginTop: '4px',
+                            maxLength: '60px',
                         }}
                     >
-                        {user.username || user.email.split('@')[0]}
+                        {user.username?.split(' ')[0] ||
+                            user.email.split('@')[0]}
                     </Typography>
                 </Stack>
             )}
@@ -105,7 +114,7 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element {
                         position: 'absolute',
                         right: 0,
                         top: 0,
-                        color: '#ffffff',
+                        color: 'primary.text',
                     }}
                 >
                     <CloseIcon />
@@ -113,7 +122,7 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element {
                 <DialogContent sx={{ padding: '0' }}>
                     <img
                         className="story-preview"
-                        src={user.story}
+                        src={user.story?.image}
                         alt="the user story"
                     />
                 </DialogContent>
