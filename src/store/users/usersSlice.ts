@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { User } from '../../types'
+import { Story, User } from '../../types'
 
 export interface UserState {
     allUsers: User[]
@@ -55,9 +55,25 @@ const usersSlice = createSlice({
                 userToFollow?.followers.splice(indexOfLoggedInUser, 1)
             }
         },
+        addStory: (
+            state,
+            action: PayloadAction<{ userID: string; story: Story }>
+        ) => {
+            const { userID, story } = action.payload
+            const userToAddStoryTo: User | undefined = state.allUsers.find(
+                (currUser) => currUser.authID === userID
+            )
+
+            if (userToAddStoryTo === undefined || userToAddStoryTo.story) {
+                return
+            }
+
+            userToAddStoryTo.story = story
+        },
     },
 })
 
-export const { loadAllUsers, addUser, addFollower } = usersSlice.actions
+export const { loadAllUsers, addUser, addFollower, addStory } =
+    usersSlice.actions
 
 export default usersSlice.reducer

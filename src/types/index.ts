@@ -1,3 +1,5 @@
+import { FieldValue } from 'firebase/firestore/lite'
+
 export interface PageProps {
     title?: string
     authentication?: boolean
@@ -8,9 +10,9 @@ type PostCreator = {
     uid: string
 }
 
-type Story = {
-    createdAt: string
-    expiresAt: string
+export type Story = {
+    createdAt: FieldValue
+    expiresAt: Date
     image: string
 }
 

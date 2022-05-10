@@ -14,13 +14,14 @@ import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore/lite'
-import { useAppSelector } from '../../hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import NotFoundPage from '../not-found-page/NotFoundPage'
 import FlexBoxCentered from '../../components/FlexBoxCentered'
 import Error from '../../components/Error'
 import { firebaseUsersService } from '../../services/firebase-service'
 import { db, storage } from '../../config/firebase'
 import StoryProgress from './StoryProgress'
+import { addStory } from '../../store/users/usersSlice'
 
 function LoggedInUserStory(): JSX.Element {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -33,6 +34,7 @@ function LoggedInUserStory(): JSX.Element {
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
     )
+    const dispatch = useAppDispatch()
     const allUsers = useAppSelector((state) => state.users.allUsers)
 
     const loggedInUser = allUsers.find(
@@ -69,7 +71,6 @@ function LoggedInUserStory(): JSX.Element {
     const addStoryHandler = async (): Promise<void> => {
         const storageRef = ref(storage, `stories/${selectedFile?.name}`)
         try {
-            // dispatch to change the image immediatly
             setIsLoading(true)
             handleClose()
             await uploadBytes(storageRef, selectedFile as Blob)
@@ -83,7 +84,6 @@ function LoggedInUserStory(): JSX.Element {
                     new Date(now).getTime() + 60 * 60 * 24 * 1000
                 ),
             }
-            // dispatch(addStory(loggedInUserID, story))
 
             const currentUser = await firebaseUsersService.getUserById(
                 loggedInUserID
@@ -92,6 +92,7 @@ function LoggedInUserStory(): JSX.Element {
             await updateDoc(currUserRef, {
                 story,
             })
+            dispatch(addStory({ userID: loggedInUserID, story }))
             setIsLoading(false)
             setHasUploaded(true)
         } catch (err) {
@@ -141,13 +142,9 @@ function LoggedInUserStory(): JSX.Element {
                             badgeContent={<AddCircleIcon color="primary" />}
                         >
                             <Avatar
-                                onClick={viewStoryHandler}
+                                onClick={() => handleClickOpen()}
                                 alt="profile picture of the user"
-                                src={
-                                    hasUploaded
-                                        ? loggedInUser?.story?.image
-                                        : loggedInUser.profileImage
-                                }
+                                src={loggedInUser.profileImage}
                                 sx={{ width: 56, height: 56 }}
                             />
                         </Badge>
@@ -195,6 +192,7 @@ function LoggedInUserStory(): JSX.Element {
                     </Typography>
                 </Stack>
             )}
+
             {error && <Error error={error} />}
             {isLoading && (
                 <FlexBoxCentered flexDirection="row wrap">
