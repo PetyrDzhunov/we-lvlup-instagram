@@ -20,6 +20,7 @@ import FlexBoxCentered from '../../components/FlexBoxCentered'
 import Error from '../../components/Error'
 import { firebaseUsersService } from '../../services/firebase-service'
 import { db, storage } from '../../config/firebase'
+import StoryProgress from './StoryProgress'
 
 function LoggedInUserStory(): JSX.Element {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -27,6 +28,7 @@ function LoggedInUserStory(): JSX.Element {
     const [error, setError] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [hasUploaded, setHasUploaded] = useState<boolean>(false)
+    const [progress, setProgress] = useState<boolean>(false)
 
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
@@ -51,6 +53,10 @@ function LoggedInUserStory(): JSX.Element {
 
     const viewStoryHandler = (): void => {
         handleClickOpen()
+        setProgress(true)
+        setTimeout(() => {
+            handleClose()
+        }, 3000)
     }
     const handleStoryChange = (e: Event): void => {
         const input = e.target as HTMLInputElement
@@ -248,6 +254,8 @@ function LoggedInUserStory(): JSX.Element {
                     open={open}
                     onClose={handleClose}
                 >
+                    {progress && <StoryProgress />}
+
                     <IconButton
                         aria-label="close"
                         onClick={handleClose}

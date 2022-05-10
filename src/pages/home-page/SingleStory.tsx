@@ -15,6 +15,7 @@ import { useAppSelector } from '../../hooks/redux-hooks'
 import '../../styles/file-input.css'
 import '../../styles/image-preview.css'
 import NotFoundPage from '../not-found-page/NotFoundPage'
+import StoryProgress from './StoryProgress'
 
 interface SingleStoryProps {
     user: User
@@ -22,6 +23,7 @@ interface SingleStoryProps {
 
 function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     const [open, setOpen] = useState<boolean>(false)
+    const [progress, setProgress] = useState<boolean>(false)
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
     )
@@ -52,6 +54,10 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
 
     const viewStoryHandler = (): void => {
         handleClickOpen()
+        setProgress(true)
+        setTimeout(() => {
+            handleClose()
+        }, 3000)
     }
 
     return (
@@ -107,6 +113,7 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
                 open={open}
                 onClose={handleClose}
             >
+                {progress && <StoryProgress />}
                 <IconButton
                     aria-label="close"
                     onClick={handleClose}
