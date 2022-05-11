@@ -1,20 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react'
-import Avatar from '@mui/material/Avatar'
 
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import Dialog from '@mui/material/Dialog'
-import DialogContent from '@mui/material/DialogContent'
+import Avatar from '@mui/material/Avatar'
 import CloseIcon from '@mui/icons-material/Close'
+import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
-import { User } from '../../types'
+import DialogContent from '@mui/material/DialogContent'
 
+import { User } from '../../types'
 import { useAppSelector } from '../../hooks/redux-hooks'
 import '../../styles/file-input.css'
 import '../../styles/image-preview.css'
 import NotFoundPage from '../not-found-page/NotFoundPage'
+
 import StoryProgress from './StoryProgress'
 
 interface SingleStoryProps {

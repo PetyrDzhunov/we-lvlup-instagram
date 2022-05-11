@@ -10,8 +10,10 @@ const database = admin.firestore()
 exports.scheduledFunction = functions.pubsub
     .schedule('every 30 minutes')
     .onRun((context) => {
+        // map through the users
+        // check if the date now is higher than the story expiresAt prop
+        // if its higher delete it
         const users = database.collection('users')
-        console.log(users)
 
         // if(admin.firestore.Timestamp.now() > )
 
