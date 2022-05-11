@@ -79,7 +79,9 @@ function ProfilePageModal({
         <>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Show {text}
-                <Typography sx={{ marginLeft: '40px' }}>{count}</Typography>
+                {count && (
+                    <Typography sx={{ marginLeft: '40px' }}>{count}</Typography>
+                )}
             </Button>
             <BootstrapDialog
                 onClose={handleClose}
