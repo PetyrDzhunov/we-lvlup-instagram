@@ -47,9 +47,14 @@ function BootstrapDialogTitle(props: DialogTitleProps): JSX.Element {
 interface ProfilePageModalProps {
     users: User[]
     text: string
+    count?: number
 }
 
-function ProfilePageModal({ users, text }: ProfilePageModalProps): JSX.Element {
+function ProfilePageModal({
+    users,
+    text,
+    count,
+}: ProfilePageModalProps): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
     const handleClickOpen = (): void => {
         setOpen(true)
@@ -74,6 +79,7 @@ function ProfilePageModal({ users, text }: ProfilePageModalProps): JSX.Element {
         <>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Show {text}
+                <Typography sx={{ marginLeft: '40px' }}>{count}</Typography>
             </Button>
             <BootstrapDialog
                 onClose={handleClose}

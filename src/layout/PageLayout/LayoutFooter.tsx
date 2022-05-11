@@ -18,6 +18,7 @@ import { DocumentData } from 'firebase/firestore/lite'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import { logout } from '../../store/auth/authSlice'
 import { firebaseUsersService } from '../../services/firebase-service'
+import SearchInput from '../../components/SearchInput'
 
 function LayoutFooter(): JSX.Element {
     const dispatch = useAppDispatch()
@@ -26,11 +27,15 @@ function LayoutFooter(): JSX.Element {
     const uid = useAppSelector((state) => state.persistedReducer.auth.uid)
 
     const [user, setUser] = useState<DocumentData>()
-
+    const [isSearching, setIsSearching] = useState<boolean>(false)
     const userID = useAppSelector((state) => state.persistedReducer.auth.uid)
     const currentLoggedUser = useAppSelector((state) =>
         state.users.allUsers.find((currUser) => currUser.authID === userID)
     )
+
+    const searchHandler = (): void => {
+        setIsSearching((prevSearchState) => !prevSearchState)
+    }
 
     let imgSrc
     if (currentLoggedUser) {
@@ -80,6 +85,8 @@ function LayoutFooter(): JSX.Element {
             color="primary"
             sx={{ top: 'auto', bottom: 0, bgcolor: 'background.paper' }}
         >
+            {isSearching && <SearchInput />}
+
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-around' }}>
                 <IconButton onClick={homeHandler}>
                     <HomeIcon
@@ -87,7 +94,7 @@ function LayoutFooter(): JSX.Element {
                         sx={{ color: 'text.primary' }}
                     />
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={searchHandler}>
                     <SearchIcon
                         fontSize="medium"
                         sx={{ color: 'text.primary' }}
