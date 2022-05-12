@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { doc, serverTimestamp, updateDoc } from 'firebase/firestore/lite'
+import { doc, serverTimestamp, updateDoc, Timestamp } from 'firebase/firestore'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import NotFoundPage from '../not-found-page/NotFoundPage'
 import FlexBoxCentered from '../../components/FlexBoxCentered'
@@ -79,7 +79,7 @@ function LoggedInUserStory(): JSX.Element {
 
             const story = {
                 image: downloadUrl,
-                createdAt: serverTimestamp(),
+                createdAt: serverTimestamp() as Timestamp,
                 expiresAt: new Date(
                     new Date(now).getTime() + 60 * 60 * 24 * 1000
                 ),
@@ -96,6 +96,7 @@ function LoggedInUserStory(): JSX.Element {
             setIsLoading(false)
             setHasUploaded(true)
         } catch (err) {
+            console.log(err)
             setIsLoading(false)
             setError('Something went wrong.')
         }

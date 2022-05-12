@@ -10,7 +10,7 @@ import {
     arrayRemove,
     serverTimestamp,
     orderBy,
-} from 'firebase/firestore/lite'
+} from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
 
 import { db } from '../../../config/firebase'

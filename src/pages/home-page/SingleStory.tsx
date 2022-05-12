@@ -25,6 +25,7 @@ interface SingleStoryProps {
 function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     const [open, setOpen] = useState<boolean>(false)
     const [progress, setProgress] = useState<boolean>(false)
+
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
     )
@@ -44,6 +45,13 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     if (user === undefined) {
         return <NotFoundPage />
     }
+
+    // const hours = user?.story?.createdAt.toDate().getHours()
+    // let timeSinceUpdate
+    // if (hours !== undefined) {
+    //     const now = new Date().getHours()
+    //     timeSinceUpdate = now - hours
+    // }
 
     const handleClickOpen = (): void => {
         setOpen(true)

@@ -5,7 +5,7 @@ import {
     getDocs,
     DocumentData,
     QuerySnapshot,
-} from 'firebase/firestore/lite'
+} from 'firebase/firestore'
 
 import { db } from '../../../config/firebase'
 import { User } from '../../../types'

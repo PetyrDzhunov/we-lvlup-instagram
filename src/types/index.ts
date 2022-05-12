@@ -1,4 +1,4 @@
-import { FieldValue } from 'firebase/firestore/lite'
+import { Timestamp } from 'firebase/firestore'
 
 export interface PageProps {
     title?: string
@@ -11,7 +11,7 @@ type PostCreator = {
 }
 
 export type Story = {
-    createdAt: FieldValue
+    createdAt: Timestamp
     expiresAt: Date
     image: string
 }

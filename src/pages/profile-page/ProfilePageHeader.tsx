@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect, useState } from 'react'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { doc, DocumentData, updateDoc } from 'firebase/firestore/lite'
+import { doc, DocumentData, updateDoc } from 'firebase/firestore'
 
 import Stack from '@mui/material/Stack'
 import Avatar from '@mui/material/Avatar'

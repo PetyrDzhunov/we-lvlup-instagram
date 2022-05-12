@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { DocumentData } from 'firebase/firestore/lite'
+import { DocumentData } from 'firebase/firestore'
 
 import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'

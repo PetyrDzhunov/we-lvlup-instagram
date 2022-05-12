@@ -9,7 +9,7 @@ import {
     updateDoc,
     arrayUnion,
     arrayRemove,
-} from 'firebase/firestore/lite'
+} from 'firebase/firestore'
 
 import { db } from '../../../config/firebase'
 import { User } from '../../../types'

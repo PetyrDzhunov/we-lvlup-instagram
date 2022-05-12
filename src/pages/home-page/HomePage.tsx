@@ -5,6 +5,13 @@ import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 
+import {
+    collection,
+    DocumentData,
+    QuerySnapshot,
+    onSnapshot,
+    query,
+} from 'firebase/firestore'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import {
@@ -14,11 +21,12 @@ import {
 import SinglePost from '../../components/SinglePost/SinglePost'
 import { loadAllPosts } from '../../store/posts/postsSlice'
 import { loadAllUsers } from '../../store/users/usersSlice'
-import { PageProps } from '../../types'
+import { PageProps, User } from '../../types'
 
 import PostsSkeleton from './PostsSkeleton'
 import SingleStory from './SingleStory'
 import LoggedInUserStory from './LoggedInUserStory'
+import { db } from '../../config/firebase'
 
 let isInitial = true
 
@@ -48,6 +56,28 @@ function HomePage({ title }: PageProps): JSX.Element {
         }
         getPosts()
     }, [dispatch])
+
+    useEffect(() => {
+        const q = query(collection(db, 'users'))
+        const unsubscribe = onSnapshot(
+            q,
+            (querySnapshot: QuerySnapshot<DocumentData>) => {
+                const allUsers: User[] = []
+                querySnapshot.forEach((doc) => {
+                    allUsers.push(doc.data() as User)
+                })
+                dispatch(loadAllUsers(allUsers))
+            }
+        )
+
+        console.log('effect triggered')
+
+        return () => {
+            console.log('unsubscribing')
+            unsubscribe()
+        }
+    }, [dispatch])
+
     const allPosts = useAppSelector((state) => state.posts.allPosts)
     const allUsers = useAppSelector((state) => state.users.allUsers)
 
