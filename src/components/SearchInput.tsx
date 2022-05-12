@@ -35,7 +35,7 @@ function SearchInput(): JSX.Element {
                 <Stack>
                     <ProfilePageModal
                         users={usersSearched}
-                        text="results"
+                        text="Users"
                         count={usersSearched.length}
                     />
                 </Stack>

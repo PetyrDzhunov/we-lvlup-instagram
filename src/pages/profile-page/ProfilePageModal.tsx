@@ -78,9 +78,13 @@ function ProfilePageModal({
     return (
         <>
             <Button variant="outlined" onClick={handleClickOpen}>
-                Show {text}
-                {count && (
+                {count !== undefined && count > 0 ? `Show ${text}` : null}
+                {count === undefined && `Show ${text}`}
+                {count !== undefined && count > 0 && (
                     <Typography sx={{ marginLeft: '40px' }}>{count}</Typography>
+                )}
+                {count !== undefined && count === 0 && (
+                    <Typography>No results</Typography>
                 )}
             </Button>
             <BootstrapDialog
