@@ -70,10 +70,7 @@ function HomePage({ title }: PageProps): JSX.Element {
             }
         )
 
-        console.log('effect triggered')
-
         return () => {
-            console.log('unsubscribing')
             unsubscribe()
         }
     }, [dispatch])

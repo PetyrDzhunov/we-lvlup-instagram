@@ -65,6 +65,7 @@ function LoggedInUserStory(): JSX.Element {
         if (input.files && input.files.length > 0) {
             setSelectedFile(input.files[0])
             handleClickOpen()
+            setHasUploaded((prev) => !prev)
         }
     }
 
@@ -96,7 +97,6 @@ function LoggedInUserStory(): JSX.Element {
             setIsLoading(false)
             setHasUploaded(true)
         } catch (err) {
-            console.log(err)
             setIsLoading(false)
             setError('Something went wrong.')
         }
@@ -231,7 +231,7 @@ function LoggedInUserStory(): JSX.Element {
                         />
                     )}
                 </DialogContent>
-                {!hasUploaded && !loggedInUser.story?.image && (
+                {hasUploaded && !loggedInUser.story?.image && (
                     <DialogActions sx={{ justifyContent: 'center' }}>
                         <Button
                             sx={{ alignText: 'center' }}
