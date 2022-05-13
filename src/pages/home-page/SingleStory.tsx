@@ -64,9 +64,9 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     const viewStoryHandler = (): void => {
         handleClickOpen()
         setProgress(true)
-        // setTimeout(() => {
-        //     handleClose()
-        // }, 3000)
+        setTimeout(() => {
+            handleClose()
+        }, 3000)
     }
 
     return (

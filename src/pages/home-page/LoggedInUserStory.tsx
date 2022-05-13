@@ -201,8 +201,9 @@ function LoggedInUserStory(): JSX.Element {
                 </FlexBoxCentered>
             )}
             <Dialog
+                fullScreen
                 sx={{
-                    minWidth: '60%',
+                    display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     margin: '0',
@@ -212,17 +213,28 @@ function LoggedInUserStory(): JSX.Element {
             >
                 <IconButton
                     aria-label="close"
-                    onClick={handleClose}
+                    onClick={() => {
+                        setSelectedFile(null)
+                        setHasUploaded((prev) => !prev)
+                        handleClose()
+                    }}
                     sx={{
                         position: 'absolute',
                         right: 0,
                         top: 0,
-                        color: '#ffffff',
+                        bgcolor: 'backgroud.paper',
                     }}
                 >
                     <CloseIcon />
                 </IconButton>
-                <DialogContent sx={{ padding: '0' }}>
+                <DialogContent
+                    sx={{
+                        padding: '0',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
                     {selectedFile && (
                         <img
                             className="story-preview"
@@ -244,8 +256,9 @@ function LoggedInUserStory(): JSX.Element {
             </Dialog>
             {loggedInUser.story?.image && (
                 <Dialog
+                    fullScreen
                     sx={{
-                        minWidth: '60%',
+                        display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         margin: '0',
