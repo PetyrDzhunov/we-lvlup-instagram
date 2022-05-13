@@ -64,9 +64,9 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     const viewStoryHandler = (): void => {
         handleClickOpen()
         setProgress(true)
-        setTimeout(() => {
-            handleClose()
-        }, 3000)
+        // setTimeout(() => {
+        //     handleClose()
+        // }, 3000)
     }
 
     return (
@@ -113,8 +113,9 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
             )}
 
             <Dialog
+                fullScreen
                 sx={{
-                    minWidth: '60%',
+                    display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     margin: '0',
@@ -135,7 +136,7 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
                 >
                     <CloseIcon />
                 </IconButton>
-                <DialogContent sx={{ padding: '0' }}>
+                <DialogContent sx={{ padding: '0', display: 'flex' }}>
                     <img
                         className="story-preview"
                         src={user.story?.image}

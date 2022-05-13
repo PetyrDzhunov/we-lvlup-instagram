@@ -69,7 +69,6 @@ function HomePage({ title }: PageProps): JSX.Element {
                 dispatch(loadAllUsers(allUsers))
             }
         )
-
         return () => {
             unsubscribe()
         }
