@@ -258,7 +258,6 @@ function LoggedInUserStory(): JSX.Element {
                 <Dialog
                     fullScreen
                     sx={{
-                        display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         margin: '0',
@@ -280,7 +279,7 @@ function LoggedInUserStory(): JSX.Element {
                     >
                         <CloseIcon />
                     </IconButton>
-                    <DialogContent sx={{ padding: '0' }}>
+                    <DialogContent sx={{ display: 'flex', padding: '0' }}>
                         <img
                             className="story-preview"
                             src={loggedInUser.story.image}
