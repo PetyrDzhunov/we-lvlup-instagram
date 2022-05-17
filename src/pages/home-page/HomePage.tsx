@@ -36,11 +36,15 @@ function HomePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const theme = useTheme()
+
     const isBiggerThanSmall = useMediaQuery(theme.breakpoints.up('sm'))
     const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
     const isAuthenticated = useAppSelector(
         (state) => state.persistedReducer.auth.isAuthenticated
+    )
+    const currTheme = useAppSelector(
+        (state) => state.persistedReducer.auth.theme
     )
     const dispatch = useAppDispatch()
 
@@ -95,8 +99,9 @@ function HomePage({ title }: PageProps): JSX.Element {
                     marginTop: '25px',
                     width: isLaptop ? '50%' : '100%',
                     margin: isLaptop
-                        ? '70px auto 56px auto'
-                        : '25px 0px 56px 0px',
+                        ? '61px auto 0px auto'
+                        : '25px 0px 0px 0px',
+                    bgcolor: 'background.paper',
                 }}
             >
                 {!isInitial && (
@@ -113,7 +118,14 @@ function HomePage({ title }: PageProps): JSX.Element {
                                 ? '1px solid rgba(0,0,0,.1)'
                                 : 'none',
                             marginBottom: isLaptop ? '12px' : '0px',
-                            marginRight: isLaptop ? '25px' : '0px',
+                            marginRight:
+                                isLaptop && currTheme === 'dark'
+                                    ? '0px'
+                                    : '25px',
+                            borderBottom:
+                                isLaptop && currTheme === 'dark'
+                                    ? `1px solid #fff`
+                                    : '1px solid rgba(0,0,0,.1)',
                         }}
                     >
                         <LoggedInUserStory />
