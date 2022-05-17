@@ -8,6 +8,7 @@ import AddIcon from '@mui/icons-material/Add'
 import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 
+import { useMediaQuery } from '@mui/material'
 import HomeLayoutIcon from './HomeLayoutIcon'
 import SearchLayoutIcon from './SearchLayoutIcon'
 import ProfileLayoutIcon from './ProfileLayoutIcon'
@@ -25,6 +26,8 @@ function DesktopLayoutNavigation(): JSX.Element {
         navigate('/upload')
     }
 
+    const isBiggerThanTablet = useMediaQuery(theme.breakpoints.up('md'))
+
     return (
         <Box
             sx={{
@@ -38,7 +41,9 @@ function DesktopLayoutNavigation(): JSX.Element {
                     backgroundColor: theme.palette.background.paper,
                     display: 'flex',
                     flexFlow: 'row wrap',
-                    justifyContent: 'space-evenly',
+                    justifyContent: isBiggerThanTablet
+                        ? 'space-evenly'
+                        : 'space-between',
                     flexGrow: 1,
                 }}
             >

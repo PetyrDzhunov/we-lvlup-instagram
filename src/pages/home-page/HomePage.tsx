@@ -37,6 +37,7 @@ function HomePage({ title }: PageProps): JSX.Element {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const theme = useTheme()
     const isBiggerThanSmall = useMediaQuery(theme.breakpoints.up('sm'))
+    const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
     const isAuthenticated = useAppSelector(
         (state) => state.persistedReducer.auth.isAuthenticated
@@ -92,6 +93,10 @@ function HomePage({ title }: PageProps): JSX.Element {
                 sx={{
                     marginBottom: '56px',
                     marginTop: '25px',
+                    width: isLaptop ? '50%' : '100%',
+                    margin: isLaptop
+                        ? '25px auto 56px auto'
+                        : '25px 0px 56px 0px',
                 }}
             >
                 {!isInitial && (
@@ -102,7 +107,7 @@ function HomePage({ title }: PageProps): JSX.Element {
                             flexFlow: 'row nowrap',
                             bgcolor: 'background.paper',
                             paddingBottom: '8px',
-                            overflowX: 'scroll',
+                            overflowX: 'auto',
                             paddingTop: isBiggerThanSmall ? '12px' : '0px',
                         }}
                     >
