@@ -4,6 +4,14 @@
     max-height: 500px;
 }
 
+@media screen and (min-width:900px) {
+    .single-post__image {
+        height: auto;
+        width: 80%;
+        max-height: 500px;
+    }
+}
+
 .single-post__image--small {
     width: 32%;
     object-fit: cover;

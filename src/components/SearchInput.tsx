@@ -41,6 +41,8 @@ function SearchInput(): JSX.Element {
                 </Stack>
             )}
             <TextField
+                sx={{ paddingBottom: '6px' }}
+                size="small"
                 onChange={handleTextChange}
                 value={searchText}
                 placeholder="Search user..."

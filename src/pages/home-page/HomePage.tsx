@@ -11,7 +11,10 @@ import {
     onSnapshot,
     query,
 } from 'firebase/firestore'
+import { useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import {
     firebasePostsService,
@@ -32,6 +35,9 @@ let isInitial = true
 function HomePage({ title }: PageProps): JSX.Element {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const theme = useTheme()
+    const isBiggerThanSmall = useMediaQuery(theme.breakpoints.up('sm'))
+
     const isAuthenticated = useAppSelector(
         (state) => state.persistedReducer.auth.isAuthenticated
     )
@@ -97,6 +103,7 @@ function HomePage({ title }: PageProps): JSX.Element {
                             bgcolor: 'background.paper',
                             paddingBottom: '8px',
                             overflowX: 'scroll',
+                            paddingTop: isBiggerThanSmall ? '12px' : '0px',
                         }}
                     >
                         <LoggedInUserStory />

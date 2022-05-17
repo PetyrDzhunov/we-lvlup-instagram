@@ -1,15 +1,19 @@
 import Paper from '@mui/material/Paper'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles'
 import '../../styles/pageLayout.css'
-import LayoutNavigation from './LayoutNavigation'
+import { useMediaQuery } from '@mui/material'
+import MobileLayoutNavigation from './MobileLayoutNavigation'
 import LayoutFooter from './LayoutFooter'
 import { useAppSelector } from '../../hooks/redux-hooks'
+import DesktopLayoutNavigation from './DesktopLayoutNavigation'
 
 interface PageLayoutProps {
     children: React.ReactNode
 }
 
 function PageLayout({ children }: PageLayoutProps): JSX.Element {
+    const theme = useTheme()
+    const isBiggerThanMedium = useMediaQuery(theme.breakpoints.up('sm'))
     const loggedInUserTheme = useAppSelector(
         (state) => state.persistedReducer.auth.theme
     )
@@ -31,9 +35,13 @@ function PageLayout({ children }: PageLayoutProps): JSX.Element {
     return (
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
             <Paper>
-                <LayoutNavigation />
+                {isBiggerThanMedium ? (
+                    <DesktopLayoutNavigation />
+                ) : (
+                    <MobileLayoutNavigation />
+                )}
                 <div>{children}</div>
-                <LayoutFooter />
+                {!isBiggerThanMedium && <LayoutFooter />}
             </Paper>
         </ThemeProvider>
     )

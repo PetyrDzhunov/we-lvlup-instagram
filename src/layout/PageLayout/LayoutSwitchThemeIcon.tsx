@@ -53,7 +53,12 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     },
 }))
 
-function LayoutSwitchThemeIcon(): JSX.Element {
+interface LayoutSwitchThemeIconProps {
+    desktop?: boolean
+}
+function LayoutSwitchThemeIcon({
+    desktop,
+}: LayoutSwitchThemeIconProps): JSX.Element {
     const dispatch = useAppDispatch()
 
     const currentUserTheme = useAppSelector(
@@ -67,7 +72,7 @@ function LayoutSwitchThemeIcon(): JSX.Element {
             onChange={handleSwitchTheme}
             control={
                 <MaterialUISwitch
-                    sx={{ m: 0 }}
+                    sx={{ m: 0, marginLeft: desktop ? '8px' : '0px' }}
                     checked={currentUserTheme === 'dark'}
                 />
             }

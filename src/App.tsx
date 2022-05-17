@@ -1,6 +1,5 @@
 import { ReactElement, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import './App.css'
 import FlexBoxRowCentered from './components/FlexBoxCentered'
 import GuestPageFooter from './components/OptionalLogin/GuestPageFooter'
 import { useAppSelector } from './hooks/redux-hooks'
