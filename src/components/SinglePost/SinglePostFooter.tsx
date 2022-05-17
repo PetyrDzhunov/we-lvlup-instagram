@@ -32,6 +32,8 @@ function SinglePostFooter({
     description,
 }: SinglePostFooterProps): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
+    const [error, setError] = useState<string>('')
+
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
     )
@@ -77,7 +79,6 @@ function SinglePostFooter({
         (like) => like === loggedInUserID
     )
 
-    const [error, setError] = useState<string>('')
     const dispatch = useAppDispatch()
     const handleLike = async (): Promise<void> => {
         dispatch(likeDislikePost({ id: postID, user: loggedInUserID }))

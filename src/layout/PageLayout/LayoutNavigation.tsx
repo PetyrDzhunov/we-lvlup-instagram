@@ -4,14 +4,26 @@ import Box from '@mui/material/Box'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import AddIcon from '@mui/icons-material/Add'
-import { useTheme } from '@mui/material/styles'
+import { Theme, useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 
+import { makeStyles } from '@mui/styles'
 import InstagramLogo from '../../components/InstagramLogo'
+
+const useStyles = makeStyles((theme: Theme) => {
+    return {
+        appbar: {
+            [theme.breakpoints.up('md')]: {
+                justifyContent: 'space-evenly',
+            },
+        },
+    }
+})
 
 function LayoutNavigation(): JSX.Element {
     const navigate = useNavigate()
     const theme = useTheme()
+    const classes = useStyles()
     const uploadHandler = (): void => {
         navigate('/upload')
     }
@@ -32,6 +44,7 @@ function LayoutNavigation(): JSX.Element {
                     justifyContent: 'space-between',
                     flexGrow: 1,
                 }}
+                className={classes.appbar}
             >
                 <Toolbar>
                     <InstagramLogo layoutLogo />

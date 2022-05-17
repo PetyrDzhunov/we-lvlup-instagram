@@ -46,13 +46,6 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
         return <NotFoundPage />
     }
 
-    // const hours = user?.story?.createdAt.toDate().getHours()
-    // let timeSinceUpdate
-    // if (hours !== undefined) {
-    //     const now = new Date().getHours()
-    //     timeSinceUpdate = now - hours
-    // }
-
     const handleClickOpen = (): void => {
         setOpen(true)
     }

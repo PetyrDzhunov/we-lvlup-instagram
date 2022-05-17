@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
-
 import {
     collection,
     DocumentData,
@@ -96,8 +95,8 @@ function HomePage({ title }: PageProps): JSX.Element {
                             display: 'flex',
                             flexFlow: 'row nowrap',
                             bgcolor: 'background.paper',
-                            overflowY: 'scroll',
                             paddingBottom: '8px',
+                            overflowX: 'scroll',
                         }}
                     >
                         <LoggedInUserStory />
