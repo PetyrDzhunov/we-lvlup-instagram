@@ -95,12 +95,12 @@ function HomePage({ title }: PageProps): JSX.Element {
                     marginTop: '25px',
                     width: isLaptop ? '50%' : '100%',
                     margin: isLaptop
-                        ? '25px auto 56px auto'
+                        ? '70px auto 56px auto'
                         : '25px 0px 56px 0px',
                 }}
             >
                 {!isInitial && (
-                    <Box
+                    <List
                         sx={{
                             marginLeft: '0px',
                             display: 'flex',
@@ -109,13 +109,18 @@ function HomePage({ title }: PageProps): JSX.Element {
                             paddingBottom: '8px',
                             overflowX: 'auto',
                             paddingTop: isBiggerThanSmall ? '12px' : '0px',
+                            border: isLaptop
+                                ? '1px solid rgba(0,0,0,.1)'
+                                : 'none',
+                            marginBottom: isLaptop ? '12px' : '0px',
+                            marginRight: isLaptop ? '25px' : '0px',
                         }}
                     >
                         <LoggedInUserStory />
                         {usersWithStories.map((user) => (
                             <SingleStory key={user.authID} user={user} />
                         ))}
-                    </Box>
+                    </List>
                 )}
                 {isLoading && isInitial && <PostsSkeleton />}
                 <List

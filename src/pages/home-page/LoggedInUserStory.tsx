@@ -3,6 +3,9 @@ import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
+import { useTheme } from '@mui/material/styles'
+
+import { useMediaQuery } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import Avatar from '@mui/material/Avatar'
 import Dialog from '@mui/material/Dialog'
@@ -30,6 +33,9 @@ function LoggedInUserStory(): JSX.Element {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [hasUploaded, setHasUploaded] = useState<boolean>(false)
     const [progress, setProgress] = useState<boolean>(false)
+
+    const theme = useTheme()
+    const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
@@ -105,7 +111,7 @@ function LoggedInUserStory(): JSX.Element {
     return (
         <Box
             sx={{
-                marginTop: '40px',
+                marginTop: isLaptop ? '0px' : '40px',
                 marginLeft: '12px',
                 display: 'flex',
                 flexFlow: 'row nowrap',

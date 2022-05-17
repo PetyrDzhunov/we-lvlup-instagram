@@ -1,6 +1,7 @@
 import ListItem from '@mui/material/ListItem'
 import { useTheme } from '@mui/material/styles'
 
+import { useMediaQuery } from '@mui/material'
 import { Post } from '../../types'
 import '../../styles/single-post.css'
 import { useAppSelector } from '../../hooks/redux-hooks'
@@ -21,6 +22,7 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
     )
 
     const theme = useTheme()
+    const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
     return (
         <ListItem
@@ -28,8 +30,9 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
                 display: 'flex',
                 flexFlow: 'column wrap',
                 width: '96%',
-                padding: '0px',
                 backgroundColor: theme.palette.background.paper,
+                border: isLaptop ? '1px solid rgba(0,0,0,.1)' : 'none',
+                marginBottom: isLaptop ? '12px' : '0px',
             }}
         >
             <SinglePostHeader

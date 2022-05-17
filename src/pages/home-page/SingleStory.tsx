@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react'
+import { useTheme } from '@mui/material/styles'
 
+import { useMediaQuery } from '@mui/material'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Dialog from '@mui/material/Dialog'
@@ -25,6 +27,9 @@ interface SingleStoryProps {
 function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     const [open, setOpen] = useState<boolean>(false)
     const [progress, setProgress] = useState<boolean>(false)
+
+    const theme = useTheme()
+    const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
@@ -66,7 +71,7 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
         <Box
             key={user.authID}
             sx={{
-                marginTop: '40px',
+                marginTop: isLaptop ? '0px' : '40px',
                 marginLeft: '12px',
                 display: 'flex',
                 flexFlow: 'row nowrap',
