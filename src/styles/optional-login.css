@@ -20,9 +20,26 @@
 }
 
 .download-image {
+    cursor: pointer;
     width: 45%;
     height: 40px;
     margin: 4px;
+}
+
+@media screen and (min-width: 900px) {
+    .download-image {
+        width: 20%;
+        height: 40px;
+        margin: 4px;
+    }
+}
+
+@media screen and (min-width:600px) and (max-width:900px) {
+    .download-image {
+        width: 20%;
+        height: 40px;
+        margin: 4px;
+    }
 }
 
 .basic-link {

@@ -156,7 +156,7 @@ function PostPage({ title }: PageProps): JSX.Element {
             <Box
                 sx={{
                     bgcolor: 'background.paper',
-                    minHeight: '100vh',
+                    height: '100%',
                     width: isLaptop ? '50%' : '100%',
                     margin: isLaptop
                         ? '56px auto 50px auto'

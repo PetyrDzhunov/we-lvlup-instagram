@@ -100,7 +100,7 @@ function HomePage({ title }: PageProps): JSX.Element {
                     width: isLaptop ? '50%' : '100%',
                     margin: isLaptop
                         ? '61px auto 0px auto'
-                        : '25px 0px 0px 0px',
+                        : '25px 0px 56px 0px',
                     bgcolor: 'background.paper',
                 }}
             >

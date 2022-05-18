@@ -18,6 +18,7 @@ function InstagramLogo({ layoutLogo }: InstagramLogoProps): JSX.Element {
                 sx={{
                     margin: '0px',
                     fontSize: '40px',
+                    cursor: 'pointer',
                     color: theme.palette.text.primary,
                 }}
             >

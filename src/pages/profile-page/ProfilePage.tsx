@@ -29,16 +29,7 @@ function ProfilePage({ title }: PageProps): JSX.Element {
 
     const theme = useTheme()
     const isLaptop = useMediaQuery(theme.breakpoints.up('md'))
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-    const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
-    let paddingBottom
-    if (isMobile) {
-        paddingBottom = '40px'
-    } else if (isTablet) {
-        paddingBottom = '280px'
-    } else if (isLaptop) {
-        paddingBottom = '200px'
-    }
+
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -71,11 +62,10 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                 sx={{
                     marginTop: '40px',
                     marginBottom: '53px',
-                    width: isLaptop ? '65%' : '100%',
+                    width: '100%',
                     margin: isLaptop
-                        ? '40px auto 54px auto'
+                        ? '40px auto 0px auto'
                         : '40px 0px 54px 0xp',
-                    paddingBottom,
                 }}
             >
                 <ProfilePageHeader
