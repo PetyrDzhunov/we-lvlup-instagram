@@ -10,6 +10,8 @@ import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 
 import '../../styles/post-page.css'
+import { TextField, useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import { PageProps } from '../../types'
 import NotFoundPage from '../not-found-page/NotFoundPage'
 import { addComment } from '../../store/posts/postsSlice'
@@ -19,6 +21,7 @@ import { firebasePostsService } from '../../services/firebase-service'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
 
 import SingleComment from './SingleComment'
+import FlexBoxCentered from '../../components/FlexBoxCentered'
 
 function PostPage({ title }: PageProps): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
@@ -30,6 +33,8 @@ function PostPage({ title }: PageProps): JSX.Element {
     const { isAuthenticated, uid } = useAppSelector(
         (state) => state.persistedReducer.auth
     )
+    const theme = useTheme()
+    const isLaptop = useMediaQuery(theme.breakpoints.up('md'))
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -89,6 +94,52 @@ function PostPage({ title }: PageProps): JSX.Element {
         }
     }
 
+    const addCommentByKeyboard = async (
+        event: React.KeyboardEvent
+    ): Promise<void> => {
+        if (loggedUser === undefined) {
+            return
+        }
+
+        if (postID === undefined) {
+            return
+        }
+        let newComment
+        if (event.key === 'Enter') {
+            event.preventDefault()
+            if (postID === undefined) {
+                return
+            }
+
+            if (comment === '') {
+                setOpen(true)
+                return setError('Коментарът не може да бъде празен')
+            }
+
+            newComment = {
+                comment,
+                commentator:
+                    loggedUser?.username || loggedUser.email.split('@')[0],
+                id: postID,
+                commentatorID: loggedUser.authID,
+                commentID: uuidv4(),
+                replies: [],
+                likes: [],
+            }
+            dispatch(addComment(newComment))
+            setComment('')
+        }
+        if (newComment === undefined) {
+            return
+        }
+
+        try {
+            await firebasePostsService.addCommentToPost(postID, newComment)
+        } catch (err) {
+            setError('Something went wrong.')
+        }
+    }
+
     const handleClose = (
         event?: React.SyntheticEvent | Event,
         reason?: string
@@ -105,9 +156,11 @@ function PostPage({ title }: PageProps): JSX.Element {
             <Box
                 sx={{
                     bgcolor: 'background.paper',
-                    marginTop: '56px',
-                    marginBottom: '50px',
                     minHeight: '100vh',
+                    width: isLaptop ? '50%' : '100%',
+                    margin: isLaptop
+                        ? '56px auto 50px auto'
+                        : '56px 0px 50px 0px',
                 }}
             >
                 <Helmet>
@@ -121,29 +174,29 @@ function PostPage({ title }: PageProps): JSX.Element {
                             : 'picker-container dark'
                     }
                 >
-                    <input
-                        className={
-                            currentTheme === 'light'
-                                ? 'comment-input comment-input-light'
-                                : 'comment-input comment-input-dark'
-                        }
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                        placeholder="Добави коментар..."
-                    />
-                    <Button
-                        onClick={addCommentHandler}
-                        variant="text"
-                        sx={{
-                            position: 'absolute',
-                            top: '8px',
-                            right: '-40px',
-                            verticalAlign: 'center',
-                            fontSize: '0.75em',
-                        }}
-                    >
-                        Публикуване
-                    </Button>
+                    <FlexBoxCentered flexDirection="row wrap">
+                        <TextField
+                            multiline
+                            size="small"
+                            sx={{
+                                marginBottom: '10px',
+                                width: '100%',
+                            }}
+                            value={comment}
+                            onKeyDown={addCommentByKeyboard}
+                            onChange={(e) => setComment(e.target.value)}
+                            placeholder="Добави коментар..."
+                        />
+                        <Button
+                            onClick={addCommentHandler}
+                            variant="text"
+                            sx={{
+                                fontSize: '0.75em',
+                            }}
+                        >
+                            Публикуване
+                        </Button>
+                    </FlexBoxCentered>
                 </Box>
                 <Snackbar
                     open={open}

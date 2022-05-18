@@ -3,6 +3,36 @@
     min-height: 230px;
 }
 
+@media screen and (min-width: 600px) {
+    .image-preview {
+        height: auto;
+        width: 75%;
+        max-height: 500px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .image-preview {
+        height: auto;
+        width: 60%;
+        max-height: 500px;
+    }
+}
+
+@media screen and (min-width: 1050px) {
+    .image-preview {
+        height: auto;
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .image-preview {
+        height: auto;
+        width: 40%;
+    }
+}
+
 .story-preview {
     width: 100%;
     height: auto;

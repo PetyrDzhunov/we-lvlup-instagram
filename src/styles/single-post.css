@@ -7,7 +7,7 @@
 @media screen and (min-width: 900px) {
     .single-post__image {
         height: auto;
-        width: 80%;
+        width: 100%;
         max-height: 500px;
     }
     .single-post__image--small {
@@ -20,8 +20,18 @@
 }
 
 .single-post__image--small {
-    width: 32%;
+    width: 32.3%;
     object-fit: cover;
     margin-top: 8px;
     margin: 2px;
+}
+
+@media screen and (min-width: 900px) {
+    .single-post__image--small {
+        width: 24.2%;
+        object-fit: cover;
+        margin-top: 8px;
+        height: auto;
+        margin: 2px;
+    }
 }

@@ -5,6 +5,8 @@ import { Helmet } from 'react-helmet'
 import Box from '@mui/material/Box'
 
 import '../../styles/single-post.css'
+import { useTheme } from '@mui/material/styles'
+import { useMediaQuery } from '@mui/material'
 import { PageProps } from '../../types'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { loadAllPosts } from '../../store/posts/postsSlice'
@@ -25,6 +27,18 @@ function ProfilePage({ title }: PageProps): JSX.Element {
         (state) => state.persistedReducer.auth
     )
 
+    const theme = useTheme()
+    const isLaptop = useMediaQuery(theme.breakpoints.up('md'))
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+    const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'))
+    let paddingBottom
+    if (isMobile) {
+        paddingBottom = '40px'
+    } else if (isTablet) {
+        paddingBottom = '280px'
+    } else if (isLaptop) {
+        paddingBottom = '200px'
+    }
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -57,7 +71,11 @@ function ProfilePage({ title }: PageProps): JSX.Element {
                 sx={{
                     marginTop: '40px',
                     marginBottom: '53px',
-                    minHeight: '100vh',
+                    width: isLaptop ? '65%' : '100%',
+                    margin: isLaptop
+                        ? '40px auto 54px auto'
+                        : '40px 0px 54px 0xp',
+                    paddingBottom,
                 }}
             >
                 <ProfilePageHeader

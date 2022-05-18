@@ -26,7 +26,9 @@ function DesktopLayoutNavigation(): JSX.Element {
         navigate('/upload')
     }
 
-    const isBiggerThanTablet = useMediaQuery(theme.breakpoints.up('md'))
+    const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'))
+    const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
+    const isIpad = useMediaQuery(theme.breakpoints.between('sm', 'md'))
 
     return (
         <Box
@@ -41,9 +43,7 @@ function DesktopLayoutNavigation(): JSX.Element {
                     backgroundColor: theme.palette.background.paper,
                     display: 'flex',
                     flexFlow: 'row wrap',
-                    justifyContent: isBiggerThanTablet
-                        ? 'space-evenly'
-                        : 'space-between',
+                    justifyContent: isTablet ? 'space-evenly' : 'space-between',
                     flexGrow: 1,
                 }}
             >
@@ -53,6 +53,7 @@ function DesktopLayoutNavigation(): JSX.Element {
                 </Toolbar>
 
                 <SearchLayoutIcon desktop setIsSearching={setIsSearching} />
+                {isLaptop && isSearching && <SearchInput />}
 
                 <Toolbar>
                     <HomeLayoutIcon desktop />
@@ -73,7 +74,8 @@ function DesktopLayoutNavigation(): JSX.Element {
                     </IconButton>
                     <ProfileLayoutIcon />
                 </Toolbar>
-                {isSearching && <SearchInput />}
+                {isTablet && isSearching && <SearchInput />}
+                {isIpad && isSearching && <SearchInput />}
             </AppBar>
         </Box>
     )

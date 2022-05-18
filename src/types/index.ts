@@ -20,6 +20,7 @@ export interface Comment {
     commentator: string
     comment: string
     commentatorID: string
+    id?: string
     commentID: string
     likes: string[]
     replies?: Reply[]

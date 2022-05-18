@@ -20,6 +20,8 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 import '../../styles/file-input.css'
 import '../../styles/image-preview.css'
+import { useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import Error from '../../components/Error'
 import { PageProps, Post } from '../../types'
 import { storage } from '../../config/firebase'
@@ -38,6 +40,8 @@ function UploadPage({ title }: PageProps): JSX.Element {
     const [hasSetDescription, setHasDescription] = useState<boolean>(false)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const theme = useTheme()
+    const isLaptop = useMediaQuery(theme.breakpoints.up('md'))
 
     const { isAuthenticated, email, uid } = useAppSelector(
         (state) => state.persistedReducer.auth
@@ -119,12 +123,21 @@ function UploadPage({ title }: PageProps): JSX.Element {
             <Helmet>
                 <title>{title}</title>
             </Helmet>
-            <FlexBoxCentered flexDirection="column wrap">
+            <FlexBoxCentered
+                flexDirection="column wrap"
+                sx={{
+                    width: isLaptop ? '50%' : '100%',
+                    margin: isLaptop ? '0 auto' : '0',
+                }}
+            >
                 <Typography
                     component="h1"
                     variant="body1"
                     align="center"
-                    sx={{ fontWeight: '700', marginTop: '10px' }}
+                    sx={{
+                        fontWeight: '700',
+                        marginTop: '10px',
+                    }}
                 >
                     Създаване на нова публикация
                 </Typography>

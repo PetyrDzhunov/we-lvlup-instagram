@@ -32,13 +32,13 @@ function PageLayout({ children }: PageLayoutProps): JSX.Element {
         },
     })
 
-    // const theme = useTheme()
-    // const isBiggerThanSmall = useMediaQuery(theme.breakpoints.up('sm'))
-    // const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
-
     return (
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
-            <Paper>
+            <Paper
+                sx={{
+                    minHeight: '100vh',
+                }}
+            >
                 {isBiggerThanMedium ? (
                     <DesktopLayoutNavigation />
                 ) : (
