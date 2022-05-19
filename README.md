@@ -8,7 +8,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   <ul>
     <li>Authentication feature</li>
     <li>Follow feature</li>
-    <li>Like/Dislike feature</li>
     <li>Comments feature</li>
     <li>Story feature</li>
     <li>Chat feature</li>
@@ -17,7 +16,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
   ### <h1>`Pages`</h1>
   <ul>
-    <li>Home page - most recently uploaded features with infinite scroll restricted to authenticated users</li>
+    <li>Home page - most recently uploaded features restricted to authenticated users</li>
     <li>Post page – detailed post page restricted to authenticated users</li>
     <li>Profile page – profile page with details about the user and list of all posts</li>
     <li>Upload page – upload posts restricted to authenticated users</li>
@@ -34,7 +33,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     <li>Global state management - Redux toolkit - https://redux-toolkit.js.org/</li>
     <li>Handling forms and validations - React Hook Form with Yup - https://react-hook-form.com/</li>
     <li>Styling solution - Material UI - https://mui.com/</li>
-    <li>Data fetching and caching - Redux toolkit query - https://redux-toolkit.js.org/rtk-query/overview</li>
   </ul>
 
 
