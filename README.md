@@ -11,7 +11,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     <li>Comments feature</li>
     <li>Story feature</li>
     <li>Chat feature</li>
-    <li>Infinite scroll feature</li>
   </ul>
 
   ### <h1>`Pages`</h1>
