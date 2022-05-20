@@ -287,7 +287,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                 </DialogContent>
             </Dialog>
             <Stack direction="row" spacing={3} sx={{ marginLeft: '65px' }}>
-                <Typography onClick={showLikes}>
+                <Typography sx={{ cursor: 'pointer' }} onClick={showLikes}>
                     {comment.likes.length} харесвания
                 </Typography>
                 <Typography onClick={handleReply}>Отговор</Typography>

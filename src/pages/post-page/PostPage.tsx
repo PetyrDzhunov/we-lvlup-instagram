@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
@@ -27,6 +27,7 @@ function PostPage({ title }: PageProps): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
     const [comment, setComment] = useState<string>('')
+    const bottomRef = useRef<HTMLDivElement | null>(null)
 
     const navigate = useNavigate()
 
@@ -34,7 +35,7 @@ function PostPage({ title }: PageProps): JSX.Element {
         (state) => state.persistedReducer.auth
     )
     const theme = useTheme()
-    const isLaptop = useMediaQuery(theme.breakpoints.up('md'))
+    const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -86,6 +87,7 @@ function PostPage({ title }: PageProps): JSX.Element {
         }
         dispatch(addComment(newComment))
         setComment('')
+        bottomRef.current?.scrollIntoView()
 
         try {
             await firebasePostsService.addCommentToPost(postID, newComment)
@@ -135,6 +137,7 @@ function PostPage({ title }: PageProps): JSX.Element {
 
         try {
             await firebasePostsService.addCommentToPost(postID, newComment)
+            bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
         } catch (err) {
             setError('Something went wrong.')
         }
@@ -159,7 +162,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                     height: '100%',
                     width: isLaptop ? '50%' : '100%',
                     margin: isLaptop
-                        ? '56px auto 50px auto'
+                        ? '56px auto 0px auto'
                         : '56px 0px 50px 0px',
                 }}
             >
@@ -220,6 +223,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                             />
                         ))}
                 </List>
+                <div ref={bottomRef} />
             </Box>
         </PageLayout>
     )
