@@ -118,10 +118,6 @@ function HomePage({ title }: PageProps): JSX.Element {
                                 ? '1px solid rgba(0,0,0,.1)'
                                 : 'none',
                             marginBottom: isLaptop ? '12px' : '0px',
-                            marginRight:
-                                isLaptop && currTheme === 'dark'
-                                    ? '0px'
-                                    : '25px',
                             borderBottom:
                                 isLaptop && currTheme === 'dark'
                                     ? `1px solid #fff`

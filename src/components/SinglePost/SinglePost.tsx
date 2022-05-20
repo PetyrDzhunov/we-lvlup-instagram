@@ -30,6 +30,8 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
                 display: 'flex',
                 flexFlow: 'column wrap',
                 width: '96%',
+                padding: '0px',
+                paddingBottom: '12px',
                 backgroundColor: theme.palette.background.paper,
                 border: isLaptop ? '1px solid rgba(0,0,0,.1)' : 'none',
                 marginBottom: isLaptop ? '12px' : '0px',

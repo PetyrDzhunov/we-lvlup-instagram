@@ -36,7 +36,7 @@ function PageLayout({ children }: PageLayoutProps): JSX.Element {
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
             <Paper
                 sx={{
-                    height: '100%',
+                    height: '100vh',
                 }}
             >
                 {isBiggerThanMedium ? (

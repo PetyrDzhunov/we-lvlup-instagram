@@ -91,6 +91,7 @@ function PostPage({ title }: PageProps): JSX.Element {
 
         try {
             await firebasePostsService.addCommentToPost(postID, newComment)
+            bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
         } catch (err) {
             setError('Something went wrong.')
         }

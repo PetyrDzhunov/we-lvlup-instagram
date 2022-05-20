@@ -35,6 +35,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
     const [wantsToReply, setWantsToReply] = useState<boolean>(false)
     const [reply, setReply] = useState<string>('')
+    const [showReplyLikes, setShowReplyLikes] = useState<boolean>(false)
     const dispatch = useAppDispatch()
 
     const currentCommentCreator = useAppSelector((state) => {
@@ -97,7 +98,48 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
         setReply('')
         setWantsToReply((prev) => !prev)
 
-        await firebasePostsService.addReplyToComment(newReply)
+        try {
+            await firebasePostsService.addReplyToComment(newReply)
+        } catch (err) {
+            setError('Something went wrong. Try again later.')
+        }
+    }
+
+    const handleReplyWithKeyboard = async (
+        event: React.KeyboardEvent
+    ): Promise<void> => {
+        if (userLoggedIn?.username === undefined) {
+            return
+        }
+
+        if (currentPost === undefined) {
+            return
+        }
+        let newReply
+        if (event.key === 'Enter') {
+            newReply = {
+                postID: currentPost.id,
+                replyUserID: loggedInUserID,
+                commentID: comment.commentID,
+                reply,
+                replier: userLoggedIn?.username,
+                replyID: uuidv4(),
+                replyLikes: [],
+            }
+
+            dispatch(addReplyToComment(newReply))
+            setReply('')
+            setWantsToReply((prev) => !prev)
+        }
+        if (newReply === undefined) {
+            return
+        }
+
+        try {
+            await firebasePostsService.addReplyToComment(newReply)
+        } catch (err) {
+            setError('Something went wrong. Try again later.')
+        }
     }
 
     const handleReplyChange = (
@@ -118,8 +160,16 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
         setOpen(false)
     }
 
+    const showLikedByReplyHandler = (): void => {
+        setShowReplyLikes(true)
+    }
+
     const showLikes = (): void => {
         handleClickOpen()
+    }
+
+    const handleHideReplyLikes = (): void => {
+        setShowReplyLikes(false)
     }
 
     const handleReplyLike = async (currReply: Reply): Promise<void> => {
@@ -286,6 +336,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                     ))}
                 </DialogContent>
             </Dialog>
+
             <Stack direction="row" spacing={3} sx={{ marginLeft: '65px' }}>
                 <Typography sx={{ cursor: 'pointer' }} onClick={showLikes}>
                     {comment.likes.length} харесвания
@@ -299,6 +350,10 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                 )
                 const replyHasBeenLikedByCurrentUser =
                     currReply.replyLikes.includes(loggedInUserID)
+
+                const usersLikedTheReply = allUsers.filter((currUser) =>
+                    currReply.replyLikes.includes(currUser.authID)
+                )
                 return (
                     <React.Fragment key={currReply.replyID}>
                         <ListItem
@@ -381,12 +436,74 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                                 </IconButton>
                             )}
                         </ListItem>
+
+                        <Dialog
+                            open={showReplyLikes}
+                            onClose={handleHideReplyLikes}
+                        >
+                            <DialogTitle sx={{ textAlign: 'center' }}>
+                                Liked by
+                            </DialogTitle>
+
+                            <IconButton
+                                aria-label="close"
+                                onClick={handleHideReplyLikes}
+                                sx={{
+                                    position: 'absolute',
+                                    right: 0,
+                                    top: 0,
+                                    color: (themed) => themed.palette.grey[500],
+                                }}
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                            <DialogContent>
+                                {usersLikedTheReply.map((currentUser) => (
+                                    <Stack
+                                        key={currentUser?.authID}
+                                        direction="row"
+                                        spacing={2}
+                                        alignItems="center"
+                                        sx={{
+                                            margin: '15px',
+                                        }}
+                                    >
+                                        <Avatar
+                                            onClick={() =>
+                                                navigate(
+                                                    `/profile/${currentUser?.authID}`
+                                                )
+                                            }
+                                            src={currentUser?.profileImage}
+                                            sx={{
+                                                width: '40px',
+                                                height: '40px',
+                                            }}
+                                        />
+                                        <Typography
+                                            sx={{
+                                                fontWeight: 'bolder',
+                                                marginBottom: '4px',
+                                                color: 'text.primary',
+                                            }}
+                                        >
+                                            {currentUser?.username ||
+                                                currentUser?.fullName ||
+                                                currentUser?.email.split(
+                                                    '@'
+                                                )[0]}
+                                        </Typography>
+                                    </Stack>
+                                ))}
+                            </DialogContent>
+                        </Dialog>
+
                         <Stack
                             direction="row"
                             spacing={3}
                             sx={{ marginLeft: '65px' }}
                         >
-                            <Typography>
+                            <Typography onClick={showLikedByReplyHandler}>
                                 {currReply.replyLikes.length > 0
                                     ? `${currReply.replyLikes.length}  харесвания`
                                     : null}
@@ -415,6 +532,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                                 paddingRight: '45px',
                             },
                         }}
+                        onKeyDown={handleReplyWithKeyboard}
                         onChange={handleReplyChange}
                         value={reply}
                         placeholder="Отговори тук..."
