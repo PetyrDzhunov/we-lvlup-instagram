@@ -14,6 +14,7 @@ interface PageLayoutProps {
 function PageLayout({ children }: PageLayoutProps): JSX.Element {
     const theme = useTheme()
     const isBiggerThanMedium = useMediaQuery(theme.breakpoints.up('sm'))
+    const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
     const loggedInUserTheme = useAppSelector(
         (state) => state.persistedReducer.auth.theme
     )
@@ -36,7 +37,7 @@ function PageLayout({ children }: PageLayoutProps): JSX.Element {
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
             <Paper
                 sx={{
-                    height: '100vh',
+                    height: isLaptop ? '100%' : '100vh',
                 }}
             >
                 {isBiggerThanMedium ? (

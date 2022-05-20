@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
@@ -26,8 +26,9 @@ import FlexBoxCentered from '../../components/FlexBoxCentered'
 function PostPage({ title }: PageProps): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
-    const [comment, setComment] = useState<string>('')
+    const commentInputRef = useRef<HTMLInputElement | null>(null)
     const bottomRef = useRef<HTMLDivElement | null>(null)
+    console.log('render post page')
 
     const navigate = useNavigate()
 
@@ -71,6 +72,11 @@ function PostPage({ title }: PageProps): JSX.Element {
             return
         }
 
+        let comment = commentInputRef?.current?.value
+        if (comment == null || comment === undefined) {
+            return
+        }
+
         if (comment === '') {
             setOpen(true)
             return setError('Коментарът не може да бъде празен')
@@ -86,7 +92,7 @@ function PostPage({ title }: PageProps): JSX.Element {
             likes: [],
         }
         dispatch(addComment(newComment))
-        setComment('')
+        comment = ''
         bottomRef.current?.scrollIntoView()
 
         try {
@@ -107,6 +113,12 @@ function PostPage({ title }: PageProps): JSX.Element {
         if (postID === undefined) {
             return
         }
+
+        let comment = commentInputRef?.current?.value
+        if (comment == null || comment === undefined) {
+            return
+        }
+
         let newComment
         if (event.key === 'Enter') {
             event.preventDefault()
@@ -130,7 +142,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                 likes: [],
             }
             dispatch(addComment(newComment))
-            setComment('')
+            comment = ''
         }
         if (newComment === undefined) {
             return
@@ -180,15 +192,14 @@ function PostPage({ title }: PageProps): JSX.Element {
                 >
                     <FlexBoxCentered flexDirection="row wrap">
                         <TextField
+                            inputRef={commentInputRef}
                             multiline
                             size="small"
                             sx={{
                                 marginBottom: '10px',
                                 width: '100%',
                             }}
-                            value={comment}
                             onKeyDown={addCommentByKeyboard}
-                            onChange={(e) => setComment(e.target.value)}
                             placeholder="Добави коментар..."
                         />
                         <Button
@@ -215,7 +226,9 @@ function PostPage({ title }: PageProps): JSX.Element {
                         {error}
                     </Alert>
                 </Snackbar>
-                <List sx={{ bgcolor: 'background.paper' }}>
+                <List
+                    sx={{ bgcolor: 'background.paper', paddingBottom: '15%' }}
+                >
                     {currentPost?.comments.length > 0 &&
                         currentPost?.comments?.map((currComment) => (
                             <SingleComment
@@ -229,4 +242,4 @@ function PostPage({ title }: PageProps): JSX.Element {
         </PageLayout>
     )
 }
-export default PostPage
+export default memo(PostPage)

@@ -1,4 +1,4 @@
-import { ElementType, useCallback } from 'react'
+import { ElementType, memo } from 'react'
 
 import Box from '@mui/material/Box'
 import { SxProps } from '@mui/material'
@@ -21,20 +21,16 @@ function FlexBoxCentered({
     component,
     flexDirection,
 }: FlexBoxCenteredProps): JSX.Element {
-    const useStyles = useCallback(
-        makeStyles(() => {
-            return {
-                root: {
-                    display: 'flex',
-                    flexFlow: flexDirection,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                },
-            }
-        }),
-        [flexDirection]
-    )
-
+    const useStyles = makeStyles(() => {
+        return {
+            root: {
+                display: 'flex',
+                flexFlow: flexDirection,
+                justifyContent: 'center',
+                alignItems: 'center',
+            },
+        }
+    })
     const classes = useStyles()
     return (
         <Box
@@ -48,4 +44,4 @@ function FlexBoxCentered({
     )
 }
 
-export default FlexBoxCentered
+export default memo(FlexBoxCentered)

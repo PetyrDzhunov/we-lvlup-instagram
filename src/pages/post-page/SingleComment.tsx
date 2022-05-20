@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -37,6 +37,8 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     const [reply, setReply] = useState<string>('')
     const [showReplyLikes, setShowReplyLikes] = useState<boolean>(false)
     const dispatch = useAppDispatch()
+
+    console.log('render comment component')
 
     const currentCommentCreator = useAppSelector((state) => {
         return state.users.allUsers.find(
@@ -552,4 +554,4 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
         </Box>
     )
 }
-export default SingleComment
+export default memo(SingleComment)
