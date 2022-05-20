@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Stack from '@mui/material/Stack'
@@ -136,4 +136,4 @@ function SinglePostHeader({
     )
 }
 
-export default SinglePostHeader
+export default memo(SinglePostHeader)

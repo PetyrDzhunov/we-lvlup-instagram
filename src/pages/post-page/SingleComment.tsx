@@ -38,8 +38,6 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
     const [showReplyLikes, setShowReplyLikes] = useState<boolean>(false)
     const dispatch = useAppDispatch()
 
-    console.log('render comment component')
-
     const currentCommentCreator = useAppSelector((state) => {
         return state.users.allUsers.find(
             (currUser) => currUser.authID === comment.commentatorID

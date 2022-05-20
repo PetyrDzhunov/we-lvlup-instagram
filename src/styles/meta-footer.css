@@ -21,7 +21,7 @@
     margin-top: 25px;
 }
 
-@media screen and (min-width:900px) {
+@media screen and (min-width: 900px) {
     .meta-footer-register {
         display: flex;
         flex-flow: column wrap;
@@ -44,7 +44,7 @@
     }
 }
 
-@media screen and (min-width:600px) and (max-width:900px) {
+@media screen and (min-width: 600px) and (max-width: 900px) {
     .meta-footer-register {
         display: flex;
         flex-flow: column wrap;
@@ -67,7 +67,7 @@
     }
 }
 
-@media screen and (min-width:1200px) {
+@media screen and (min-width: 1200px) {
     .meta-footer-register {
         display: flex;
         flex-flow: column wrap;

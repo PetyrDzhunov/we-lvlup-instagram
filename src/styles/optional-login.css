@@ -34,7 +34,7 @@
     }
 }
 
-@media screen and (min-width:600px) and (max-width:900px) {
+@media screen and (min-width: 600px) and (max-width: 900px) {
     .download-image {
         width: 20%;
         height: 40px;

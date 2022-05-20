@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
+import { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface SinglePostImageProps {
@@ -15,6 +16,7 @@ function SinglePostImage({
     small,
 }: SinglePostImageProps): JSX.Element {
     const navigate = useNavigate()
+
     return (
         <img
             onClick={() => navigate(`/posts/${id}`)}
@@ -27,4 +29,4 @@ function SinglePostImage({
     )
 }
 
-export default SinglePostImage
+export default memo(SinglePostImage)

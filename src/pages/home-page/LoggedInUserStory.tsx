@@ -34,6 +34,8 @@ function LoggedInUserStory(): JSX.Element {
     const [hasUploaded, setHasUploaded] = useState<boolean>(false)
     const [progress, setProgress] = useState<boolean>(false)
 
+    console.log('render loggedInUserStory')
+
     const theme = useTheme()
     const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 

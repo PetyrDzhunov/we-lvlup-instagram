@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
@@ -26,7 +26,7 @@ import FlexBoxCentered from '../../components/FlexBoxCentered'
 function PostPage({ title }: PageProps): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
-    const commentInputRef = useRef<HTMLInputElement | null>(null)
+    const commentInputRef = useRef<HTMLInputElement | undefined>()
     const bottomRef = useRef<HTMLDivElement | null>(null)
     console.log('render post page')
 
@@ -72,7 +72,7 @@ function PostPage({ title }: PageProps): JSX.Element {
             return
         }
 
-        let comment = commentInputRef?.current?.value
+        const comment = commentInputRef?.current?.value
         if (comment == null || comment === undefined) {
             return
         }
@@ -92,7 +92,14 @@ function PostPage({ title }: PageProps): JSX.Element {
             likes: [],
         }
         dispatch(addComment(newComment))
-        comment = ''
+        if (
+            commentInputRef === undefined ||
+            commentInputRef.current === undefined ||
+            commentInputRef.current.value === undefined
+        ) {
+            return
+        }
+        commentInputRef.current.value = ''
         bottomRef.current?.scrollIntoView()
 
         try {
@@ -114,7 +121,7 @@ function PostPage({ title }: PageProps): JSX.Element {
             return
         }
 
-        let comment = commentInputRef?.current?.value
+        const comment = commentInputRef?.current?.value
         if (comment == null || comment === undefined) {
             return
         }
@@ -142,7 +149,14 @@ function PostPage({ title }: PageProps): JSX.Element {
                 likes: [],
             }
             dispatch(addComment(newComment))
-            comment = ''
+            if (
+                commentInputRef === undefined ||
+                commentInputRef.current === undefined ||
+                commentInputRef.current.value === undefined
+            ) {
+                return
+            }
+            commentInputRef.current.value = ''
         }
         if (newComment === undefined) {
             return
@@ -242,4 +256,4 @@ function PostPage({ title }: PageProps): JSX.Element {
         </PageLayout>
     )
 }
-export default memo(PostPage)
+export default PostPage

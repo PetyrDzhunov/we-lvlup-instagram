@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { useTheme } from '@mui/material/styles'
 
 import { useMediaQuery } from '@mui/material'
@@ -28,15 +28,16 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     const [open, setOpen] = useState<boolean>(false)
     const [progress, setProgress] = useState<boolean>(false)
 
+    console.log('render singleStory')
+
     const theme = useTheme()
     const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
     const loggedInUserID = useAppSelector(
         (state) => state.persistedReducer.auth.uid
     )
-    const allUsers = useAppSelector((state) => state.users.allUsers)
 
-    const loggedInUser = allUsers.find(
+    const loggedInUser = useAppSelector((state) => state.users.allUsers).find(
         (currUser) => currUser.authID === loggedInUserID
     )
 
@@ -146,4 +147,4 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     )
 }
 
-export default SingleStory
+export default memo(SingleStory)

@@ -1,4 +1,4 @@
-import { ElementType, memo } from 'react'
+import { ElementType } from 'react'
 
 import Box from '@mui/material/Box'
 import { SxProps } from '@mui/material'
@@ -44,4 +44,4 @@ function FlexBoxCentered({
     )
 }
 
-export default memo(FlexBoxCentered)
+export default FlexBoxCentered

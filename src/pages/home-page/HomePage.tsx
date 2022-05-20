@@ -37,6 +37,8 @@ function HomePage({ title }: PageProps): JSX.Element {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const theme = useTheme()
 
+    console.log('home page rendered')
+
     const isBiggerThanSmall = useMediaQuery(theme.breakpoints.up('sm'))
     const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
@@ -64,7 +66,9 @@ function HomePage({ title }: PageProps): JSX.Element {
             isInitial = false
             setIsLoading(false)
         }
-        getPosts()
+        if (isInitial) {
+            getPosts()
+        }
     }, [dispatch])
 
     useEffect(() => {
