@@ -16,7 +16,6 @@ function SinglePostImage({
     small,
 }: SinglePostImageProps): JSX.Element {
     const navigate = useNavigate()
-
     return (
         <img
             onClick={() => navigate(`/posts/${id}`)}

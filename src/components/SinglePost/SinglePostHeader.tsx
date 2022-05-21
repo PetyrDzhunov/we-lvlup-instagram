@@ -47,13 +47,10 @@ function SinglePostHeader({
             (currUser) => currUser.authID === post.creator.uid
         )
     )
-    // filter only the posts that the loggedInUser followed to know on which one to display to follow him / unfollow him
     const dispatch = useAppDispatch()
 
     const { uid } = useAppSelector((state) => state.persistedReducer.auth)
     const hasFollowed = currentUser?.followers.includes(uid)
-    // get the logged in userID
-    // for each post get its ID and if its creator is equal to the logged in userID do not display the follow button!!!
     const isDisplayingFollowButton = uid === post.creator.uid
     const handleFollowUser = async (): Promise<void> => {
         if (currentUser === undefined) {

@@ -20,7 +20,6 @@ import {
     firebasePostsService,
     firebaseUsersService,
 } from '../../services/firebase-service'
-import SinglePost from '../../components/SinglePost/SinglePost'
 import { loadAllPosts } from '../../store/posts/postsSlice'
 import { loadAllUsers } from '../../store/users/usersSlice'
 import { PageProps, User } from '../../types'
@@ -29,6 +28,7 @@ import PostsSkeleton from './PostsSkeleton'
 import SingleStory from './SingleStory'
 import LoggedInUserStory from './LoggedInUserStory'
 import { db } from '../../config/firebase'
+import PostsList from '../../components/AllPosts'
 
 let isInitial = true
 
@@ -135,16 +135,7 @@ function HomePage({ title }: PageProps): JSX.Element {
                     </List>
                 )}
                 {isLoading && isInitial && <PostsSkeleton />}
-                <List
-                    sx={{
-                        bgcolor: 'background.paper',
-                        padding: '0px',
-                    }}
-                >
-                    {allPosts.map((post) => (
-                        <SinglePost key={post.id} post={post} />
-                    ))}
-                </List>
+                <PostsList allPosts={allPosts} />
             </Box>
         </PageLayout>
     )

@@ -21,6 +21,28 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
         )
     )
 
+    const loggedInUserID = useAppSelector(
+        (state) => state.persistedReducer.auth.uid
+    )
+
+    const currentPostAuthor = useAppSelector((state) =>
+        state.users.allUsers.find(
+            (currUser) => currUser.authID === post.creator.uid
+        )
+    )
+
+    const currentPostUsersLikes = useAppSelector((state) =>
+        state.users.allUsers.filter((currUser) => {
+            return post.likedBy.includes(currUser.authID)
+        })
+    )
+
+    const hasBeenLikedByCurrentUser = post.likedBy.some(
+        (like) => like === loggedInUserID
+    )
+
+    console.log('render singlePost')
+
     const theme = useTheme()
     const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
@@ -48,8 +70,13 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
             />
             <SinglePostImage id={post.id!} image={post.image} />
             <SinglePostFooter
+                loggedInUserID={loggedInUserID}
+                description={post.description ? post.description : ''}
+                author={currentPostAuthor!}
+                likes={currentPostUsersLikes}
+                liked={hasBeenLikedByCurrentUser}
                 postID={post.id!}
-                description={post?.description ? post.description : ''}
+                post={post}
             />
         </ListItem>
     )

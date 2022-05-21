@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import Stack from '@mui/material/Stack'
@@ -18,44 +18,38 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 
 import Error from '../Error'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+import { useAppDispatch } from '../../hooks/redux-hooks'
 import { likeDislikePost } from '../../store/posts/postsSlice'
 import { firebasePostsService } from '../../services/firebase-service'
+import { Post, User } from '../../types'
 
 interface SinglePostFooterProps {
+    loggedInUserID: string
+    description: string
+    author: User
+    likes: User[]
+    liked: boolean
     postID: string
-    description?: string
+    post: Post
 }
 
 function SinglePostFooter({
-    postID,
+    loggedInUserID,
     description,
+    author,
+    likes,
+    liked,
+    postID,
+    post: currentPost,
 }: SinglePostFooterProps): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
 
-    const loggedInUserID = useAppSelector(
-        (state) => state.persistedReducer.auth.uid
-    )
-    const currentPost = useAppSelector((state) =>
-        state.posts.allPosts.find((post) => post.id === postID)
-    )
+    console.log('render singlePostFooooter')
 
     const theme = useTheme()
 
     const { postID: hasParams } = useParams()
-
-    const currentPostAuthor = useAppSelector((state) =>
-        state.users.allUsers.find(
-            (currentUser) => currentUser.authID === currentPost?.creator.uid
-        )
-    )
-
-    const currentPostUsersLikes = useAppSelector((state) =>
-        state.users.allUsers.filter((currUser) => {
-            return currentPost?.likedBy.includes(currUser.authID)
-        })
-    )
 
     const handleClickOpen = (): void => {
         setOpen(true)
@@ -74,10 +68,6 @@ function SinglePostFooter({
     const showLikes = (): void => {
         handleClickOpen()
     }
-
-    const hasBeenLikedByCurrentUser = currentPost?.likedBy.some(
-        (like) => like === loggedInUserID
-    )
 
     const dispatch = useAppDispatch()
     const handleLike = async (): Promise<void> => {
@@ -107,7 +97,7 @@ function SinglePostFooter({
                     padding: '0',
                 }}
             >
-                {!hasBeenLikedByCurrentUser && (
+                {!liked && (
                     <IconButton onClick={handleLike}>
                         <FavoriteBorderIcon
                             fontSize="medium"
@@ -116,7 +106,7 @@ function SinglePostFooter({
                     </IconButton>
                 )}
 
-                {hasBeenLikedByCurrentUser && (
+                {liked && (
                     <IconButton onClick={handleLike}>
                         <FavoriteIcon
                             fontSize="medium"
@@ -177,9 +167,9 @@ function SinglePostFooter({
                         marginLeft: '10px',
                     }}
                 >
-                    {currentPostAuthor?.username ||
-                        currentPostAuthor?.fullName ||
-                        currentPostAuthor?.email.split('@')[0]}
+                    {author?.username ||
+                        author?.fullName ||
+                        author?.email.split('@')[0]}
                     <Typography
                         variant="body2"
                         component="p"
@@ -212,7 +202,7 @@ function SinglePostFooter({
                     <CloseIcon />
                 </IconButton>
                 <DialogContent>
-                    {currentPostUsersLikes.map((currentUser) => (
+                    {likes.map((currentUser) => (
                         <Stack
                             key={currentUser?.authID}
                             direction="row"
@@ -247,4 +237,4 @@ function SinglePostFooter({
         </AppBar>
     )
 }
-export default SinglePostFooter
+export default memo(SinglePostFooter)
