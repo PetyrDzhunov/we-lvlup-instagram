@@ -2,15 +2,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 <h1>Instagram-clone application</h1>
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="html" height="40" style="vertical-align:top; margin:4px">
-<h4>This repository will hold the project for my internship at Accedia and the it is for practical purposes only.<h4>
+<h4>This repository will hold the project for my internship at Accedia and it is for practical purposes only.<h4>
 
   ### <h1>`Features`</h1>
   <ul>
     <li>Authentication feature</li>
     <li>Follow feature</li>
-    <li>Comments feature</li>
-    <li>Story feature</li>
-    <li>Chat feature</li>
+    <li>Comments feature - also replies to single comment</li>
+    <li>Story feature - images for 24hours then automatically deleted (cron job)</li>
+    <li>Chat feature - in progress</li>
   </ul>
 
   ### <h1>`Pages`</h1>
