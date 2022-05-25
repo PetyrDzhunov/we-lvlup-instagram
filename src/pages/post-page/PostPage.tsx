@@ -10,7 +10,8 @@ import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 
 import '../../styles/post-page.css'
-import { TextField, useMediaQuery } from '@mui/material'
+import { useMediaQuery } from '@mui/material'
+import TextField from '@mui/material/TextField'
 import { useTheme } from '@mui/material/styles'
 import { PageProps } from '../../types'
 import NotFoundPage from '../not-found-page/NotFoundPage'
@@ -28,7 +29,6 @@ function PostPage({ title }: PageProps): JSX.Element {
     const [error, setError] = useState<string>('')
     const commentInputRef = useRef<HTMLInputElement | undefined>()
     const bottomRef = useRef<HTMLDivElement | null>(null)
-    console.log('render post page')
 
     const navigate = useNavigate()
 
@@ -92,14 +92,9 @@ function PostPage({ title }: PageProps): JSX.Element {
             likes: [],
         }
         dispatch(addComment(newComment))
-        if (
-            commentInputRef === undefined ||
-            commentInputRef.current === undefined ||
-            commentInputRef.current.value === undefined
-        ) {
-            return
-        }
-        commentInputRef.current.value = ''
+
+        commentInputRef!.current!.value = ''
+
         bottomRef.current?.scrollIntoView()
 
         try {
@@ -149,14 +144,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                 likes: [],
             }
             dispatch(addComment(newComment))
-            if (
-                commentInputRef === undefined ||
-                commentInputRef.current === undefined ||
-                commentInputRef.current.value === undefined
-            ) {
-                return
-            }
-            commentInputRef.current.value = ''
+            commentInputRef!.current!.value = ''
         }
         if (newComment === undefined) {
             return

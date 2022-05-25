@@ -45,8 +45,6 @@ function SinglePostFooter({
     const [open, setOpen] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
 
-    console.log('render singlePostFooooter')
-
     const theme = useTheme()
 
     const { postID: hasParams } = useParams()

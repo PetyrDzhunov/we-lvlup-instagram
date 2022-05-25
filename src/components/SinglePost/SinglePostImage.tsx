@@ -1,8 +1,6 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 interface SinglePostImageProps {
     id: string
@@ -17,13 +15,11 @@ function SinglePostImage({
 }: SinglePostImageProps): JSX.Element {
     const navigate = useNavigate()
     return (
-        <img
+        <LazyLoadImage
             onClick={() => navigate(`/posts/${id}`)}
             src={image}
             alt=""
-            className={
-                small ? 'single-post__image--small' : 'single-post__image'
-            }
+            width={small ? '32.3%' : '100%'}
         />
     )
 }

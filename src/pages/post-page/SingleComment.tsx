@@ -8,6 +8,7 @@ import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
 import Dialog from '@mui/material/Dialog'
 import ListItem from '@mui/material/ListItem'
+import TextField from '@mui/material/TextField'
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
@@ -16,7 +17,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import DialogContent from '@mui/material/DialogContent'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 
-import { TextField } from '@mui/material'
 import { Comment, Reply } from '../../types'
 import {
     addReplyToComment,

@@ -28,8 +28,6 @@ function SingleStory({ user }: SingleStoryProps): JSX.Element | null {
     const [open, setOpen] = useState<boolean>(false)
     const [progress, setProgress] = useState<boolean>(false)
 
-    console.log('render singleStory')
-
     const theme = useTheme()
     const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 

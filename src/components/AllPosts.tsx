@@ -9,7 +9,6 @@ interface PostListProps {
 }
 
 function PostsList({ allPosts }: PostListProps): JSX.Element {
-    console.log('render postsList')
     return (
         <List
             sx={{

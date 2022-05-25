@@ -41,8 +41,6 @@ function SinglePost({ post }: SinglePostProps): JSX.Element {
         (like) => like === loggedInUserID
     )
 
-    console.log('render singlePost')
-
     const theme = useTheme()
     const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
 
