@@ -9,9 +9,10 @@ import DesktopLayoutNavigation from './DesktopLayoutNavigation'
 
 interface PageLayoutProps {
     children: React.ReactNode
+    height?: string
 }
 
-function PageLayout({ children }: PageLayoutProps): JSX.Element {
+function PageLayout({ children, height }: PageLayoutProps): JSX.Element {
     const theme = useTheme()
     const isBiggerThanMedium = useMediaQuery(theme.breakpoints.up('sm'))
     const isLaptop = useMediaQuery(theme.breakpoints.up('lg'))
@@ -33,11 +34,20 @@ function PageLayout({ children }: PageLayoutProps): JSX.Element {
         },
     })
 
+    let currHeight
+    if (height) {
+        currHeight = height
+    } else if (isLaptop) {
+        currHeight = '100%'
+    } else if (!isLaptop) {
+        currHeight = '100vh'
+    }
+
     return (
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
             <Paper
                 sx={{
-                    height: isLaptop ? '100%' : '100vh',
+                    height: currHeight,
                 }}
             >
                 {isBiggerThanMedium ? (
