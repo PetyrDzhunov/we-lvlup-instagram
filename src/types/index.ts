@@ -64,3 +64,17 @@ export interface User {
     username?: string
     story?: Story
 }
+
+export interface Message {
+    message: string
+    creatorID: string
+}
+
+export interface ChatRoom {
+    created: Timestamp
+    id: string
+    messages: Message[]
+    participant1: User
+    participant2: User
+    docID?: string
+}
