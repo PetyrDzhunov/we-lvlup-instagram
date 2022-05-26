@@ -94,10 +94,23 @@ const addFollower = async (
     }
 }
 
+const updateUserStatus = async (
+    userID: string,
+    status: boolean
+): Promise<void> => {
+    const user = await getUserById(userID)
+    const loggedInUserRef = doc(db, 'users', user.docID)
+
+    await updateDoc(loggedInUserRef, {
+        status,
+    })
+}
+
 export default {
     addUserToFirebaseDB,
     addUserToFirebaseDBLoggedInWithFacebook,
     getUserById,
     getAllUsers,
     addFollower,
+    updateUserStatus,
 }

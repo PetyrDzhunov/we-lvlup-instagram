@@ -58,6 +58,7 @@ export interface User {
     email: string
     followers: Follower[]
     followed: Follower[]
+    status?: boolean
     fullName?: string
     profileImage?: string
     username?: string
