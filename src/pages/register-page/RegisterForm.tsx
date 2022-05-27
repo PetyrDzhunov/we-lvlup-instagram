@@ -17,6 +17,7 @@ import { login } from '../../store/auth/authSlice'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import InputController from '../../components/InputController'
 import { firebaseUsersService } from '../../services/firebase-service'
+import usersService from '../../services/firebase-service/users/users-service'
 
 interface RegisterFormInputs {
     email: string
@@ -60,6 +61,7 @@ function RegisterForm(): JSX.Element {
                 username,
                 uid
             )
+            await usersService.updateUserStatus(uid, true)
             dispatch(login({ email, uid, fullName }))
             setIsRegistering(false)
             navigate('/')

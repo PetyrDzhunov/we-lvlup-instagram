@@ -8,6 +8,7 @@ import { useTheme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 
 import InstagramLogo from '../../components/InstagramLogo'
+import ChatLayoutIcon from './ChatLayoutIcon'
 
 function MobileLayoutNavigation(): JSX.Element {
     const navigate = useNavigate()
@@ -38,6 +39,7 @@ function MobileLayoutNavigation(): JSX.Element {
                 </Toolbar>
 
                 <Toolbar>
+                    <ChatLayoutIcon />
                     <IconButton
                         onClick={uploadHandler}
                         size="small"

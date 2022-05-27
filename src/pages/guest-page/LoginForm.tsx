@@ -16,6 +16,7 @@ import { login } from '../../store/auth/authSlice'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import InputController from '../../components/InputController'
 import FlexBoxCentered from '../../components/FlexBoxCentered'
+import usersService from '../../services/firebase-service/users/users-service'
 
 interface LoginFormInputs {
     email: string
@@ -47,6 +48,8 @@ function LoginForm(): JSX.Element {
                 email,
                 password
             )
+
+            await usersService.updateUserStatus(response.user.uid, true)
             dispatch(
                 login({
                     email,

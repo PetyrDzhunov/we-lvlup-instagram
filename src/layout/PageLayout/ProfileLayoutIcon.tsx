@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { logout } from '../../store/auth/authSlice'
 import { firebaseUsersService } from '../../services/firebase-service'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks'
+import usersService from '../../services/firebase-service/users/users-service'
 
 function ProfileLayoutIcon(): JSX.Element {
     const [user, setUser] = useState<DocumentData>()
@@ -52,8 +53,9 @@ function ProfileLayoutIcon(): JSX.Element {
         imgSrc = ''
     }
 
-    const logoutHandler = (): void => {
+    const logoutHandler = async (): Promise<void> => {
         handleCloseUserMenu()
+        await usersService.updateUserStatus(uid, false)
         dispatch(logout())
         navigate('/')
     }

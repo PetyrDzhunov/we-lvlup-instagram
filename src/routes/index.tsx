@@ -1,4 +1,6 @@
 import { lazy } from 'react'
+import ChatRoomPage from '../pages/chat-room-page/ChatRoomPage'
+import ChatPage from '../pages/chats-page/ChatPage'
 
 const UploadPage = lazy(() => import('../pages/upload-page/UploadPage'))
 const MainPage = lazy(() => import('../pages/main-page/MainPage'))
@@ -45,8 +47,18 @@ export const routes: Routes[] = [
         key: 6,
     },
     {
+        path: '/chats',
+        element: <ChatPage title="Chats page" />,
+        key: 7,
+    },
+    {
+        path: '/chats/:chatRoomID',
+        element: <ChatRoomPage title="Chat page" />,
+        key: 8,
+    },
+    {
         path: '/*',
         element: <NotFoundPage title="Not found page" />,
-        key: 7,
+        key: 9,
     },
 ]
