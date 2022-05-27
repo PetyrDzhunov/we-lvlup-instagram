@@ -24,6 +24,7 @@ function CreateMessage({
         const newMessage = {
             message,
             creatorID: loggedInUserID,
+            createdAt: new Date(),
         }
         if (event.key === 'Enter') {
             try {
@@ -44,7 +45,7 @@ function CreateMessage({
         <TextField
             onKeyDown={sendMessage}
             sx={{
-                position: 'absolute',
+                position: 'sticky',
                 bottom: '60px',
                 width: '100%',
                 borderRadius: '40px',

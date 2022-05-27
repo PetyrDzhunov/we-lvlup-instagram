@@ -1,6 +1,8 @@
+import { doc, DocumentData, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
+import { db } from '../../config/firebase'
 import { useAppSelector } from '../../hooks/redux-hooks'
 import PageLayout from '../../layout/PageLayout/PageLayout'
 import { firebaseChatsService } from '../../services/firebase-service'
@@ -23,6 +25,7 @@ function ChatRoomPage({ title }: PageProps): JSX.Element {
                 const room = await firebaseChatsService.getChatRoomByID(
                     chatRoomID!
                 )
+                console.log(room[0])
                 setChatRoom(room[0])
                 isInitial = false
             } catch (err) {
@@ -32,10 +35,23 @@ function ChatRoomPage({ title }: PageProps): JSX.Element {
         getChatRoomParticipants()
     }, [chatRoomID])
 
-    console.log(chatRoom)
-    const isTheLoggedUser = loggedInUserID === chatRoom?.participant1.authID
+    useEffect(() => {
+        const unsubscribe = onSnapshot(
+            doc(db, 'chatRooms', chatRoomID!),
+            (currDoc: DocumentData) => {
+                const currChatRoom: ChatRoom = currDoc.data()
+                console.log(chatRoom)
+
+                setChatRoom(currChatRoom)
+            }
+        )
+        return () => {
+            unsubscribe()
+        }
+    }, [chatRoomID])
+
     return (
-        <PageLayout>
+        <PageLayout hidden>
             <Helmet>
                 <title>{title}</title>
             </Helmet>
@@ -43,10 +59,12 @@ function ChatRoomPage({ title }: PageProps): JSX.Element {
                 <MessagesList messages={chatRoom.messages} />
             )}
 
-            <CreateMessage
-                chatRoomID={chatRoomID!}
-                loggedInUserID={loggedInUserID}
-            />
+            {chatRoom && (
+                <CreateMessage
+                    chatRoomID={chatRoomID!}
+                    loggedInUserID={loggedInUserID}
+                />
+            )}
         </PageLayout>
     )
 }
