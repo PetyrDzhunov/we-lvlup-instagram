@@ -8,9 +8,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   <ul>
     <li>Authentication feature</li>
     <li>Follow feature</li>
+    <li>Like feature</li>
     <li>Comments feature - also replies to single comment</li>
     <li>Story feature - images for 24hours then automatically deleted (cron job)</li>
-    <li>Chat feature - in progress</li>
+    <li>Chat feature</li>
+    <li>Search users feature</li>
   </ul>
 
   ### <h1>`Pages`</h1>
