@@ -25,7 +25,6 @@ function ChatRoomPage({ title }: PageProps): JSX.Element {
                 const room = await firebaseChatsService.getChatRoomByID(
                     chatRoomID!
                 )
-                console.log(room[0])
                 setChatRoom(room[0])
                 isInitial = false
             } catch (err) {
@@ -40,7 +39,6 @@ function ChatRoomPage({ title }: PageProps): JSX.Element {
             doc(db, 'chatRooms', chatRoomID!),
             (currDoc: DocumentData) => {
                 const currChatRoom: ChatRoom = currDoc.data()
-                console.log(chatRoom)
 
                 setChatRoom(currChatRoom)
             }
@@ -51,7 +49,7 @@ function ChatRoomPage({ title }: PageProps): JSX.Element {
     }, [chatRoomID])
 
     return (
-        <PageLayout hidden>
+        <PageLayout hidden flex="column">
             <Helmet>
                 <title>{title}</title>
             </Helmet>
