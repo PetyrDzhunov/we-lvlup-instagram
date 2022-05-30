@@ -27,6 +27,7 @@ function CreateMessage({
             createdAt: new Date(),
         }
         if (event.key === 'Enter') {
+            event.preventDefault()
             try {
                 await firebaseChatsService.sendMessageToChatRoom(
                     chatRoomID,
@@ -51,6 +52,7 @@ function CreateMessage({
                 borderRadius: '40px',
             }}
             inputRef={messageInputRef}
+            multiline
             placeholder="Съобщение..."
         />
     )

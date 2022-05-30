@@ -29,6 +29,8 @@ function MessagesList({ messages }: MessagesListProps): JSX.Element {
                 paddingBottom: '0',
             }}
         >
+            <div ref={bottomRef} />
+
             {messagesReversed.map((singleMessage, index) => (
                 <SingleMessage
                     // eslint-disable-next-line react/no-array-index-key
@@ -36,7 +38,6 @@ function MessagesList({ messages }: MessagesListProps): JSX.Element {
                     message={singleMessage}
                 />
             ))}
-            <div ref={bottomRef} />
         </List>
     )
 }

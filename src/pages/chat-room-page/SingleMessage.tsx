@@ -31,7 +31,16 @@ function SingleMessage({ message }: SingleMessageProps): JSX.Element {
                 src={creator?.profileImage}
                 sx={{ width: '40px', height: '40px', marginLeft: '12px' }}
             />
-            <Typography>{message.message}</Typography>
+            <Typography
+                sx={{
+                    backgroundColor: 'rgb(0, 132, 255)',
+                    color: '#fff',
+                    padding: '8px',
+                    borderRadius: '16px',
+                }}
+            >
+                {message.message}
+            </Typography>
         </ListItem>
     )
 
@@ -47,7 +56,10 @@ function SingleMessage({ message }: SingleMessageProps): JSX.Element {
             />
             <Typography
                 sx={{
-                    borderRadius: '20px',
+                    backgroundColor: '#E4E6EB',
+                    color: 'black',
+                    padding: '8px',
+                    borderRadius: '16px',
                 }}
             >
                 {message.message}

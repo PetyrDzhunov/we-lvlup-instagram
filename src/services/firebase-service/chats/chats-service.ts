@@ -24,8 +24,6 @@ const createNewChatRoom = async (user1: User, user2: User): Promise<string> => {
     const secondUserRef = doc(db, 'users', secondUser.docID)
 
     if (firstUser.chatRooms !== undefined) {
-        console.log(firstUser.chatRoom)
-        console.log(secondUser.authID)
         if (firstUser.chatRooms[secondUser.authID]) {
             return firstUser.chatRooms[secondUser.authID]
         }
@@ -66,8 +64,7 @@ const sendMessageToChatRoom = async (
     message: Message
 ): Promise<void> => {
     const chatRoomRef = doc(db, 'chatRooms', chatRoomID)
-    const chatRoom = await getDoc(chatRoomRef)
-    console.log(chatRoom)
+    await getDoc(chatRoomRef)
     await updateDoc(chatRoomRef, {
         messages: arrayUnion(message),
     })
