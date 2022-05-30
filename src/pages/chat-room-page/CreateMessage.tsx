@@ -50,6 +50,7 @@ function CreateMessage({
                 bottom: '60px',
                 width: '100%',
                 borderRadius: '40px',
+                marginTop: '15%',
             }}
             inputRef={messageInputRef}
             multiline

@@ -49,7 +49,7 @@ function ChatRoomPage({ title }: PageProps): JSX.Element {
     }, [chatRoomID])
 
     return (
-        <PageLayout hidden>
+        <PageLayout hidden flex="column">
             <Helmet>
                 <title>{title}</title>
             </Helmet>

@@ -11,12 +11,14 @@ interface PageLayoutProps {
     children: React.ReactNode
     height?: string
     hidden?: boolean
+    flex?: string
 }
 
 function PageLayout({
     children,
     height,
     hidden,
+    flex,
 }: PageLayoutProps): JSX.Element {
     const theme = useTheme()
     const isBiggerThanMedium = useMediaQuery(theme.breakpoints.up('sm'))
@@ -54,6 +56,8 @@ function PageLayout({
                 sx={{
                     height: currHeight,
                     overflow: hidden ? 'hidden' : 'auto',
+                    display: flex ? 'flex' : 'block',
+                    flexFlow: flex === 'column' ? 'column' : 'none',
                 }}
             >
                 {isBiggerThanMedium ? (
