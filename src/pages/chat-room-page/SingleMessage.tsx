@@ -62,6 +62,8 @@ function SingleMessage({ message }: SingleMessageProps): JSX.Element {
                     color: 'black',
                     padding: '8px',
                     borderRadius: '16px',
+                    wordWrap: 'break-word',
+                    maxWidth: '80%',
                 }}
             >
                 {message.message}
