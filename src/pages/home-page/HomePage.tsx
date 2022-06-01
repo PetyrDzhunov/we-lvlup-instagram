@@ -64,9 +64,7 @@ function HomePage({ title }: PageProps): JSX.Element {
             isInitial = false
             setIsLoading(false)
         }
-        if (isInitial) {
-            getPosts()
-        }
+        getPosts()
     }, [dispatch])
 
     useEffect(() => {
