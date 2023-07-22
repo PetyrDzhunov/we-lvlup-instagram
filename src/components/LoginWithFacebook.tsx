@@ -92,7 +92,7 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
                             margin="10px"
                             sx={{ fontWeight: 'bold', color: '#FFFFFF' }}
                         >
-                            Влизане с Facebook
+                            Login with Facebook
                         </Typography>
                     </FlexBoxCentered>
                     {error && <Error error={error} />}
@@ -118,7 +118,7 @@ function LoginWithFacebook({ contained }: LoginWithFacebookProps): JSX.Element {
                     margin="10px"
                     sx={{ fontWeight: 'bold', color: '#385185' }}
                 >
-                    Влизане с Facebook
+                    Login with Facebook
                 </Typography>
                 {error && <Error error={error} />}
                 {LoadingSpinner}

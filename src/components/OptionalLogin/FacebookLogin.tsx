@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
-import LoginWithFacebook from '../LoginWithFacebook'
+// import LoginWithFacebook from '../LoginWithFacebook'
 import FlexBoxCentered from '../FlexBoxCentered'
 
 function FacebookLogin(): JSX.Element {
@@ -15,17 +15,7 @@ function FacebookLogin(): JSX.Element {
                 marginTop: '15px',
             }}
         >
-            <LoginWithFacebook />
-            <Typography
-                variant="body2"
-                sx={{
-                    fontSize: '0.75em',
-                    marginTop: '10px',
-                    marginBottom: '30px',
-                }}
-            >
-                Забравена парола?
-            </Typography>
+            {/* <LoginWithFacebook /> */}
             <FlexBoxCentered
                 flexDirection="row wrap"
                 component="article"
@@ -37,22 +27,22 @@ function FacebookLogin(): JSX.Element {
                     variant="body1"
                     sx={{
                         display: 'block',
-                        fontSize: '0.82em',
+                        fontSize: '1.3em',
                     }}
                 >
-                    Нямате акаунт?
+                    No account?
                 </Typography>
                 <Link to="/register" className="basic-link">
                     <Button
                         sx={{
                             color: '#0095f6',
-                            fontSize: '0.82em',
+                            fontSize: '1.3em',
                             textTransform: 'capitalize',
                             fontWeight: 'bold',
                         }}
                         variant="text"
                     >
-                        Регистрация
+                        Register
                     </Button>
                 </Link>
             </FlexBoxCentered>

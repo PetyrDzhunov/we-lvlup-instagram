@@ -139,7 +139,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                         marginTop: '10px',
                     }}
                 >
-                    Създаване на нова публикация
+                    Create new post
                 </Typography>
                 <Divider sx={{ marginTop: '10px', width: '100%' }} />
                 <PhotoCameraIcon sx={{ fontSize: '7em', marginTop: '2rem' }} />
@@ -152,8 +152,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                         color: 'text.primary',
                     }}
                 >
-                    Добавете снимки и видеоклипове, за да създадете нова
-                    публикация.
+                    Add photos and videos to create a new post
                 </Typography>
                 <div className="file-input">
                     <input
@@ -166,9 +165,9 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             handleFileChange(e as unknown as Event)
                         }}
                     />
-                    <label htmlFor="userImage">Изберете файл</label>
+                    <label htmlFor="userImage">Choose file</label>
                     <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>Добави описание за твоя пост</DialogTitle>
+                        <DialogTitle>Add Post description</DialogTitle>
                         <DialogContent>
                             <TextField
                                 onChange={handleDescriptionChange}
@@ -176,16 +175,16 @@ function UploadPage({ title }: PageProps): JSX.Element {
                                 autoFocus
                                 margin="dense"
                                 id="description"
-                                label="Описание"
+                                label="Description"
                                 type="email"
                                 fullWidth
                                 variant="standard"
                             />
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleClose}>Назад</Button>
+                            <Button onClick={handleClose}>Back</Button>
                             <Button onClick={handleAddText}>
-                                Добави описание
+                                Add description
                             </Button>
                         </DialogActions>
                     </Dialog>
@@ -220,7 +219,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                             }}
                             disabled={isLoading}
                         >
-                            качи
+                            Upload
                         </Button>
                         <Button
                             onClick={handleClickOpen}
@@ -230,7 +229,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                                 margin: '4px',
                             }}
                         >
-                            Опиши
+                            Describe
                         </Button>
                         <Button
                             onClick={removeFileHandler}
@@ -240,7 +239,7 @@ function UploadPage({ title }: PageProps): JSX.Element {
                                 margin: '4px',
                             }}
                         >
-                            Премахни
+                            Remove
                         </Button>
                     </ButtonGroup>
                 )}

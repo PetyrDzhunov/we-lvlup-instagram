@@ -54,7 +54,7 @@ function CreateMessage({
             }}
             inputRef={messageInputRef}
             multiline
-            placeholder="Съобщение..."
+            placeholder="Message..."
         />
     )
 }

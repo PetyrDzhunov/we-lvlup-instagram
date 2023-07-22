@@ -28,7 +28,7 @@ function NotFoundPage({ title }: PageProps): JSX.Element {
                     align="center"
                     sx={{ fontWeight: 'bold', marginBottom: '30px' }}
                 >
-                    За съжаление тази страница не е налична.
+                    Unfortunetaly this page is not found!
                 </Typography>
                 <Typography
                     variant="body1"
@@ -36,15 +36,14 @@ function NotFoundPage({ title }: PageProps): JSX.Element {
                     align="center"
                     sx={{ fontSize: '0.91em' }}
                 >
-                    Връзката, която сте последвали, може би е прекъсната или
-                    страницата е премахната.
+                    No page
                 </Typography>
                 <Link
                     style={{ color: 'blue', textAlign: 'center' }}
                     className="basic-link"
                     to="/"
                 >
-                    Обратно към Instagram.
+                    Back to Instagram
                 </Link>
             </Container>
         </PageLayout>

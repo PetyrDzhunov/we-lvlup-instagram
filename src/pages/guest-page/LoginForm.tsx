@@ -84,22 +84,22 @@ function LoginForm(): JSX.Element {
                 <InputController
                     name="email"
                     defaultValue=""
-                    label="Потребителско име или имейл"
+                    label="Username or email"
                     type="email"
                     variant="outlined"
                     margin="dense"
-                    placeholder="Телефонен номер, потребителско име или имейл"
+                    placeholder="Phone number, username or email"
                     size="small"
                 />
 
                 <InputController
                     name="password"
                     defaultValue=""
-                    label="Парола"
+                    label="Password"
                     type="password"
                     variant="outlined"
                     margin="dense"
-                    placeholder="Парола"
+                    placeholder="Password"
                     size="small"
                 />
                 <Button
@@ -110,7 +110,7 @@ function LoginForm(): JSX.Element {
                     color="primary"
                     disabled={isLoggingIn}
                 >
-                    Вход
+                    Login
                 </Button>
                 {error && <Error error={error} />}
 

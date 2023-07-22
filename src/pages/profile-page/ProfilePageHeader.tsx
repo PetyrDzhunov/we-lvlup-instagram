@@ -194,8 +194,8 @@ function ProfilePageHeader({
             </Stack>
             {selectedProfilePicture && !hasUploaded && (
                 <ButtonGroup sx={{ marginTop: '16px' }}>
-                    <Button onClick={handleCreateProfilePicture}>Запази</Button>
-                    <Button onClick={removeImageHandler}>Премахни</Button>
+                    <Button onClick={handleCreateProfilePicture}>Save</Button>
+                    <Button onClick={removeImageHandler}>Remove</Button>
                 </ButtonGroup>
             )}
             <Stack

@@ -75,6 +75,11 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
         })
     )
 
+    const handleCancelReply = (): void => {
+        setReply('')
+        setWantsToReply((prev) => !prev)
+    }
+
     const handleSendReply = async (): Promise<void> => {
         if (userLoggedIn?.username === undefined) {
             return
@@ -339,9 +344,11 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
 
             <Stack direction="row" spacing={3} sx={{ marginLeft: '65px' }}>
                 <Typography sx={{ cursor: 'pointer' }} onClick={showLikes}>
-                    {comment.likes.length} харесвания
+                    {comment.likes.length} likes
                 </Typography>
-                <Typography onClick={handleReply}>Отговор</Typography>
+                <Typography sx={{ cursor: 'pointer' }} onClick={handleReply}>
+                    Reply
+                </Typography>
             </Stack>
 
             {comment.replies?.map((currReply) => {
@@ -503,9 +510,12 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                             spacing={3}
                             sx={{ marginLeft: '65px' }}
                         >
-                            <Typography onClick={showLikedByReplyHandler}>
+                            <Typography
+                                sx={{ cursor: 'pointer' }}
+                                onClick={showLikedByReplyHandler}
+                            >
                                 {currReply.replyLikes.length > 0
-                                    ? `${currReply.replyLikes.length}  харесвания`
+                                    ? `${currReply.replyLikes.length}  likes`
                                     : null}
                             </Typography>
                         </Stack>
@@ -535,8 +545,18 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                         onKeyDown={handleReplyWithKeyboard}
                         onChange={handleReplyChange}
                         value={reply}
-                        placeholder="Отговори тук..."
+                        placeholder="Comment here..."
                     />
+                    <Button
+                        onClick={handleCancelReply}
+                        variant="text"
+                        sx={{
+                            position: 'absolute',
+                            right: '18px',
+                        }}
+                    >
+                        Cancel
+                    </Button>
                     <Button
                         onClick={handleSendReply}
                         variant="text"
@@ -545,7 +565,7 @@ function SingleComment({ comment }: SingleCommentProps): JSX.Element {
                             right: '18px',
                         }}
                     >
-                        Прати
+                        Send
                     </Button>
                 </>
             )}

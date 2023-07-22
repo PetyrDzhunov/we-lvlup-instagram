@@ -79,7 +79,7 @@ function PostPage({ title }: PageProps): JSX.Element {
 
         if (comment === '') {
             setOpen(true)
-            return setError('Коментарът не може да бъде празен')
+            return setError('Comment can`t be empty')
         }
 
         const newComment = {
@@ -130,7 +130,7 @@ function PostPage({ title }: PageProps): JSX.Element {
 
             if (comment === '') {
                 setOpen(true)
-                return setError('Коментарът не може да бъде празен')
+                return setError('Comment can`t be empty')
             }
 
             newComment = {
@@ -202,7 +202,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                                 width: '100%',
                             }}
                             onKeyDown={addCommentByKeyboard}
-                            placeholder="Добави коментар..."
+                            placeholder="Add comment..."
                         />
                         <Button
                             onClick={addCommentHandler}
@@ -211,7 +211,7 @@ function PostPage({ title }: PageProps): JSX.Element {
                                 fontSize: '0.75em',
                             }}
                         >
-                            Публикуване
+                            Publish
                         </Button>
                     </FlexBoxCentered>
                 </Box>

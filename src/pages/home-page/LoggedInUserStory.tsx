@@ -152,7 +152,11 @@ function LoggedInUserStory(): JSX.Element {
                                 onClick={() => handleClickOpen()}
                                 alt="profile picture of the user"
                                 src={loggedInUser.profileImage}
-                                sx={{ width: 56, height: 56 }}
+                                sx={{
+                                    width: 56,
+                                    height: 56,
+                                    cursor: 'pointer',
+                                }}
                             />
                         </Badge>
                         <Typography
@@ -161,7 +165,7 @@ function LoggedInUserStory(): JSX.Element {
                                 marginTop: '8px',
                             }}
                         >
-                            Моя
+                            My
                         </Typography>
                     </Stack>
                 )}
@@ -195,7 +199,7 @@ function LoggedInUserStory(): JSX.Element {
                             marginTop: '8px',
                         }}
                     >
-                        Моя
+                        My
                     </Typography>
                 </Stack>
             )}
@@ -255,7 +259,7 @@ function LoggedInUserStory(): JSX.Element {
                             sx={{ alignText: 'center' }}
                             onClick={addStoryHandler}
                         >
-                            Добави в историята си
+                            Add story
                         </Button>
                     </DialogActions>
                 )}

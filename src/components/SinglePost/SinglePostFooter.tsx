@@ -133,9 +133,10 @@ function SinglePostFooter({
                     marginLeft: '10px',
                     fontSize: '0.9em',
                     fontWeight: '600',
+                    cursor: 'pointer',
                 }}
             >
-                {currentPost?.likedBy.length} харесвания
+                View {currentPost?.likedBy.length} likes
             </Typography>
             <Typography
                 onClick={commentHandler}
@@ -145,10 +146,11 @@ function SinglePostFooter({
                     fontSize: '0.9em',
                     fontWeight: '600',
                     marginTop: '4px',
+                    cursor: 'pointer',
                 }}
             >
                 {!hasParams && currentPost!.comments.length > 0
-                    ? `Преглед на всички ${currentPost?.comments.length} коментари `
+                    ? `View all ${currentPost?.comments.length} comments `
                     : null}
             </Typography>
 

@@ -53,7 +53,7 @@ function DownloadApplication(): JSX.Element {
                 align="center"
                 sx={{ marginTop: '30px' }}
             >
-                Изтеглете приложението
+                Download original application
             </Typography>
             <FlexBoxCentered
                 flexDirection="row wrap"

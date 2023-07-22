@@ -19,7 +19,7 @@ function SinglePostImage({
             onClick={() => navigate(`/posts/${id}`)}
             src={image}
             alt=""
-            width={small ? '32.3%' : '104%'}
+            width={small ? '32.3%' : '99%'}
         />
     )
 }

@@ -7,10 +7,10 @@ import Typography from '@mui/material/Typography'
 
 import { PageProps } from '../../types'
 import InstagramLogo from '../../components/InstagramLogo'
-import LoginOrComponent from '../../components/LoginOrComponent'
-import LoginWithFacebook from '../../components/LoginWithFacebook'
+// import LoginOrComponent from '../../components/LoginOrComponent'
+// import LoginWithFacebook from '../../components/LoginWithFacebook'
 import GuestPageFooter from '../../components/OptionalLogin/GuestPageFooter'
-import DownloadApplication from '../../components/OptionalLogin/DownloadApplication'
+// import DownloadApplication from '../../components/OptionalLogin/DownloadApplication'
 
 import RegisterForm from './RegisterForm'
 import FlexBoxCentered from '../../components/FlexBoxCentered'
@@ -33,11 +33,10 @@ function RegisterPage({ title }: PageProps): JSX.Element {
                     fontWeight: '600',
                 }}
             >
-                Регистрирайте се, за да виждате снимки и видеоклипове от ваши
-                приятели.
+                Register to see photos and videos from your friends
             </Typography>
-            <LoginWithFacebook contained />
-            <LoginOrComponent />
+            {/* <LoginWithFacebook contained /> */}
+            {/* <LoginOrComponent /> */}
             <RegisterForm />
             <Typography
                 paragraph
@@ -49,10 +48,9 @@ function RegisterPage({ title }: PageProps): JSX.Element {
                     margin: '15px 0',
                 }}
             >
-                Когато се регистрирате, вие се съгласявате с нашите Условия.
-                Научете как събираме, използваме и споделяме данните ви в нашата
-                Политика зза данни, както и как използваме бисквитките и сходни
-                техноогии в нашата Политика за бисквитки.
+                When you register, you agree to our Terms. Learn how we collect,
+                use, and share your data in our Data Policy, as well as how we
+                use cookies and similar technologies in our Cookie Policy.
             </Typography>
             <FlexBoxCentered flexDirection="row wrap" component="article">
                 <Typography
@@ -62,15 +60,15 @@ function RegisterPage({ title }: PageProps): JSX.Element {
                     }}
                     variant="body1"
                 >
-                    Имате акаунт?
+                    Have an account?
                 </Typography>
                 <Link className="basic-link" to="/">
                     <Button sx={{ textTransform: 'capitalize' }} variant="text">
-                        Влезте
+                        Login
                     </Button>
                 </Link>
             </FlexBoxCentered>
-            <DownloadApplication />
+            {/* <DownloadApplication /> */}
             <GuestPageFooter register />
         </Container>
     )

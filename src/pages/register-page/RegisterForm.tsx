@@ -88,44 +88,44 @@ function RegisterForm(): JSX.Element {
                 <InputController
                     name="email"
                     defaultValue=""
-                    label="Мобилен номер или имейл"
+                    label="Mobile number or email"
                     type="email"
                     variant="outlined"
                     margin="dense"
-                    placeholder="Мобилен номер или имейл"
+                    placeholder="Mobile number or email"
                     size="small"
                 />
 
                 <InputController
                     name="fullName"
                     defaultValue=""
-                    label="Пълно име"
+                    label="Full Name"
                     type="text"
                     variant="outlined"
                     margin="dense"
-                    placeholder="Пълно име"
+                    placeholder="Full Name"
                     size="small"
                 />
 
                 <InputController
                     name="username"
                     defaultValue=""
-                    label="Потребителско име"
+                    label="Username"
                     type="text"
                     variant="outlined"
                     margin="dense"
-                    placeholder="Потребителско име"
+                    placeholder="Username"
                     size="small"
                 />
 
                 <InputController
                     name="password"
                     defaultValue=""
-                    label="Парола"
+                    label="Password"
                     type="password"
                     variant="outlined"
                     margin="dense"
-                    placeholder="Парола"
+                    placeholder="Password"
                     size="small"
                 />
                 <Button
@@ -140,7 +140,7 @@ function RegisterForm(): JSX.Element {
                     color="primary"
                     disabled={isRegistering}
                 >
-                    Напред
+                    Finish registration
                 </Button>
                 {error && <Error error={error} />}
 
