@@ -2,7 +2,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 <h1>Instagram-clone application</h1>
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="html" height="40" style="vertical-align:top; margin:4px">
-<h4>This repository will hold the project for my internship at Accedia and it is for practical purposes only.<h4>
 
   ### <h1>`Features`</h1>
   <ul>
